@@ -501,7 +501,13 @@ class AccountInvoice(models.Model):
                     if exempt_cause:
                         det_dict['CausaExencion'] = exempt_cause
                     det_dict['BaseImponible'] += (
+<<<<<<< HEAD
                         tax_line.base_company * sign)
+=======
+                        round(tax_line.base_company, 2) * sign)
+                    det_dict['BaseImponible'] = round(det_dict[
+                                                          'BaseImponible'], 2)
+>>>>>>> bd458b261eaa2d89e9e4d4c37ad77456f7be949d
                 else:
                     sub_dict.setdefault('NoExenta', {
                         'TipoNoExenta': (
@@ -547,7 +553,13 @@ class AccountInvoice(models.Model):
                     if exempt_cause:
                         det_dict['CausaExencion'] = exempt_cause
                     det_dict['BaseImponible'] += (
+<<<<<<< HEAD
                         tax_line.base_company * sign)
+=======
+                        round(tax_line.base_company, 2) * sign)
+                    det_dict['BaseImponible'] = round(det_dict[
+                                                          'BaseImponible'], 2)
+>>>>>>> bd458b261eaa2d89e9e4d4c37ad77456f7be949d
                 if tax in taxes_sfess:
                     # TODO l10n_es_ no tiene impuesto ISP de servicios
                     # if tax in taxes_sfesisps:
