@@ -128,7 +128,7 @@ class AccountPaymentOrder(models.Model):
             elif self.payment_mode_id.conf_popular_type == '61':
                 text += '61'
             # 5 - 14 Codigo ordenante
-            text += '0'
+            text += ' '
             vat = self.convert_vat(self.company_partner_bank_id.partner_id)
             text += self.convert(vat, 9)
             # 15 - 26 NIF Beneficiario
@@ -140,7 +140,7 @@ class AccountPaymentOrder(models.Model):
             nif = nif[2:]
             if len(nif) < 12:
                 relleno = 12 - len(nif)
-                nif = (relleno * '0') + nif
+                nif = nif + (relleno * ' ')
             text += nif
             if (i+1) == 1:
                 # 27 - 29 Numero de dato
