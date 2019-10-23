@@ -29,10 +29,10 @@ class ResPartner(models.Model):
                 return 'U'
         return 'E'
 
-    @api.constrains('facturae', 'vat', 'state_id', 'country_id')
+    @api.constrains('facturae', 'vat', 'state_id', 'country_id', 'is_company')
     def check_facturae(self):
         for record in self:
-            if record.facturae:
+            if record.is_company and record.facturae:
                 if not record.vat:
                     raise exceptions.ValidationError(_('Vat must be defined'))
                 if not record.country_id:
