@@ -7,6 +7,18 @@ from odoo.exceptions import UserError
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
 
+    def strim_txt(self, text, size):
+        """
+        Devuelvo el texto con espacios al final hasta completar size
+        """
+        if text:
+            if len(text) < size:
+                relleno = size - len(text)
+                text += relleno * ' '
+            elif len(text) > size:
+                text = text[:size]
+        return text
+
     @api.multi
     def generate_payment_file(self):
         self.ensure_one()
@@ -41,7 +53,7 @@ class AccountPaymentOrder(models.Model):
             else:
                 text += '60'
             # 5 - 14 Codigo ordenante
-            text += '0'
+            text += ' '
             vat = self.convert_vat(self.company_partner_bank_id.partner_id)
             text += self.convert(vat, 9)
             # 15 - 17 Sufijo
@@ -79,12 +91,8 @@ class AccountPaymentOrder(models.Model):
                         _("Error: Propietario de la cuenta no establecido para\
                         la cuenta %s.") %
                         self.company_partner_bank_id.acc_number)
-                if len(ordenante) <= 36:
-                    relleno = 36 - len(ordenante)
-                    ordenante += relleno * ' '
-                elif len(ordenante) > 36:
-                    ordenante = ordenante[:36]
-                text += ordenante
+                ordenante = self.strim_txt(ordenante, 36)
+                text += ordenante.upper()
             if (i+1) == 3:
                 domicilio_pro = self.company_partner_bank_id.partner_id.street
                 if not domicilio_pro:
@@ -92,11 +100,9 @@ class AccountPaymentOrder(models.Model):
                         _("Error: El Ordenante %s no tiene \
                         establecido el Domicilio.\
                          ") % self.company_partner_bank_id.partner_id.name)
-                else:
-                    if len(domicilio_pro) < 36:
-                        relleno = 36 - len(domicilio_pro)
-                        domicilio_pro += relleno * ' '
-                    text += domicilio_pro
+                domicilio_pro = self.strim_txt(domicilio_pro, 36)
+                text += domicilio_pro.upper()
+
             if (i+1) == 4:
                 ciudad_pro = self.company_partner_bank_id.partner_id.city
                 if not ciudad_pro:
@@ -104,17 +110,16 @@ class AccountPaymentOrder(models.Model):
                         _("Error: El Ordenante %s no tiene establecida la \
                         Ciudad.") %
                         self.company_partner_bank_id.partner_id.name)
-                else:
-                    if len(ciudad_pro) < 36:
-                        relleno = 36 - len(ciudad_pro)
-                        ciudad_pro += relleno * ' '
-                    text += ciudad_pro
+
+                ciudad_pro = self.strim_txt(ciudad_pro, 36)
+                text += ciudad_pro.upper()
 
             text = text.ljust(100)+'\r\n'
             all_text += text
         return all_text
 
     def _pop_beneficiarios(self, line):
+        # import ipdb; ipdb.set_trace()
         all_text = ''
         for i in range(4):
             text = ''
@@ -194,7 +199,7 @@ class AccountPaymentOrder(models.Model):
                         nombre_pro += relleno * ' '
                     elif len(nombre_pro) > 36:
                         nombre_pro = nombre_pro[:36]
-                    text += nombre_pro
+                    text += nombre_pro.upper()
                 else:
                     text += 36 * ' '
                 # 66 - 72 Libre
@@ -213,7 +218,7 @@ class AccountPaymentOrder(models.Model):
                     if len(domicilio_pro) < 36:
                         relleno = 36 - len(domicilio_pro)
                         domicilio_pro += relleno * ' '
-                    text += domicilio_pro
+                    text += domicilio_pro.upper()
                 # 66 - 72 Libre
                 text += 7 * ' '
             if (i+1) == 4:
@@ -239,7 +244,7 @@ class AccountPaymentOrder(models.Model):
                     if len(ciudad_pro) < 31:
                         relleno = 31 - len(ciudad_pro)
                         ciudad_pro += relleno * ' '
-                    text += ciudad_pro
+                    text += ciudad_pro.upper()
                 # 66 - 72 Libre
                 text += 7 * ' '
             text = text.ljust(100)+'\r\n'
@@ -259,7 +264,7 @@ class AccountPaymentOrder(models.Model):
         elif self.payment_mode_id.conf_popular_type == '61':
             text += '61'
         # 5 - 14 Codigo ordenante
-        text += '0'
+        text += ' '
         vat = self.convert_vat(self.company_partner_bank_id.partner_id)
         text += self.convert(vat, 9)
         # 15 - 26 NIF Beneficiario
@@ -271,7 +276,7 @@ class AccountPaymentOrder(models.Model):
         nif = nif[2:]
         if len(nif) < 12:
             relleno = 12 - len(nif)
-            nif = (relleno * '0') + nif
+            nif = nif + (relleno * ' ')
         text += nif
         # 27 - 29 Numero de dato
         text += '100'
@@ -292,7 +297,7 @@ class AccountPaymentOrder(models.Model):
         # 46 - 59 Numero de factura
         num_factura = 14 * ' '
         if invoice:
-            num_factura = invoice.number.replace('-', '')
+            num_factura = line.communication
             if len(num_factura) < 14:
                 relleno = 14 - len(num_factura)
                 num_factura += relleno * ' '
@@ -321,7 +326,7 @@ class AccountPaymentOrder(models.Model):
         elif self.payment_mode_id.conf_popular_type == '61':
             text += '61'
         # 5 - 14 Codigo ordenante
-        text += '0'
+        text += ' '
         vat = self.convert_vat(self.company_partner_bank_id.partner_id)
         text += self.convert(vat, 9)
         # 15 - 29 Libre
