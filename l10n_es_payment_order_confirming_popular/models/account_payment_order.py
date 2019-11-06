@@ -236,6 +236,8 @@ class AccountPaymentOrder(models.Model):
                     if len(cp_pro) < 5:
                         relleno = 5 - len(cp_pro)
                         cp_pro += relleno * ' '
+                    elif len(cp_pro) > 5:
+                        cp_pro = cp_pro[:5]
                     text += cp_pro
                 ciudad_pro = line['partner_id']['city']
                 if not ciudad_pro:
@@ -246,6 +248,8 @@ class AccountPaymentOrder(models.Model):
                     if len(ciudad_pro) < 31:
                         relleno = 31 - len(ciudad_pro)
                         ciudad_pro += relleno * ' '
+                    elif len(ciudad_pro) > 31:
+                        ciudad_pro = ciudad_pro[:31]
                     text += ciudad_pro.upper()
                 # 66 - 72 Libre
                 text += 7 * ' '
