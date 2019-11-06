@@ -218,6 +218,8 @@ class AccountPaymentOrder(models.Model):
                     if len(domicilio_pro) < 36:
                         relleno = 36 - len(domicilio_pro)
                         domicilio_pro += relleno * ' '
+                    elif len(domicilio_pro) > 36:
+                        domicilio_pro = domicilio_pro[:36]
                     text += domicilio_pro.upper()
                 # 66 - 72 Libre
                 text += 7 * ' '
