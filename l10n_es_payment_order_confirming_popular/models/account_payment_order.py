@@ -247,7 +247,7 @@ class AccountPaymentOrder(models.Model):
                     text += ciudad_pro.upper()
                 # 66 - 72 Libre
                 text += 7 * ' '
-            text = text.ljust(100)+'\r\n'
+            text += '\r\n'
             all_text += text
         self.num_records += 1
         return all_text
@@ -310,7 +310,7 @@ class AccountPaymentOrder(models.Model):
             text += ' '
         else:
             text += '-'
-        text = text.ljust(100)+'\r\n'
+        text += '\r\n'
 
         return text
 
@@ -344,6 +344,6 @@ class AccountPaymentOrder(models.Model):
 
         # 60 - 73 Libre
         text += 13 * ' '
-        text = text.ljust(100)+'\r\n'
+        text = '\r\n'
 
         return text
