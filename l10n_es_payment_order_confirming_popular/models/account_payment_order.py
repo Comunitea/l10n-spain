@@ -114,7 +114,7 @@ class AccountPaymentOrder(models.Model):
                 ciudad_pro = self.strim_txt(ciudad_pro, 36)
                 text += ciudad_pro.upper()
 
-            text = text.ljust(100)+'\r\n'
+            text += '\r\n'
             all_text += text
         return all_text
 
@@ -344,6 +344,6 @@ class AccountPaymentOrder(models.Model):
 
         # 60 - 73 Libre
         text += 13 * ' '
-        text = '\r\n'
+        text += '\r\n'
 
         return text
