@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report id="report_anulacion_factura"
+            name="l10n_es_facturae_sef.template_anulacion_factura"
+            string="anulacion sef"
+            menu="False"
+            report_type="qweb-xml"
+            model="account.invoice.integration.log"/>
+
+    <template id="template_anulacion_factura">
+        <PresentarPropuestas_Anulacion>
+            <Cabecera>
+                <Funcion/>
+                <FechaHoraActuacion t-esc="datetime.datetime.now().isoformat(timespec='seconds')"/>
+                <Usuario_Actuacion/>
+            </Cabecera>
+            <Propuestas>
+                <t t-foreach="docs" t-as="log">
+                    <Propuesta_Anulacion>
+                        <Clave_Factura>
+                            <CIF_Emisor t-field="log.integration_id.invoice_id.company_id.vat"/>
+                            <Numero_Factura t-field="log.integration_id.invoice_id.number"/>
+                            <Numero_Serie></Numero_Serie>
+                            <Codigo_Verificacion t-field="log.integration_id.register_number"/>
+                            <Id_Destinatario t-field="log.integration_id.invoice_id.partner_id.unidad_tramitadora"/>
+                        </Clave_Factura>
+                        <InformacionPropuesta_Anulacion>
+                            <FechaPresentacion_Propuesta t-esc="datetime.datetime.now().isoformat(timespec='seconds')"/>
+                            <MotivoPresentacion_Propuesta t-field="log.cancellation_motive"/>
+                        </InformacionPropuesta_Anulacion>
+                    </Propuesta_Anulacion>
+                </t>
+            </Propuestas>
+        </PresentarPropuestas_Anulacion>
+    </template>
+</odoo>
