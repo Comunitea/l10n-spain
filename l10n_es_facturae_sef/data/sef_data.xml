@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+    <record id="account_invoice_sef_server" model="ir.config_parameter">
+        <field name="key">account.invoice.sef.server</field>
+        <field name="value">https://host.cixtec.es/WSB2B_eFactura/SEF_WSB2B.asmx</field>
+    </record>
+    <record id="account_invoice_sef_user" model="ir.config_parameter">
+        <field name="key">account.invoice.sef.user</field>
+        <field name="value">usuario</field>
+    </record>
+    <record id="account_invoice_sef_password" model="ir.config_parameter">
+        <field name="key">account.invoice.sef.password</field>
+        <field name="value">password</field>
+    </record>
+    <record id="seq_account_invoice_sef" model="ir.sequence">
+        <field name="name">Integration sef</field>
+        <field name="code">account.invoice.integration.face</field>
+        <field name="prefix">sef</field>
+        <field name="padding">8</field>
+    </record>
+    <record id="integration_sef" model="account.invoice.integration.method">
+        <field name="name">sef</field>
+        <field name="code">sef</field>
+        <field name="sequence_id" ref="l10n_es_facturae_sef.seq_account_invoice_sef"/>
+    </record>
+    <!-- <record id="update_sef_job" model="ir.cron">
+        <field name="name">sef update Job</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="priority">8</field>
+        <field name="interval_type">hours</field>
+        <field name="state">code</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="l10n_es_facturae.model_account_invoice_integration_log"/>
+        <field name="code">model.sef_check_history()</field>
+    </record> -->
+</odoo>
