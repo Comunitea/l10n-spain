@@ -181,9 +181,9 @@ class L10nEsVatBook(models.Model):
             'partner_id': invoice_id.partner_id.id,
             'vat_number': invoice_id.partner_id.vat,
             'invoice_id': invoice_id.id,
-            'base': invoice_id.amount_untaxed,
-            'tax_import': invoice_id.amount_tax,
-            'total': invoice_id.amount_total,
+            'base': invoice_id.cc_amount_untaxed,
+            'tax_import': invoice_id.cc_amount_tax,
+            'total': invoice_id.cc_amount_total,
             'l10n_es_vat_book_id': self.id,
         }
         return values
@@ -244,16 +244,16 @@ class L10nEsVatBook(models.Model):
                 bool: True if successful, False otherwise.
         """
         tax_percentage = 0
-        if invoice_tax_line.amount > 0 and invoice_tax_line.base > 0:
+        if invoice_tax_line.tax_amount > 0 and invoice_tax_line.base_amount > 0:
             tax_percentage = self.nearby(
-                round(abs(invoice_tax_line.amount / invoice_tax_line.base), 4),
+                round(abs(invoice_tax_line.tax_amount / invoice_tax_line.base_amount), 4),
                 VALID_TYPES,
             )
         vals = {
             'name': invoice_tax_line.name,
             'tax_percent': tax_percentage,
-            'tax_amount': invoice_tax_line.amount,
-            'amount_without_tax': invoice_tax_line.base,
+            'tax_amount': invoice_tax_line.tax_amount,
+            'amount_without_tax': invoice_tax_line.base_amount,
         }
         return vals
 
@@ -318,17 +318,17 @@ class L10nEsVatBook(models.Model):
             Returns:
                 vals: values to create a summary tax line
         """
-        if invoice_tax_line.amount > 0 and invoice_tax_line.base > 0:
+        if invoice_tax_line.tax_amount > 0 and invoice_tax_line.base_amount > 0:
             tax_percentage = self.nearby(
-                round(abs(invoice_tax_line.amount / invoice_tax_line.base), 4),
+                round(abs(invoice_tax_line.tax_amount / invoice_tax_line.base_amount), 4),
                 VALID_TYPES,
             )
         else:
             tax_percentage = 0
         vals = {
             'tax_code_id': tax_code,
-            'sum_tax_amount': invoice_tax_line.amount,
-            'sum_base_amount': invoice_tax_line.base,
+            'sum_tax_amount': invoice_tax_line.tax_amount,
+            'sum_base_amount': invoice_tax_line.base_amount,
             'tax_percent': tax_percentage,
             'vat_book_id': self.id,
         }
@@ -359,12 +359,12 @@ class L10nEsVatBook(models.Model):
         if invoice_type in ('out_invoice'):
             self.write({
                 'amount_without_tax_issued':
-                    self.amount_without_tax_issued + invoice_tax_line.base,
+                    self.amount_without_tax_issued + invoice_tax_line.base_amount,
                 'amount_tax_issued':
-                    self.amount_tax_issued + invoice_tax_line.amount,
+                    self.amount_tax_issued + invoice_tax_line.tax_amount,
                 'amount_total_issued':
-                    self.amount_total_issued + (invoice_tax_line.base +
-                                                invoice_tax_line.amount),
+                    self.amount_total_issued + (invoice_tax_line.base_amount +
+                                                invoice_tax_line.tax_amount),
             })
 
             # return the actually tax lines
@@ -378,9 +378,9 @@ class L10nEsVatBook(models.Model):
                 ])
                 issued_tax_summary_id.write({
                     'sum_tax_amount': issued_tax_summary_id.sum_tax_amount +
-                    invoice_tax_line.amount,
+                    invoice_tax_line.tax_amount,
                     'sum_base_amount': issued_tax_summary_id.sum_base_amount +
-                    invoice_tax_line.base,
+                    invoice_tax_line.base_amount,
                 })
             else:
                 vals = self._get_vals_summary_invoices(
@@ -389,12 +389,12 @@ class L10nEsVatBook(models.Model):
         elif invoice_type in ('in_invoice'):
             self.write({
                 'amount_without_tax_received':
-                    self.amount_without_tax_received + invoice_tax_line.base,
+                    self.amount_without_tax_received + invoice_tax_line.base_amount,
                 'amount_tax_received':
-                    self.amount_tax_received + invoice_tax_line.amount,
+                    self.amount_tax_received + invoice_tax_line.tax_amount,
                 'amount_total_received':
-                    self.amount_total_received + (invoice_tax_line.base +
-                                                  invoice_tax_line.amount),
+                    self.amount_total_received + (invoice_tax_line.base_amount +
+                                                  invoice_tax_line.tax_amount),
             })
 
             # return the actually tax lines
@@ -408,10 +408,10 @@ class L10nEsVatBook(models.Model):
                 ])
                 received_tax_summary_id.write({
                     'sum_tax_amount': received_tax_summary_id.sum_tax_amount +
-                    invoice_tax_line.amount,
+                    invoice_tax_line.tax_amount,
                     'sum_base_amount':
                     received_tax_summary_id.sum_base_amount +
-                    invoice_tax_line.base,
+                    invoice_tax_line.base_amount,
                 })
             else:
                 vals = self._get_vals_summary_invoices(
@@ -421,13 +421,13 @@ class L10nEsVatBook(models.Model):
             self.write({
                 'amount_without_tax_rectification_issued':
                     self.amount_without_tax_rectification_issued +
-                    invoice_tax_line.base,
+                    invoice_tax_line.base_amount,
                 'amount_tax_rectification_issued':
                     self.amount_tax_rectification_issued +
-                    invoice_tax_line.amount,
+                    invoice_tax_line.tax_amount,
                 'amount_total_rectification_issued':
                     self.amount_total_rectification_issued +
-                    (invoice_tax_line.base + invoice_tax_line.amount),
+                    (invoice_tax_line.base_amount + invoice_tax_line.tax_amount),
             })
 
             # return the actually tax lines
@@ -444,10 +444,10 @@ class L10nEsVatBook(models.Model):
                 rectification_issued_tax_summary_id.write({
                     'sum_tax_amount':
                     rectification_issued_tax_summary_id.sum_tax_amount +
-                    invoice_tax_line.amount,
+                    invoice_tax_line.tax_amount,
                     'sum_base_amount':
                     rectification_issued_tax_summary_id.sum_base_amount +
-                    invoice_tax_line.base,
+                    invoice_tax_line.base_amount,
                 })
             else:
                 vals = self._get_vals_summary_invoices(
@@ -457,13 +457,13 @@ class L10nEsVatBook(models.Model):
             self.write({
                 'amount_without_tax_rectification_received':
                     self.amount_without_tax_rectification_received +
-                    invoice_tax_line.base,
+                    invoice_tax_line.base_amount,
                 'amount_tax_rectification_received':
                     self.amount_tax_rectification_received +
-                    invoice_tax_line.amount,
+                    invoice_tax_line.tax_amount,
                 'amount_total_rectification_received':
                     self.amount_total_rectification_received +
-                    (invoice_tax_line.base + invoice_tax_line.amount),
+                    (invoice_tax_line.base_amount + invoice_tax_line.tax_amount),
             })
 
             # return the actually tax lines
@@ -481,10 +481,10 @@ class L10nEsVatBook(models.Model):
                 rectification_received_tax_summary_id.write({
                     'sum_tax_amount':
                     rectification_received_tax_summary_id.sum_tax_amount +
-                    invoice_tax_line.amount,
+                    invoice_tax_line.tax_amount,
                     'sum_base_amount':
                     rectification_received_tax_summary_id.sum_base_amount +
-                    invoice_tax_line.base,
+                    invoice_tax_line.base_amount,
                 })
             else:
                 vals = self._get_vals_summary_invoices(
