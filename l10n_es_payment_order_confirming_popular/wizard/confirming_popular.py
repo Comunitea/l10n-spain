@@ -132,7 +132,7 @@ class ConfirmingPopular(object):
 
     def _pop_beneficiarios(self, line):
         all_text = ''
-        for i in range(4):
+        for i in range(5):
             text = ''
             # 1 y 2
             text += '16'
@@ -258,6 +258,11 @@ class ConfirmingPopular(object):
                     text += ciudad_pro
                 # 66 - 72 Libre
                 text += 7 * ' '
+            if (i+1) == 5 and line['partner_id']['email']:
+                # 27 - 29 Numero de dato
+                text += '017'
+                # 30 - 72 Email
+                text += line['partner_id']['email']
             text = text.ljust(100)+'\r\n'
             all_text += text
         self.num_records += 1
