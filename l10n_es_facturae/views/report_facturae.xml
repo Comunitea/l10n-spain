@@ -76,14 +76,14 @@
 
     <template id="address_contact">
         <AddressInSpain t-if="partner.country_id.code == 'ES'">
-            <Address t-length="80" t-esc="partner.street + (partner.street2 or '')"/>
+            <Address t-length="80" t-esc="partner.street + ' ' + (partner.street2 or '')"/>
             <PostCode t-length="5" t-esc="partner.zip.zfill(5)"/>
             <Town t-length="50" t-esc="partner.city"/>
             <Province t-length="20" t-esc="partner.state_id.name"/>
             <CountryCode t-esc="partner.country_id.code_alpha3"/>
         </AddressInSpain>
         <OverseasAddress t-if="partner.country_id.code != 'ES'">
-            <Address t-length="80" t-esc="partner.street + (partner.street2 or '')"/>
+            <Address t-length="80" t-esc="partner.street + ' ' + (partner.street2 or '')"/>
             <PostCodeAndTown t-length="50" t-esc="(partner.zip or '') + (partner.city or '')"/>
             <Province t-length="20" t-esc="partner.state_id.name"/>
             <CountryCode t-esc="partner.country_id.code_alpha3"/>
@@ -274,7 +274,7 @@
                             <Quantity t-esc="line.quantity"/>
                             <UnitOfMeasure t-if="False"/>
                             <UnitPriceWithoutTax t-esc="'%.6f' % line.price_unit"/>
-                            <t t-set="subtotal_gross" t-value="round(line.quantity * line.price_unit, line.company_currency_id.decimal_places)"/>
+                            <t t-set="subtotal_gross" t-value="line.company_currency_id.round(line.quantity * line.price_unit)"/>
                             <TotalCost t-esc="'%.6f' % subtotal_gross"/>
                             <DiscountsAndRebates t-if="line.discount != 0">
                                 <Discount>
