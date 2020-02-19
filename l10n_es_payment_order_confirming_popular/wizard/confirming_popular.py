@@ -331,7 +331,7 @@ class ConfirmingPopular(object):
         # 46 - 59 Numero de factura
         num_factura = 14 * ' '
         if line['ml_inv_ref'][0]['reference']:
-            num_factura = line['ml_inv_ref'][0]['number']\
+            num_factura = line['ml_inv_ref'][0]['reference']\
                 .replace('-', '')
             if len(num_factura) < 14:
                 relleno = 14 - len(num_factura)
