@@ -2,7 +2,7 @@
 # (c) 2018 Comunitea Servicios Tecnológicos - Javier Colmenero
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from odoo import models, api, _
+from odoo import models, api, _, fields
 from odoo.exceptions import UserError
 from datetime import date
 
@@ -44,7 +44,7 @@ class AccountPaymentOrder(models.Model):
             raise UserError(
                 _("Error: El tipo de fecha de ejecución deber ser del\
                   pago debe ser fijo"))
-            fecha_planificada = self.date_scheduled
+            fecha_planificada = fields.Daterime.to_string(self.date_scheduled)
             fecha_planificada = fecha_planificada.replace('-', '')
             dia = fecha_planificada[6:]
             mes = fecha_planificada[4:6]
@@ -370,10 +370,10 @@ class AccountPaymentOrder(models.Model):
                 # 31 - 36: Fecha factura
                 fecha_factura = 6 * ' '
                 if invoice.date_invoice:
-                    fecha_factura = invoice.date_invoice.replace('-', '')
-                    dia = fecha_factura[6:]
+                    fecha_factura =  fields.Datetime.to_string(invoice.date_invoice).replace('-', '')
+                    dia = fecha_factura[6:8]
                     mes = fecha_factura[4:6]
-                    ano = fecha_factura[2:4]
+                    ano = fecha_factura[:4]
                     fecha_factura = dia + mes + ano
                 text += fecha_factura
 
@@ -388,14 +388,14 @@ class AccountPaymentOrder(models.Model):
 
                 # 52 - 57: Fecha de vencimiento
                 fecha_vencimiento = 6 * ' '
-                if not self.post_financing_date:
+                if not self.date_scheduled:
                     raise UserError(
                         _("Error: La fecha de post financiación no está \
                            establecida"))
-                fecha_vencimiento = self.post_financing_date.replace('-', '')
-                dia = fecha_vencimiento[6:]
+                fecha_vencimiento = fields.Datetime.to_string(self.date_scheduled).replace('-', '')
+                dia = fecha_vencimiento[6:8]
                 mes = fecha_vencimiento[4:6]
-                ano = fecha_vencimiento[2:4]
+                ano = fecha_vencimiento[:4]
                 fecha_vencimiento = dia + mes + ano
                 text += fecha_vencimiento
 
