@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <group position="after">
                 <group string="Opciones Confirming Santander" attrs="{'invisible': [('is_conf_santander', '=', False)]}">
-                    <field name="conf_santander_type"/>
+                    <!--field name="conf_santander_type"/-->
                     <!-- <field name="gastos" attrs="{'invisible': [('conf_bbva_type', 'not in', ['60','61'])],'required': [('conf_bbva_type', 'in', ['60','61'])]}"/>
                     <field name="forma_pago" attrs="{'invisible': [('conf_bbva_type', '!=', '70')],'required': [('conf_bbva_type', '=', '70')]}"/>
                     <field name="bank"/> -->
