@@ -15,7 +15,7 @@ class PaymentMode(models.Model):
 
     @api.multi
     @api.depends('payment_method_id.code')
-    def _compute_is_conf_abanca(self):
+    def _compute_is_conf_santander(self):
         for record in self:
             record.is_conf_santander = record.payment_method_id.code == \
                 'conf_santander'
