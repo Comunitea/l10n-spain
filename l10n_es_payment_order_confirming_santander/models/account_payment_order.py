@@ -95,7 +95,7 @@ class AccountPaymentOrder(models.Model):
         # C2. De 91 a 107. Referencia de la remesa PAY\d{5}
         text += self.convert(self.name, 16)
         # C3. De 107 a 110. Moneda
-        text += self.company_currency_id
+        text += self.company_currency_id.name
         # D1. De 110 a 116. Reservado
         text += '0' * 6
         # D2. De 116 a 124. Reservado
