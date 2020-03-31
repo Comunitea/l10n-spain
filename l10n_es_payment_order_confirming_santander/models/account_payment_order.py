@@ -233,7 +233,7 @@ class AccountPaymentOrder(models.Model):
             text += amount.rjust(15, '0')
             # D4. De 495 a 503. Fecha de emisión
             if inv.date_invoice:
-                fecha_factura = fields.Datetime.to_string(invoice.date_invoice).replace('-', '')
+                fecha_factura = fields.Datetime.to_string(inv.date_invoice).replace('-', '')
                 dia = fecha_factura[6:8]
                 mes = fecha_factura[4:6]
                 ano = fecha_factura[:4]
