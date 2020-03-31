@@ -61,7 +61,7 @@ class AccountPaymentOrder(models.Model):
 
         return str.encode(txt_file, encoding='cp1252', errors='replace'), self.name + '.TXT'
 
-    def _get_fix_part(self, cr):
+    def _get_fix_part_santander(self, cr):
         # OJO sólo se cuentan los registros de tipo 2.
         if cr == "2":
             self.num_records += 1
@@ -75,7 +75,7 @@ class AccountPaymentOrder(models.Model):
     def _pop_cabecera_santander(self):
 
         all_text = ''
-        text = self._get_fix_part('1')
+        text = self._get_fix_part_santander('1')
         # B1. De 2 a 5. Código Mnemotécnico de la operación.
         text += self.payment_mode_id.num_contract
         # B2. De 5 a 15. Código de cedente. No es obligatorio si se comunica el mnemotécnico
@@ -133,7 +133,7 @@ class AccountPaymentOrder(models.Model):
         for pl in line.payment_line_ids:
             text = ''
             inv = pl.move_line_id.invoice_id
-            text += self._get_fix_part('2')
+            text += self._get_fix_part_santander('2')
             # B1. De 2 a 17. Cód Prov no es obligatorio si informamos el cif del proveedor
             text += ' ' * 15
             # B2. De 17 a 18. Tipo ID proveedor. NIF.
@@ -292,7 +292,7 @@ class AccountPaymentOrder(models.Model):
 
     def _pop_totales_santander(self):
         # A1. De 1 a 2.
-        text = self._get_fix_part('3')
+        text = self._get_fix_part_santander('3')
         # A2. De 2 a 8. Número de registros
         text += str(self.num_records).rjust(8, "0")
         # A3. De 8 a 23. Total remesa
