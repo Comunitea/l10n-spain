@@ -10,6 +10,7 @@ class AccountPaymentOrder(models.Model):
 
     total_amount = fields.Float(
         compute='_compute_total_amount', store=False, readonly=True)
+    post_financing_date = fields.Date()
 
     @api.multi
     @api.depends(
