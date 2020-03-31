@@ -285,7 +285,7 @@ class AccountPaymentOrder(models.Model):
             # G9. De 674 a 678
             text += '0' * 4
             # H1. De 678 a 681
-            text + text.ljust(3) + '\r\n'
+            text = text.ljust(3) + '\r\n'
             all_text += text
 
         return all_text
