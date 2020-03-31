@@ -83,7 +83,7 @@ class AccountPaymentOrder(models.Model):
         # B3. De 15 a 18. Número de operación. No es obligatorio si se comunica el mnemotécnico
         text += ' ' * 3
         # B4. De 18 a 40. Id cedente.
-        vat = self.convert_vat(self.company_partner_bank_id.partner_id)[2:]
+        vat = self.convert_vat(self.company_partner_bank_id.partner_id)
         text += self.convert(vat, 22)
         # B5. De 40 a 43. Sufijo
         text += self.payment_mode_id.sufix
@@ -113,7 +113,7 @@ class AccountPaymentOrder(models.Model):
         # F1. De 233 a 578. Libre
         text += ' ' * 345
         # F5. De 578 a 681
-        text += text.ljust(103)+'\r\n'
+        text = text.ljust(103)+'\r\n'
         all_text = text
 
         return all_text
