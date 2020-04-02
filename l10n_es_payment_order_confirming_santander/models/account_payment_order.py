@@ -113,7 +113,7 @@ class AccountPaymentOrder(models.Model):
         # F1. De 233 a 578. Libre
         text += ' ' * 345
         # F5. De 578 a 681
-        text = text.ljust(103)+'\r\n'
+        text = text.ljust(681)+'\r\n'
         all_text = text
 
         return all_text
@@ -155,7 +155,7 @@ class AccountPaymentOrder(models.Model):
             # B7. De 101 a 131. Nombre
             text += ' ' * 30
             # B8. De 131 a 133. País de residencia. Sólo es obligatorio si el proveedor no es residente.
-            text += ' ' * 3
+            text += ' ' * 2
             # B9. De 133 a 135. Tipo Vía. Hay una tabla. Las marco como desconocida y ya se indica en la dirección.
             text += 'ZZ'
             # B10. De 135 a 175. Nombre de la vía pública del proveedor
@@ -285,7 +285,7 @@ class AccountPaymentOrder(models.Model):
             # G9. De 674 a 678
             text += '0' * 4
             # H1. De 678 a 681
-            text = text.ljust(3) + '\r\n'
+            text = text.ljust(681) + '\r\n'
             all_text += text
 
         return all_text
@@ -294,10 +294,10 @@ class AccountPaymentOrder(models.Model):
         # A1. De 1 a 2.
         text = self._get_fix_part_santander('3')
         # A2. De 2 a 8. Número de registros
-        text += str(self.num_records).rjust(8, "0")
+        text += str(self.num_records).rjust(6, "0")
         # A3. De 8 a 23. Total remesa
         text += str(self.importe_remesa).replace('.', '').rjust(15, '0')
         # A4. De 23 a 681. Libre
-        text = text.ljust(658) + '\r\n'
+        text = text.ljust(681) + '\r\n'
 
         return text
