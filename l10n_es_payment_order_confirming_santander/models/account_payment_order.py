@@ -296,7 +296,7 @@ class AccountPaymentOrder(models.Model):
         # A2. De 2 a 8. Número de registros
         text += str(self.num_records).rjust(6, "0")
         # A3. De 8 a 23. Total remesa
-        text += str(round(self.importe_remesa, 2)).replace('.', '').rjust(15, '0')
+        text += "{:.2f}".format(round(self.importe_remesa, 2)).replace('.', '').rjust(15, '0')
         # A4. De 23 a 681. Libre
         text = text.ljust(681) + '\r\n'
 
