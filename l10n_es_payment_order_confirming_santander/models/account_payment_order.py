@@ -205,7 +205,13 @@ class AccountPaymentOrder(models.Model):
             # B18. De 297 a 311. Fax
             text += ' ' * 14
             # B19. De 311 a 371. Email
-            text += ' ' * 60
+            email = line['partner_id']['email']
+            if not email:
+                raise UserError(
+                    _("Error: El proveedor % no tiene email.") % line['partner_id']['name']
+                )
+            email = email.split(',')
+            text += selef.convert(email[0], 60)
             # C1. De 371 a 372. Forma de Pago. 'T' Transferencia
             text += 'T'
             # C2. De 372 a 402. Datos bancarios. CCC no lo comunicamos porque vamos a indicar el IBAN.
