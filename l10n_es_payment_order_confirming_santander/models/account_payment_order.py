@@ -211,7 +211,7 @@ class AccountPaymentOrder(models.Model):
                     _("Error: El proveedor % no tiene email.") % line['partner_id']['name']
                 )
             email = email.split(',')
-            text += selef.convert(email[0], 60)
+            text += self.convert(email[0], 60)
             # C1. De 371 a 372. Forma de Pago. 'T' Transferencia
             text += 'T'
             # C2. De 372 a 402. Datos bancarios. CCC no lo comunicamos porque vamos a indicar el IBAN.
