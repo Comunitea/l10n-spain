@@ -208,7 +208,7 @@ class AccountPaymentOrder(models.Model):
             email = line['partner_id']['email']
             if not email:
                 raise UserError(
-                    _("Error: El proveedor % no tiene email.") % line['partner_id']['name']
+                    _("Error: El proveedor %s no tiene email.") % line['partner_id']['name']
                 )
             email = email.split(',')
             text += self.convert(email[0], 60)
