@@ -363,7 +363,6 @@ class L10nEsAeatMod303Report(models.Model):
             codes, periods=periods, include_children=include_children,
         )
 
-    # TODO
     @api.multi
     def _get_move_line_domain(self, codes, periods=None,
                               include_children=True):
@@ -373,9 +372,16 @@ class L10nEsAeatMod303Report(models.Model):
         `_get_tax_code_lines`.
         """
         if 79 <= self.env.context.get('field_number', 0) <= 99:
-            periods = periods[:1].fiscalyear_id.period_ids.filtered(
-                lambda x: not x.special
-            )
+            fiscalyear_code = fields.Date.from_string(
+                periods[:1].date_stop
+            ).year
+            date_start = "%s-01-01" % fiscalyear_code
+            date_stop = "%s-12-31" % fiscalyear_code
+            periods = self.env["account.period"].search([
+                ('date_start', '>=', date_start),
+                ('date_stop', '<=', date_stop),
+                ('special', '=', False)
+            ])
         return super(L10nEsAeatMod303Report, self)._get_move_line_domain(
             codes, periods=periods, include_children=include_children,
         )

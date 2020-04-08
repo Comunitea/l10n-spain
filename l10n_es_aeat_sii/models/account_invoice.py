@@ -112,7 +112,8 @@ class AccountInvoice(models.Model):
     )
     sii_refund_type = fields.Selection(
         selection=[('S', 'By substitution'), ('I', 'By differences')],
-        string="SII Refund Type", default=_default_sii_refund_type,
+        string="SII Refund Type",
+        default=lambda self: self._default_sii_refund_type(),
         oldname='refund_type',
     )
     sii_account_registration_date = fields.Date(
@@ -777,7 +778,7 @@ class AccountInvoice(models.Model):
         partner = self.partner_id.commercial_partner_id
         company = self.company_id
         ejercicio = fields.Date.from_string(
-            self.period_id.fiscalyear_id.date_start).year
+            self.period_id.date_start).year
         periodo = '%02d' % fields.Date.from_string(
             self.period_id.date_start).month
         inv_dict = {
@@ -866,7 +867,7 @@ class AccountInvoice(models.Model):
             self._get_account_registration_date(),
         )
         ejercicio = fields.Date.from_string(
-            self.period_id.fiscalyear_id.date_start).year
+            self.period_id.date_start).year
         periodo = '%02d' % fields.Date.from_string(
             self.period_id.date_start).month
         desglose_factura, tax_amount = self._get_sii_in_taxes()
