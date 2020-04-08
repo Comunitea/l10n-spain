@@ -44,11 +44,11 @@ addon | version | summary
 [l10n_es_aeat_mod130](l10n_es_aeat_mod130/) | 8.0.0.9.0 | AEAT modelo 130
 [l10n_es_aeat_mod216](l10n_es_aeat_mod216/) | 8.0.1.3.1 | AEAT modelo 216
 [l10n_es_aeat_mod296](l10n_es_aeat_mod296/) | 8.0.1.3.0 | AEAT modelo 296
-[l10n_es_aeat_mod303](l10n_es_aeat_mod303/) | 8.0.1.13.0 | AEAT modelo 303
+[l10n_es_aeat_mod303](l10n_es_aeat_mod303/) | 8.0.1.14.0 | AEAT modelo 303
 [l10n_es_aeat_mod340](l10n_es_aeat_mod340/) | 8.0.2.5.1 | Generación de fichero modelo 340 y libro de IVA
 [l10n_es_aeat_mod340_cash_basis](l10n_es_aeat_mod340_cash_basis/) | 8.0.1.0.0 | Extensión del modelo 340 para criterio de caja
 [l10n_es_aeat_mod340_type0](l10n_es_aeat_mod340_type0/) | 8.0.1.0.0 | Generación de fichero modelo 340. Registro tipo 0
-[l10n_es_aeat_mod347](l10n_es_aeat_mod347/) | 8.0.1.5.0 | Modelo 347 AEAT
+[l10n_es_aeat_mod347](l10n_es_aeat_mod347/) | 8.0.1.5.1 | Modelo 347 AEAT
 [l10n_es_aeat_mod349](l10n_es_aeat_mod349/) | 8.0.2.2.0 | Modelo 349 AEAT
 [l10n_es_aeat_sii](l10n_es_aeat_sii/) | 8.0.2.17.5 | Suministro Inmediato de Información en el IVA
 [l10n_es_aeat_vat_prorrate](l10n_es_aeat_vat_prorrate/) | 8.0.2.0.2 | AEAT - Prorrata de IVA
@@ -60,7 +60,7 @@ addon | version | summary
 [l10n_es_fiscal_year_closing](l10n_es_fiscal_year_closing/) | 8.0.2.0.0 | Cierre de ejercicio fiscal para España
 [l10n_es_irnr](l10n_es_irnr/) | 8.0.1.0.0 | Retenciones IRNR (No residentes)
 [l10n_es_location_nuts](l10n_es_location_nuts/) | 8.0.1.0.0 | NUTS specific options for Spain
-[l10n_es_partner](l10n_es_partner/) | 8.0.1.5.3 | Adaptación de los clientes, proveedores y bancos para España
+[l10n_es_partner](l10n_es_partner/) | 8.0.1.6.0 | Adaptación de los clientes, proveedores y bancos para España
 [l10n_es_partner_mercantil](l10n_es_partner_mercantil/) | 8.0.1.0.0 | Partner Mercantil
 [l10n_es_payment_order](l10n_es_payment_order/) | 8.0.1.7.0 | Exportación de ficheros bancarios CSB 19, 32, 34 y 58
 [l10n_es_payment_order_confirminet](l10n_es_payment_order_confirminet/) | 8.0.1.0.0 | Exportación de fichero bancario Confirminet

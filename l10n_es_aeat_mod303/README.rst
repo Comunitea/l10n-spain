@@ -24,6 +24,9 @@ Problemas conocidos / Hoja de ruta
   `l10n_es_aeat_mod303_cash_basis`.
 * La prorrata del IVA está contemplada por el módulo adicional
   `l10n_es_aeat_vat_prorrate`.
+* Para el último periodo, si está exonerado del 390 y el ejercicio fiscal no
+  coincide con el año natural, las casillas de totales no saldrán
+  correctamente.
 
 Créditos
 ========

@@ -77,6 +77,7 @@ class L10nEsAeatMod347Report(models.Model):
 
         Create from income (from supplier) invoices
         """
+        vals = vals.copy()
         partner_record_obj = self.env['l10n.es.aeat.mod347.partner_record']
         record = False
         vals['operation_key'] = 'A'
@@ -96,6 +97,7 @@ class L10nEsAeatMod347Report(models.Model):
 
         Create from outcome (from customer) invoices and cash movements
         """
+        vals = vals.copy()
         partner_record_obj = self.env['l10n.es.aeat.mod347.partner_record']
         cash_record_obj = self.env['l10n.es.aeat.mod347.cash_record']
         records = []
@@ -169,7 +171,10 @@ class L10nEsAeatMod347Report(models.Model):
         return True
 
     def _invoices_search(self, partners):
-        invoice_obj = self.env['account.invoice']
+        # Needed for avoiding the removal of inactive records due to the domain
+        # ('commercial_partner_id.not_in_mod347', '=', False)
+        d = {'active_test': False}
+        invoice_obj = self.env['account.invoice'].with_context(**d)
         partner_obj = self.env['res.partner']
         domain = [
             ('state', 'in', ['open', 'paid']),
