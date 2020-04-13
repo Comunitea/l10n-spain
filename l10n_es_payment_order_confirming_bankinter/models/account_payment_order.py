@@ -112,7 +112,7 @@ class AccountPaymentOrder(models.Model):
                 raise UserError(
                     _("Error: El Proveedor %s no tiene \
                         establecido el NIF.") % line['partner_id']['name'])
-            text += self.convert_vat(nif, 12)
+            text += self.convert(nif, 12)
             ###################################################################
             # FIN DE LA PARTE FIJA
             ###################################################################
