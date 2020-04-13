@@ -34,59 +34,55 @@ class AccountPaymentOrder(models.Model):
         return str.encode(txt_file), self.name + '.BK'
 
     def _pop_cabecera_bk(self):
-        fecha_planificada = self.date_scheduled
-        fecha_planificada = fecha_planificada.replace('-', '')
-        dia = fecha_planificada[6:]
-        mes = fecha_planificada[4:6]
-        ano = fecha_planificada[:2]
-        # ano = fecha_planificada[:4]
-        fecha_planificada = dia + mes + ano
+
+        cuenta = self.company_partner_bank_id.acc_number
+        cuenta = cuenta.replace(' ', '')
+        tipo_cuenta = self.company_partner_bank_id.acc_type
+
+        if tipo_cuenta == 'iban':
+            cuenta = cuenta[4:8]
+            sucursal = cuenta[8:12]
+            dc= cuenta[12:14]
+        else:
+            raise UserError(
+                'La cuenta bancaria %s no tiene formato IBAN.', cuenta)
+
 
         all_text = ''
+
         for i in range(1):
             text = ''
-            # 1 y 2 Código de registro
+            # De 1 a 2. Código de registro
             text += '03'
-            # 3 - 4 Codigo de Dato
+            # De 3 a 4. Código de Dato.
             text += '60'
-            # 5 - 14 Codigo ordenante
+            # De 5 a 14. NIF presentador
             vat = self.convert_vat(self.company_partner_bank_id.partner_id)
             text += self.convert(vat, 10)
-            # 15 - 26 Libre  ?? 7 primeras pos ref BK??
-            text += 12 * ' '
-            # 27 - 29 Numero del dato
-            dato = '00'+str(i+1)
-            text += dato
-            if (i+1) == 1:
-                # 30 - 35 Fecha Envío
-                text += fecha_planificada
-                # 36 - 41 Fecha Emisión
-                text += fecha_planificada
+            # De 15 a 26. Libre
+            text += ' ' * 12
+            # De 27 a 29. Nümero de dato
+            text += '001'
+            # De 30 a 35. Fecha de envío
+            fecha = fields.Date.from_string(self.date_scheduled).strftime('%y%m%d')
+            text += fecha
+            # De 36 a 41. Fecha de Emisión
+            text += fecha
+            # De 42 a 45. Entidad donde reside el contrato. Bankinter
+            text += self.convert(cuenta, 4)
+            # De 46 a 49. Sucursal de la cuenta.
+            text += self.convert(sucursal, 4)
+            # De 50 a 59. Número de contrato.
+            text += self.convert(self.payment_mode_id.num_contract,10)
+            # De 60 a 63. Libre
+            text += ' ' * 4
+            # De 64 a 65. Dígito de control
+            text += self.convert(dc, 2)
+            # De 66 a 72
+            text = text.ljust(72) + '\r\n'
 
-                cuenta = self.company_partner_bank_id.acc_number
-                cuenta = cuenta.replace(' ', '')
-                tipo_cuenta = self.company_partner_bank_id.acc_type
-                if tipo_cuenta == 'iban':
-                    cuenta = cuenta[4:]
-                control = cuenta[8:10]
-                principio = cuenta[:8]
-                cuenta = principio + cuenta[10:]
-                # 42 - 45 Código entidad donde reside el contrato
-                # ?42 - 45 Código sucursal donde reside el contrato
-                # ?50 - 59 Número de contrato
-                # text += '0128'
-                # text += '????'
-                # text += '?????????'
-                text += cuenta
-                # 64 - 65 Díjito de control
-                # text += '??'
-                text += control
-                # 60 - 63 Libre
-                text += 3 * ' '
-                # 66 - 72 Libre
-                text += 7 * ' '
-            text = text.ljust(73)+'\r\n'
             all_text += text
+
         return all_text
 
     def _pop_detalle_bk(self, line):
@@ -110,25 +106,28 @@ class AccountPaymentOrder(models.Model):
             # 5 - 14 Codigo ordenante
             vat = self.convert_vat(self.company_partner_bank_id.partner_id)
             text += self.convert(vat, 10)
+            # 15 - 26 Referencia del Proveedor
             nif = line['partner_id']['vat']
             if not nif:
                 raise UserError(
                     _("Error: El Proveedor %s no tiene \
                         establecido el NIF.") % line['partner_id']['name'])
-            text += self.convert(nif, 12)
-            # 16 - 26 Referencia del Proveedor
+            text += self.convert_vat(nif, 12)
+            ###################################################################
+            # FIN DE LA PARTE FIJA
+            ###################################################################
             if (i + 1) == 1:
+
                 # 27 - 29 Numero de dato
                 text += '010'
                 # 30 - 41 Importe de la factura
-                text += self.convert(abs(line['amount_currency']), 12)
+                amount = "{:.2f}".format((abs(line.amount_currency)))
+                amount = amount.replace('.', '')
+                text += amount.rjust(12, '0')
                 # 42 - 60 Libre
                 text += 19 * ' '
                 # 60 - 61 Signo importe factura
-                if line['amount_currency'] >= 0:
-                    text += ' '
-                else:
-                    text += '-'
+                text += ' ' if line.amount_currency>0 else '-'
                 # 62 - 72 Libre
                 text += 11 * ' '
 
@@ -200,11 +199,9 @@ class AccountPaymentOrder(models.Model):
                     cuenta = line['partner_bank_id']['acc_number']
                     cuenta = cuenta.replace(' ', '')
                     tipo_cuenta = self.company_partner_bank_id.acc_type
-                    if tipo_cuenta == 'iban':
-                        cuenta = cuenta[4:]
-                    control = cuenta[8:10]
-                    principio = cuenta[:8]
-                    cuenta = principio + cuenta[10:]
+                    if tipo_cuenta != 'iban':
+                        raise UserError(
+                            'La cuenta bancaria %s no tiene formato IBAN.', cuenta)
                     text += self.convert(cuenta, 34)
                 else:
                     cuenta = 34 * ' '
@@ -212,7 +209,7 @@ class AccountPaymentOrder(models.Model):
                 
                 # 64 Libre
                 text += ' '
-                # 65 - 66 Código switf pais proveedor ??
+                # 65 - 66 Código switf pais proveedor. 'ES' son todos pagos nacionales
                 text += 'ES'
                 # 67 - 72 Libre
                 text += 6 * ' '
@@ -221,7 +218,11 @@ class AccountPaymentOrder(models.Model):
                 # 27 - 29 Numero de dato
                 text += '174'
                 # 30 - 40 Dirección Switf optativo
-                text += 11 * ' '
+                if line.partner_bank_id.bank_id and \
+                        line.partner_bank_id.bank_id.bic:
+                    text += self.convert(line.partner_bank_id.bank_id.bic, 11)
+                else:
+                    text += 11 * ' '
                 # 41 - 56 Optativo claves adicionales
                 text += 16 * ' '
                 # 52 - 72 Libre
@@ -241,18 +242,9 @@ class AccountPaymentOrder(models.Model):
                 # 30 - 35 Fecha vencimiento
                 if not self.post_financing_date:
                     raise UserError(_('post-financing date mandatory'))
-                text += fields.Date.from_string(self.post_financing_date).strftime('%d%m%y').ljust(8)
-                # 36 - 51 Numero de factura
-                num_factura = 16 * ' '
-                invoice = line.payment_line_ids[0].move_line_id.invoice_id
-                if invoice:
-                    num_factura = line.communication
-                    if len(num_factura) < 16:
-                        relleno = 16 - len(num_factura)
-                        num_factura += relleno * ' '
-                    if len(num_factura) > 16:
-                        num_factura = num_factura[-16:]
-                text += num_factura
+                text += fields.Date.from_string(self.post_financing_date).strftime('%y%m%d').ljust(8)
+                # 36 - 51 Numero de factura. Sustituyo el número de factura por la referncia del pago agrupado
+                text += self.convert(line.name, 16)
                 # 52 - 65 Libre
                 text += 14 * ' '
                 # 66 - 72 Libre
@@ -264,7 +256,7 @@ class AccountPaymentOrder(models.Model):
                 # 30 - 41 Libre
                 text += 12 * ' '
        
-            text = text.ljust(73)+'\r\n'
+            text = text.ljust(72)+'\r\n'
             all_text += text
         self.num_records += 1
         return all_text
@@ -283,11 +275,11 @@ class AccountPaymentOrder(models.Model):
         # 30 - 41 Suma de importes
         text += self.convert(abs(self.total_company_currency), 12)
         # 42 - 49 Num de registros de dato 010
-        num = str(num_records)
+        num = str(self.num_records)
         text += num.zfill(8)
 
         # 50 - 59 Num total de registros
-        total_reg = 1 + (num_records * 9) + 1
+        total_reg = 1 + (self.num_records * 9) + 1
         total_reg = str(total_reg)
         text += total_reg.zfill(10)
 

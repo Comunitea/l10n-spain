@@ -8,6 +8,8 @@ from odoo import api, fields, models
 class PaymentMode(models.Model):
     _inherit = 'account.payment.mode'
 
+    num_contract = fields.Char('Número  de contrato: ')
+
     conf_bankinter_type = fields.Selection(
         string='Tipo de pago', default='56',
         selection=[('56', 'Tranferencia'),
