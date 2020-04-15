@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import api, models, _, fields
 from odoo.exceptions import UserError
-
+import re
 
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
@@ -35,20 +35,25 @@ class AccountPaymentOrder(models.Model):
 
     def _pop_cabecera_bk(self):
 
-        cuenta = self.company_partner_bank_id.acc_number
-        cuenta = cuenta.replace(' ', '')
-        tipo_cuenta = self.company_partner_bank_id.acc_type
-
-        if tipo_cuenta == 'iban':
-            cuenta = cuenta[4:8]
-            sucursal = cuenta[8:12]
-            dc= cuenta[12:14]
-        else:
-            raise UserError(
-                'La cuenta bancaria %s no tiene formato IBAN.', cuenta)
-
+        # El número de contrato es una CCC.
+        # Tiene el formato EEEE-SSSS-DC-NNNNNNNNNN
+        # EEEE => Entidad -- SSSS => Sucursal DC => Dígito de control NNNNNNNNNN => 10 dígitos del número de cuenta.
+        datos_contrato =  self.payment_mode_id.num_contract
 
         all_text = ''
+
+        
+        if re.search('\d{4}\-\d{4}\-\d{2}-\d{10}',datos_contrato):
+            datos= dc_contrato.split('-')
+            entidad_contrato = datos[0]
+            sucursal_contrto = datos[1]
+            dc_contrato = datos[2]
+            numCta_contrato =  datos[3]
+        else:
+            raise UserError(
+                        _("Error: El contrato %s no sigue el formato\
+                         de CCC XXXX-XXXX-XX-XXXXXXXXXX.\
+                         ") %  self.payment_mode_id.num_contract)
 
         for i in range(1):
             text = ''
@@ -69,15 +74,15 @@ class AccountPaymentOrder(models.Model):
             # De 36 a 41. Fecha de Emisión
             text += fecha
             # De 42 a 45. Entidad donde reside el contrato. Bankinter
-            text += self.convert(cuenta, 4)
+            text += self.convert(entidad_contrato, 4)
             # De 46 a 49. Sucursal de la cuenta.
-            text += self.convert(sucursal, 4)
+            text += self.convert(sucursal_contrato, 4)
             # De 50 a 59. Número de contrato.
-            text += self.convert(self.payment_mode_id.num_contract,10)
+            text += self.convert(numCta_contrato,10)
             # De 60 a 63. Libre
             text += ' ' * 4
             # De 64 a 65. Dígito de control
-            text += self.convert(dc, 2)
+            text += self.convert(dc_contrato, 2)
             # De 66 a 72
             text = text.ljust(72) + '\r\n'
 
