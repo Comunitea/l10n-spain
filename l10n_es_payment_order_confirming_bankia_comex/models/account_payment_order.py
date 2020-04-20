@@ -90,7 +90,7 @@ class AccountPaymentOrder(models.Model):
 
         for i in range(6):
 
-            text = _get_fix_part_bankia_comex('03', '62')
+            text = self._get_fix_part_bankia_comex('03', '62')
 
             if (i + 1) == 1:
                 cuenta = self.company_partner_bank_id.acc_number
@@ -180,7 +180,7 @@ class AccountPaymentOrder(models.Model):
         all_text = ''
 
         # REGISTRO DE CABECERA DE FACTURAS EN EUROS.
-        text = _get_fix_part_bankia_comex('04', '60')
+        text = self._get_fix_part_bankia_comex('04', '60')
         # Zona D. (12). Libre
         text += ' ' * 12
         # Zona E. (3). Libre
@@ -198,7 +198,7 @@ class AccountPaymentOrder(models.Model):
             registros = [1, 2, 3, 4, 6, 7, 10, 13, 16] # Registros que comunicamos.
 
             if (i + 1) in registros:
-                text = _get_fix_part_bankia_comex('06', '60')
+                text = self._get_fix_part_bankia_comex('06', '60')
                 # Zona D. (12). Referencia del beneficiario.
                 if(i + 1) != 10:
                     # PARA TODOS LOS REGISTROS EXCEPTO EL 10
@@ -342,7 +342,7 @@ class AccountPaymentOrder(models.Model):
 
         # REGISTRO DE TOTALES FACTURAS EN EUROS
 
-        text = _get_fix_part_bankia_comex('08', '60')
+        text = self._get_fix_part_bankia_comex('08', '60')
         # Zona D. (12). Libre
         text += ' ' * 12
         # Zona E. (3). Libre
@@ -359,7 +359,7 @@ class AccountPaymentOrder(models.Model):
 
         # REGISTRO TOTAL GENERAL
 
-        text = _get_fix_part_bankia_comex('09', '62')
+        text = self._get_fix_part_bankia_comex('09', '62')
         # Zona D. (12). Libre
         text += ' ' * 12
         # Zona E. (3). Libre
