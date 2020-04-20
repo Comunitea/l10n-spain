@@ -15,7 +15,7 @@ class PaymentMode(models.Model):
 
     @api.multi
     @api.depends('payment_method_id.code')
-    def _compute_is_conf_sabadell(self):
+    def _compute_is_conf_bankia_comex(self):
         for record in self:
-            record.is_conf_sabadell = record.payment_method_id.code == \
-                'conf_sabadell'
+            record.is_conf_bankia_comex = record.payment_method_id.code == \
+                'conf_bankia_comex'
