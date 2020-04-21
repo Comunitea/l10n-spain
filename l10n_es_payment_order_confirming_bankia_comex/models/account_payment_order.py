@@ -139,7 +139,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. (3). Número de dato. '003'
                 text += '003'
                 # Zona F. (36). Domicilio del ordenante.
-                text += self.convert(self.partner_id.street, 36)
+                text += self.convert(self.company_id.street, 36)
 
             if(i + 1) == 4:
                 # Zona D. (12). Libre
@@ -147,7 +147,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. (3). Número de dato. '004'
                 text += '004'
                 # Zona F. (36). Localidad del ordenante
-                text += self.convert(self.partner_id.city, 36)
+                text += self.convert(self.company_id.city, 36)
 
             if(i + 1) == 5:
                 # Zona D. (12) Libre.
