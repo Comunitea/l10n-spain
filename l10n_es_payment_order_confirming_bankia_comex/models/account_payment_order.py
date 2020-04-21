@@ -299,12 +299,8 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. (3). Número de dato '042'
                 text += '042'
                 # Zona F1. (9) Fecha de emisión de la factura. Tomo el primer registro.
-                inv = line.payment_line_ids[0].move_line_id.invoice_id
-                fcha_fra = inv.date_invoice
-                if fcha_fra:
-                    text += self.convert(fcha_fra.strftime('%d%m%Y'), 9)
-                else:
-                     raise UserError("Esta factura %s no tiene fecha." % inv.name)
+                fcha_fra = self.date_scheduled - datetime.timedelta(days = 2)
+                text += self.convert(fcha_fra.strftime('%d%m%Y'), 9)
                 # Zona F2. (13). Referencia del proveedor.
                 text += self.convert(nif_prov, 13)
                 # Zona F3. (12). Número de factura.
