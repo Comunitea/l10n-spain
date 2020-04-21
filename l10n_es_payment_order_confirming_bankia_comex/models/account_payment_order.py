@@ -293,7 +293,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. Número de dato '039'
                 text += '039'
                 # Zona F. (36). País del beneficiario
-                text += self.convert(line.partner_id.country_id, 36)
+                text += self.convert(line.partner_id.country_id.name, 36)
 
             if (i + 1) == 10:
                 # Zona E. (3). Número de dato '042'
