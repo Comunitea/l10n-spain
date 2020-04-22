@@ -88,7 +88,7 @@ class AccountPaymentOrder(models.Model):
 
         all_text = ''
 
-        for i in range(6):
+        for i in range(5):
 
             text = self._get_fix_part_bankia_comex('03', '62')
 
@@ -127,7 +127,7 @@ class AccountPaymentOrder(models.Model):
 
             if (i + 1) == 2:
                 # Zona D. (12).  
-                text += self.convert(self.payment_mode_id.linea_comex[6:] + self.name[3].rjust(5,'0') , 12)
+                text += self.convert(self.payment_mode_id.linea_comex[-6:] + self.name[3:].rjust(5,'0') , 12)
                 # Zona E. (3). Número de dato '002'
                 text += '002'
                 # Zona F. Nombre del Ordenante.
@@ -159,7 +159,17 @@ class AccountPaymentOrder(models.Model):
 
             text = text.ljust(72) + '\r\n'
             all_text += text
-    
+
+        # REGISTRO DE CABECERA DE FACTURAS EN EUROS.
+        text = self._get_fix_part_bankia_comex('04', '60')
+        # Zona D. (12). Libre
+        text += ' ' * 12
+        # Zona E. (3). Libre
+        text += ' ' * 3
+
+        text = text.ljust(72) + '\r\n'
+        all_text += text
+        
         return all_text
 
     def _group_by_partner(self, lines):
@@ -178,16 +188,6 @@ class AccountPaymentOrder(models.Model):
         """
         
         all_text = ''
-
-        # REGISTRO DE CABECERA DE FACTURAS EN EUROS.
-        text = self._get_fix_part_bankia_comex('04', '60')
-        # Zona D. (12). Libre
-        text += ' ' * 12
-        # Zona E. (3). Libre
-        text += ' ' * 3
-
-        text = text.ljust(72) + '\r\n'
-        all_text += text
 
         # REGISTROS DETALLE FACTURAS EN EUROS
             
@@ -327,8 +327,9 @@ class AccountPaymentOrder(models.Model):
                 # Zona F2. (38). Se completan con 0
                 text += '0' * 38
 
-            text = text.ljust(72) + '\r\n'
-            all_text += text   
+            if (i + 1) in registros:
+                text = text.ljust(72) + '\r\n'
+                all_text += text   
 
         return all_text
 
