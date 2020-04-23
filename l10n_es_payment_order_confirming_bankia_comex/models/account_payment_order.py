@@ -110,7 +110,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. (3). Número de dato. '001'
                 text += '001'
                 # Zona F1. (6). Fecha de envío del fichero
-                date_file = fields.Date.from_string(self.date_scheduled).strftime('%d%m%Y')
+                date_file = fields.Date.from_string(self.date_scheduled).strftime('%d%m%y')
                 text += date_file
                 # Zona F2. (6). Fecha de emisión de las órdenes.
                 text += date_file
@@ -239,7 +239,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona F2. (2). Dígito de control del IBAN
                 text += cuenta[2:4]
                 # Zona F3. (30). Resto del número de cuenta del banco del beneficiario
-                text += cuenta[4:]
+                text += self.convert(cuenta[4:], 30)
                 # Zona F4. (1). Siempre valor '7'
                 text += '7'
 
