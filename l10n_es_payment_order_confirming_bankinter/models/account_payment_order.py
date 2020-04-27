@@ -48,7 +48,7 @@ class AccountPaymentOrder(models.Model):
        
         if comp:
             entidad_contrato = comp['entidad']
-            sucursal_contrto = comp['sucursal']
+            sucursal_contrato = comp['sucursal']
             dc_contrato = comp['dc']
             numCta_contrato =  comp['nCuenta']
         else:
