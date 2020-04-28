@@ -249,7 +249,7 @@ class AccountPaymentOrder(models.Model):
                 # 30 - 35 Fecha vencimiento
                 if not self.post_financing_date:
                     raise UserError(_('post-financing date mandatory'))
-                text += fields.Date.from_string(self.post_financing_date).strftime('%y%m%d').ljust(8)
+                text += fields.Date.from_string(self.post_financing_date).strftime('%y%m%d').ljust(6)
                 # 36 - 51 Numero de factura. Sustituyo el número de factura por la referncia del pago agrupado
                 text += self.convert(line.name, 16)
                 # 52 - 65 Libre
@@ -292,6 +292,6 @@ class AccountPaymentOrder(models.Model):
 
         # 60 - 72 Libre
         text += 13 * ' '
-        text = text.ljust(73)+'\r\n'
+        text = text.ljust(72)+'\r\n'
 
         return text
