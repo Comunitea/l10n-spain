@@ -119,7 +119,7 @@ class AccountPaymentOrder(models.Model):
                 raise UserError(
                     _("Error: El Proveedor %s no tiene \
                         establecido el NIF.") % line['partner_id']['name'])
-            text += self.convert(nif, 12)
+            text += self.convert(nif[2:], 12)
             ###################################################################
             # FIN DE LA PARTE FIJA
             ###################################################################
@@ -247,9 +247,10 @@ class AccountPaymentOrder(models.Model):
                 # 27 - 29 Numero de dato
                 text += '018'
                 # 30 - 35 Fecha vencimiento
+                # Sigo chequeando que esté establecida la fecha de postfinanciación
                 if not self.post_financing_date:
                     raise UserError(_('post-financing date mandatory'))
-                text += fields.Date.from_string(self.post_financing_date).strftime('%y%m%d').ljust(6)
+                text += fields.Date.from_string(self.date_scheduled).strftime('%y%m%d').ljust(6)
                 # 36 - 51 Numero de factura. Sustituyo el número de factura por la referncia del pago agrupado
                 text += self.convert(line.name, 16)
                 # 52 - 65 Libre
