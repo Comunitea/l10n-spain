@@ -4,6 +4,7 @@ from odoo import api, models, _, fields
 from odoo.exceptions import UserError
 import re
 
+
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
 
@@ -45,7 +46,7 @@ class AccountPaymentOrder(models.Model):
         pt = re.compile('(?P<entidad>\d{4})\-(?P<sucursal>\d{4})\-(?P<dc>\d{2})\-(?P<nCuenta>\d{10})')
 
         comp = re.match(pt,datos_contrato)
-       
+        
         if comp:
             entidad_contrato = comp['entidad']
             sucursal_contrato = comp['sucursal']
@@ -56,6 +57,7 @@ class AccountPaymentOrder(models.Model):
                         _("Error: El contrato %s no sigue el formato\
                          de CCC XXXX-XXXX-XX-XXXXXXXXXX.\
                          ") %  self.payment_mode_id.num_contract)
+
 
         for i in range(1):
             text = ''
@@ -94,7 +96,7 @@ class AccountPaymentOrder(models.Model):
 
     def _pop_detalle_bk(self, line):
         all_text = ''
-        for i in range(12):
+        for i in range(13):
             # Me salto los opcionales
             if (i + 1) in [5, 6, 7]:
                 continue
@@ -242,14 +244,26 @@ class AccountPaymentOrder(models.Model):
                 text += 'E'
                 # 31 - 72 Libre
                 text += 35 * ' '
-
+            
             if (i + 1) == 11:
+                # 27 - 29. Número de dato
+                text += '182'
+                # Referencia del proveedor
+                nif = line['partner_id']['vat']
+                if not nif:
+                    raise UserError(
+                        _("Error: El Proveedor %s no tiene \
+                        establecido el NIF.") % line['partner_id']['name'])
+                text += self.convert(nif[2:], 12)
+
+            if (i + 1) == 12:
                 # 27 - 29 Numero de dato
                 text += '018'
                 # 30 - 35 Fecha vencimiento
                 # Sigo chequeando que esté establecida la fecha de postfinanciación
                 if not self.post_financing_date:
                     raise UserError(_('post-financing date mandatory'))
+                # Asigno como fecha de vencimiento de la factura la fecha del ejecución del pago.
                 text += fields.Date.from_string(self.date_scheduled).strftime('%y%m%d').ljust(6)
                 # 36 - 51 Numero de factura. Sustituyo el número de factura por la referncia del pago agrupado
                 text += self.convert(line.name, 16)
@@ -258,7 +272,7 @@ class AccountPaymentOrder(models.Model):
                 # 66 - 72 Libre
                 text += 7 * ' '
 
-            if (i + 1) == 12:
+            if (i + 1) == 13:
                 # 27 - 29 Numero de dato
                 text += '019'
                 # 30 - 41 Libre
@@ -287,7 +301,7 @@ class AccountPaymentOrder(models.Model):
         text += num.zfill(8)
 
         # 50 - 59 Num total de registros
-        total_reg = 1 + (self.num_records * 9) + 1
+        total_reg = 1 + (self.num_records * 10) + 1
         total_reg = str(total_reg)
         text += total_reg.zfill(10)
 
