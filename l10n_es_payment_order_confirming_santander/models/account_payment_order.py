@@ -137,7 +137,7 @@ class AccountPaymentOrder(models.Model):
             # B1. De 2 a 17. Cód Prov no es obligatorio si informamos el cif del proveedor
             text += ' ' * 15
             # B2. De 17 a 18. Tipo ID proveedor. NIF.
-            text += '0'
+            text += '1'
             # B3. De 18 a 40. Id proveedor. NIF
             nif = line['partner_id']['vat']
             if not nif:
