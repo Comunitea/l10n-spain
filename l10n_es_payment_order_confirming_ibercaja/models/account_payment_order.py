@@ -23,7 +23,7 @@ class AccountPaymentOrder(models.Model):
     @api.multi
     def generate_payment_file(self):
         self.ensure_one()
-        if self.payment_method_id.code != 'conf_bankinter':
+        if self.payment_method_id.code != 'conf_ibercaja':
             return super(AccountPaymentOrder, self).generate_payment_file()
         if self.date_prefered != 'fixed':
             raise UserError(_('Solo fecha fija'))
