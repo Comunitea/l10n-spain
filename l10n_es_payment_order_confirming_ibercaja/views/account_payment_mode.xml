@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <group position="after">
                 <group string="Opciones Confirming Ibercaja" attrs="{'invisible': [('is_conf_ibercaja', '=', False)]}">
-                    <!--field name="conf_bankinter_type"/-->
+                    <field name="num_contract"/>
                     <!-- <field name="gastos" attrs="{'invisible': [('conf_bankinter_type', 'not in', ['60','61'])],'required': [('conf_bankinter_type', 'in', ['60','61'])]}"/>
                     <field name="forma_pago" attrs="{'invisible': [('conf_bankinter_type', '!=', '70')],'required': [('conf_bankinter_type', '=', '70')]}"/>
                     <field name="bank"/> -->
