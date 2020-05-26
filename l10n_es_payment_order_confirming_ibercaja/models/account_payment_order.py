@@ -110,7 +110,7 @@ class AccountPaymentOrder(models.Model):
             text = ''
             # cuenta bancaria beneficiario
             cuenta_benef = line['partner_bank_id']['acc_number']
-            cuenta_benef = cuenta.replace(' ', '')
+            cuenta_benef = cuenta_benef.replace(' ', '')
             tipo_cuenta = self.company_partner_bank_id.acc_type
             if tipo_cuenta != 'iban':
                raise UserError(
