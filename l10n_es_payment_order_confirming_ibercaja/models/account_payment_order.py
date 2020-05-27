@@ -216,7 +216,7 @@ class AccountPaymentOrder(models.Model):
         # Zona F2. 8n. Suma de registros de tipo 1. número de dato '010'
         text += str(self.num_records_10).rjust(8, "0")
         # Zona F3. 10n. Número total de registros incluídos los de cabecera y totales.
-        text += str(self.num_records_10).rjust(10, "0")
+        text += str(self.num_records).rjust(10, "0")
         # Zona F4. 6an. Libre
         text += ' ' * 6
         # Zona F5. 7an. Libre
