@@ -14,6 +14,20 @@ class AccountPaymentOrder(models.Model):
             return super(AccountPaymentOrder, self).generate_payment_file()
         if self.date_prefered != 'fixed':
             raise UserError(_('Solo fecha fija'))
+        
+        # Utilizo la línea de confirming standard si la fecha de postfinanciación coincide con 
+        # la fecha de ejecución del pago.
+        self.is_standard_payment = (self.post_financing_date == self.date_scheduled)
+
+        # Establezco el número de contrato a utilizar en el fichero según la remesa sea de pronto pago o standard
+        if self.is_standard_payment:
+            # Para la estandard
+            self.bankia_payment_order_reference = self.payment_mode_id.bankia_customer_reference_standard_payment
+        else:
+            # Para la de pronto pago
+            self.bankia_payment_order_reference = self.payment_mode_id.bankia_customer_reference
+            
+
         self.num_records = 0
         txt_file = self._ban_cabecera()
         line_counter = 2
@@ -35,9 +49,9 @@ class AccountPaymentOrder(models.Model):
         '''
         # 0-9 identificador de cliente
         # Pactado Bankia. Normalmente el CIF de la Empresa o el contrato.
-        if not self.payment_mode_id.bankia_customer_reference:
+        if not self.bankia_payment_order_reference:
             raise UserError(_('Mandatory field Bankia customer reference'))
-        text = self.convert(self.payment_mode_id.bankia_customer_reference, 10)
+        text = self.convert(self.bankia_payment_order_reference, 10)
         # 10-19 identificador del lote. Campo numérico.
         text += ''.join(i for i in self.name if i.isdigit()).zfill(10)
         # 20-29 sin uso
@@ -123,10 +137,17 @@ class AccountPaymentOrder(models.Model):
         text += self._ban_ref_supplier(line.partner_id)
         # 46-60 Identificación interna del pago
         text += self.convert(line.name, 15)
+        
         # 61-68 Fecha de post-financiación
         if not self.post_financing_date:
             raise UserError(_('post-financing date mandatory'))
-        text += fields.Date.from_string(self.post_financing_date).strftime('%Y%m%d').ljust(8)
+        if self.is_standard_payment:
+            # Si es standard no escribo nada
+            text += ' ' * 8
+        else:
+            # Si es pronto pago escribo la fecha de postfinanciación
+            text += fields.Date.from_string(self.post_financing_date).strftime('%Y%m%d').ljust(8)
+        
         # 69-73 Sin uso
         text += ''.ljust(5)
         # 74 Tipo de movimiento P->Pago A->Abono
