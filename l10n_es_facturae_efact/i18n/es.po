@@ -23,6 +23,11 @@ msgstr ""
 
 #. module: l10n_es_facturae_efact
 #: selection:account.invoice.integration,integration_status:0
+msgid "Accounted obligation"
+msgstr ""
+
+#. module: l10n_es_facturae_efact
+#: selection:account.invoice.integration,integration_status:0
 msgid "Cancellation approved"
 msgstr ""
 
@@ -51,7 +56,6 @@ msgstr "Compañías"
 #. module: l10n_es_facturae_efact
 #: model:ir.model,name:l10n_es_facturae_efact.model_res_config_settings
 #, fuzzy
-#| msgid "res.config.settings"
 msgid "Config Settings"
 msgstr "res.config.settings"
 
@@ -130,6 +134,11 @@ msgstr ""
 #. module: l10n_es_facturae_efact
 #: selection:account.invoice.integration,integration_status:0
 msgid "Registered on REC"
+msgstr ""
+
+#. module: l10n_es_facturae_efact
+#: selection:account.invoice.integration,integration_status:0
+msgid "Registered on RFC"
 msgstr ""
 
 #. module: l10n_es_facturae_efact

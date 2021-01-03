@@ -61,7 +61,7 @@ class TestL10nEsAccountAsset(common.SavepointCase):
     def test_prorated_percentage_asset(self):
         self.asset.write({
             'prorata': True,
-            'date_start': fields.Date.from_string('2015-04-10'),
+            'date_start': fields.Date.to_date('2015-04-10'),
         })
         self.asset.compute_depreciation_board()
         self.assertEqual(
@@ -78,9 +78,27 @@ class TestL10nEsAccountAsset(common.SavepointCase):
         self.asset.write({
             'prorata': True,
             'method_percentage': 70,
-            'date_start': fields.Date.from_string('2017-11-15'),
+            'date_start': fields.Date.to_date('2017-11-15'),
         })
         self.asset.compute_depreciation_board()
         self.assertGreater(
             self.asset.depreciation_line_ids[-1:].amount, 0,
             "Last depreciation amount is not correct.")
+
+    def test_asset_other_percentage(self):
+        """Test for regression detected for annual percentage lower than 20."""
+        self.asset.annual_percentage = 10
+        # Check computed field
+        self.assertEqual(self.asset.method_percentage, 10)
+        self.asset.compute_depreciation_board()
+        self.assertEqual(len(self.asset.depreciation_line_ids), 11)
+        lines = self.asset.depreciation_line_ids[1:].filtered(
+            lambda x: x.amount != 3000)
+        self.assertFalse(lines, "The amount of lines is not correct.")
+
+    def test_asset_other_method(self):
+        """Test for regression detected using other time methods."""
+        self.asset.method_time = "year"
+        self.asset.method_number = 8
+        self.asset.compute_depreciation_board()
+        self.assertEqual(len(self.asset.depreciation_line_ids), 9)
