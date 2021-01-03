@@ -818,13 +818,13 @@ msgid ""
 msgstr ""
 
 #. module: l10n_es_vat_book
-#: code:addons/l10n_es_vat_book/models/l10n_es_vat_book.py:470
+#: code:addons/l10n_es_vat_book/models/l10n_es_vat_book.py:472
 #, python-format
 msgid "This book has warnings. Fix it before confirm"
 msgstr ""
 
 #. module: l10n_es_vat_book
-#: code:addons/l10n_es_vat_book/models/l10n_es_vat_book.py:368
+#: code:addons/l10n_es_vat_book/models/l10n_es_vat_book.py:370
 #, python-format
 msgid "This company doesn't have VAT"
 msgstr ""
@@ -897,7 +897,6 @@ msgstr ""
 #. module: l10n_es_vat_book
 #: model:ir.model.fields,field_description:l10n_es_vat_book.field_l10n_es_vat_book__company_vat
 #, fuzzy
-#| msgid "Model number"
 msgid "VAT number"
 msgstr "Nº modelo"
 
@@ -949,7 +948,7 @@ msgid "Website communication history"
 msgstr ""
 
 #. module: l10n_es_vat_book
-#: code:addons/l10n_es_vat_book/models/l10n_es_vat_book.py:331
+#: code:addons/l10n_es_vat_book/models/l10n_es_vat_book.py:333
 #, python-format
 msgid "Without VAT"
 msgstr ""

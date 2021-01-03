@@ -47,14 +47,18 @@ class AccountAssetAsset(models.Model):
                 asset.method_percentage * 12 /
                 mapping.get(asset.method_period, 12)
             )
+            if new_percentage > 100:
+                new_percentage = 100
             # Only change amount when significant delta
             if float_compare(new_percentage, self.annual_percentage, 2) != 0:
                 self.annual_percentage = new_percentage
 
     @api.onchange('profile_id')
     def _onchange_profile_id(self):
+        res = super()._onchange_profile_id()
         if self.profile_id:
             self.method_percentage = self.profile_id.method_percentage
+        return res
 
     def _get_depreciation_stop_date(self, depreciation_start_date):
         """Compute stop date for the added method 'Percentage'."""
@@ -114,29 +118,41 @@ class AccountAssetAsset(models.Model):
     ):
         """"Simulate the computation like year one."""
         is_changed = self.method_time == 'percentage'
+        obj = self
         if is_changed:
-            self.method_time = 'year'
-        table = super()._compute_depreciation_amount_per_fiscal_year(
+            self.with_context(
+                asset_validate_from_write=True
+            ).method_time = 'year'
+            obj = self.with_context(use_percentage=True)
+        table = super(
+            AccountAssetAsset, obj
+        )._compute_depreciation_amount_per_fiscal_year(
             table, line_dates, depreciation_start_date,
             depreciation_stop_date,
         )
         if is_changed:
-            self.method_time = 'percentage'
+            self.with_context(
+                asset_validate_from_write=True
+            ).method_time = 'percentage'
         return table
 
     def _compute_depreciation_table_lines(self, table, depreciation_start_date,
                                           depreciation_stop_date, line_dates):
         """"Simulate the computation like year one."""
         is_changed = self.method_time == 'percentage'
+        obj = self
         if is_changed:
-            self.method_time = 'year'
-        super(
-            AccountAssetAsset, self.with_context(
-                use_percentage=True))._compute_depreciation_table_lines(
+            self.with_context(
+                asset_validate_from_write=True
+            ).method_time = 'year'
+            obj = self.with_context(use_percentage=True)
+        super(AccountAssetAsset, obj)._compute_depreciation_table_lines(
             table, depreciation_start_date, depreciation_stop_date, line_dates,
         )
         if is_changed:
-            self.method_time = 'percentage'
+            self.with_context(
+                asset_validate_from_write=True
+            ).method_time = 'percentage'
 
     def _get_amount_linear(
             self, depreciation_start_date, depreciation_stop_date, entry):

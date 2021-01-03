@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-10 03:41+0000\n"
-"PO-Revision-Date: 2019-12-28 17:13+0000\n"
-"Last-Translator: Carles Antoli <carlesantoli@hotmail.com>\n"
+"PO-Revision-Date: 2020-11-05 11:08+0000\n"
+"Last-Translator: brendapaniagua <brenda.paniagua@qubiq.es>\n"
 "Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "AEAT: Client anònim"
 #. module: l10n_es_aeat
 #: model:ir.model,name:l10n_es_aeat.model_l10n_es_aeat_certificate
 msgid "AEAT Certificate"
-msgstr ""
+msgstr "Certificat AEAT"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_map_tax__model
@@ -56,10 +56,8 @@ msgstr "Declaració AEAT"
 
 #. module: l10n_es_aeat
 #: model:ir.model,name:l10n_es_aeat.model_l10n_es_aeat_soap
-#, fuzzy
-#| msgid "AEAT"
 msgid "AEAT SOAP"
-msgstr "AEAT"
+msgstr "AEAT SOAP"
 
 #. module: l10n_es_aeat
 #: model:ir.model,name:l10n_es_aeat.model_aeat_model_export_config
@@ -83,7 +81,7 @@ msgid "AEAT manager"
 msgstr "Responsable AEAT"
 
 #. module: l10n_es_aeat
-#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report.py:282
+#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report.py:268
 #, python-format
 msgid ""
 "AEAT model sequence not found. You can try to restart your Odoo service for "
@@ -308,7 +306,7 @@ msgstr "Declaraciones canceladas"
 #: model:ir.actions.act_window,name:l10n_es_aeat.l10n_es_certificate_action
 #: model:ir.ui.menu,name:l10n_es_aeat.l10n_es_aeat_certificate_menu
 msgid "Certificates AEAT"
-msgstr ""
+msgstr "Certificats AEAT"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,help:l10n_es_aeat.field_res_partner__aeat_anonymous_cash_customer
@@ -364,7 +362,7 @@ msgstr "Comparar arxiu"
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_certificate__company_id
 msgid "Compañía"
-msgstr ""
+msgstr "Companyia"
 
 #. module: l10n_es_aeat
 #: selection:l10n.es.aeat.report,type:0
@@ -536,10 +534,8 @@ msgstr "Declaraciones borrador"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_certificate__date_end
-#, fuzzy
-#| msgid "To Date"
 msgid "End Date"
-msgstr "Fins la data"
+msgstr "Data de finalització"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_aeat_model_export_config__date_end
@@ -559,7 +555,7 @@ msgstr ""
 #: code:addons/l10n_es_aeat/models/aeat_certificate.py:78
 #, python-format
 msgid "Error! There aren't certificates."
-msgstr ""
+msgstr "Error! No hi ha certificats."
 
 #. module: l10n_es_aeat
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat.wizard_compare_boe_file
@@ -682,10 +678,8 @@ msgstr "Fixe: {}"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_certificate__folder
-#, fuzzy
-#| msgid "Full Name"
 msgid "Folder Name"
-msgstr "Nom complet"
+msgstr "Nom de la carpeta"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_report__message_follower_ids
@@ -801,7 +795,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat.l10n_es_aeat_certificate_password_wizard_view
 #, python-format
 msgid "Insert Password"
-msgstr ""
+msgstr "Insereix una contrasenya"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_map_tax_line__inverse
@@ -904,7 +898,7 @@ msgstr "Línies"
 #. module: l10n_es_aeat
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat.l10n_es_aeat_certificate_form_view
 msgid "Load Certificate"
-msgstr ""
+msgstr "Carrega el certificat"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_report__message_main_attachment_id
@@ -964,7 +958,7 @@ msgid "Model number"
 msgstr "Nº model"
 
 #. module: l10n_es_aeat
-#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report.py:419
+#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report.py:405
 #, python-format
 msgid "Modelo no válido: %s. Debe declarar una variable '_aeat_number'"
 msgstr "Model no vàlid: %s. Ha de declarar una variable '_aeat_number'"
@@ -1069,7 +1063,7 @@ msgstr "Nombre sense decimals"
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat.l10n_es_aeat_certificate_form_view
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat.l10n_es_aeat_certificate_password_wizard_view
 msgid "Obtain Keys"
-msgstr ""
+msgstr "Obteniu claus"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_aeat_model_export_config__model_id
@@ -1087,7 +1081,7 @@ msgid "Only non-exigible amounts"
 msgstr "Només quantitats no exigibles"
 
 #. module: l10n_es_aeat
-#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report.py:389
+#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report.py:375
 #, python-format
 msgid "Only reports in 'draft' or 'cancelled' state can be removed"
 msgstr ""
@@ -1097,7 +1091,7 @@ msgstr ""
 #: code:addons/l10n_es_aeat/wizard/aeat_certificate_password.py:69
 #, python-format
 msgid "OpenSSL version is not supported. Upgrade to 0.15 or greater."
-msgstr ""
+msgstr "La versió OpenSSL no és compatible. Actualitzeu a 0.15 o superior."
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_map_tax_line__move_type
@@ -1124,7 +1118,7 @@ msgstr "Empresa"
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_certificate_password__password
 msgid "Password"
-msgstr ""
+msgstr "Contrasenya"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_report__period_type
@@ -1181,7 +1175,7 @@ msgstr "Nº previ de declaració"
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_certificate__private_key
 msgid "Private Key"
-msgstr ""
+msgstr "Clau privada"
 
 #. module: l10n_es_aeat
 #: selection:l10n.es.aeat.report,state:0
@@ -1192,7 +1186,7 @@ msgstr "Processada"
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_certificate__public_key
 msgid "Public Key"
-msgstr ""
+msgstr "Clau privada"
 
 #. module: l10n_es_aeat
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat.wizard_aeat_export
@@ -1219,7 +1213,7 @@ msgid "Regular"
 msgstr "Regular"
 
 #. module: l10n_es_aeat
-#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report_tax_mapping.py:168
+#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report_tax_mapping.py:154
 #, python-format
 msgid "Regularization"
 msgstr "Regularització"
@@ -1279,10 +1273,8 @@ msgstr "Veure assentament"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_certificate__date_start
-#, fuzzy
-#| msgid "Starting date"
 msgid "Start Date"
-msgstr "Data inicial"
+msgstr "Data d'inici"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_aeat_model_export_config__date_start
@@ -1414,10 +1406,8 @@ msgstr ""
 
 #. module: l10n_es_aeat
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat.l10n_es_aeat_certificate_form_view
-#, fuzzy
-#| msgid "Active"
 msgid "To Active"
-msgstr "Actiu"
+msgstr "A Actiu"
 
 #. module: l10n_es_aeat
 #: model:ir.model.fields,field_description:l10n_es_aeat.field_l10n_es_aeat_map_tax__date_to
@@ -1506,7 +1496,7 @@ msgstr "Assistent"
 #. module: l10n_es_aeat
 #: model:ir.model,name:l10n_es_aeat.model_l10n_es_aeat_certificate_password
 msgid "Wizard to Load AEAT Certificate"
-msgstr ""
+msgstr "Assistent per carregar el certificat AEAT"
 
 #. module: l10n_es_aeat
 #: code:addons/l10n_es_aeat/wizard/export_to_boe.py:60
@@ -1521,7 +1511,7 @@ msgid "Year"
 msgstr "Any"
 
 #. module: l10n_es_aeat
-#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report_tax_mapping.py:202
+#: code:addons/l10n_es_aeat/models/l10n_es_aeat_report_tax_mapping.py:188
 #, python-format
 msgid "You must fill both journal and counterpart account."
 msgstr "Ha d'omplir tant el diari com el compte de contrapartida."

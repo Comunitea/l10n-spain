@@ -55,9 +55,46 @@ msgstr ""
 "\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"&gt;"
 
 #. module: l10n_es_facturae
+#: model_terms:ir.ui.view,arch_db:l10n_es_facturae.facturae_header
+msgid ""
+"&lt;fe:Facturae xmlns:fe=\"http://www.facturae.es/Facturae/2014/v3.2.1/"
+"Facturae\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"&gt;"
+msgstr ""
+
+#. module: l10n_es_facturae
+#: model_terms:ir.ui.view,arch_db:l10n_es_facturae.facturae_header
+msgid ""
+"&lt;fe:Facturae xmlns:fe=\"http://www.facturae.gob.es/formato/Versiones/"
+"Facturaev3_2_2.xml\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"&gt;"
+msgstr ""
+
+#. module: l10n_es_facturae
+#: selection:res.company,facturae_version:0
+#: selection:res.partner,facturae_version:0
+msgid "3.2"
+msgstr ""
+
+#. module: l10n_es_facturae
+#: selection:res.company,facturae_version:0
+#: selection:res.partner,facturae_version:0
+msgid "3.2.1"
+msgstr ""
+
+#. module: l10n_es_facturae
+#: selection:res.company,facturae_version:0
+#: selection:res.partner,facturae_version:0
+msgid "3.2.2"
+msgstr ""
+
+#. module: l10n_es_facturae
 #: selection:account.invoice.integration,integration_status:0
 msgid "Accepted"
 msgstr "Aceptado"
+
+#. module: l10n_es_facturae
+#: selection:account.invoice.integration,integration_status:0
+msgid "Accounted obligation"
+msgstr ""
 
 #. module: l10n_es_facturae
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_integration__attachment_ids
@@ -216,13 +253,13 @@ msgid "Companies"
 msgstr "Compañías"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:208
+#: code:addons/l10n_es_facturae/models/account_invoice.py:209
 #, python-format
 msgid "Company vat is too small"
 msgstr "El identificador fiscal de la compañía es demasiado corto"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:202
+#: code:addons/l10n_es_facturae/models/account_invoice.py:203
 #, python-format
 msgid "Company vat not provided"
 msgstr "Es necesario el identificador fiscal de la compañía"
@@ -244,7 +281,7 @@ msgid "Correction Method"
 msgstr "Método de corrección"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/res_partner.py:39
+#: code:addons/l10n_es_facturae/models/res_partner.py:44
 #, python-format
 msgid "Country must be defined"
 msgstr "Se debe definir el país"
@@ -262,7 +299,6 @@ msgstr "Crear archivo de Factura-E"
 #. module: l10n_es_facturae
 #: model:ir.model,name:l10n_es_facturae.model_create_facturae
 #, fuzzy
-#| msgid "Create Factura-E file"
 msgid "Create Facturae Wizard"
 msgstr "Crear archivo de Factura-E"
 
@@ -397,7 +433,7 @@ msgstr "Factura-E sin firmar"
 
 #. module: l10n_es_facturae
 #: code:addons/l10n_es_facturae/models/account_invoice.py:93
-#: code:addons/l10n_es_facturae/models/account_invoice.py:513
+#: code:addons/l10n_es_facturae/models/account_invoice.py:526
 #, python-format
 msgid "FacturaE start and end dates are both required if one of them is filled"
 msgstr ""
@@ -405,14 +441,12 @@ msgstr ""
 #. module: l10n_es_facturae
 #: model_terms:ir.ui.view,arch_db:l10n_es_facturae.invoice_form
 #, fuzzy
-#| msgid "facturae"
 msgid "Facturae"
 msgstr "facturae"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:531
+#: code:addons/l10n_es_facturae/models/account_invoice.py:544
 #, fuzzy, python-format
-#| msgid "Facturae Refund Reason"
 msgid "Facturae Configuration"
 msgstr "Motivo de Reembolso según Facturae"
 
@@ -420,21 +454,18 @@ msgstr "Motivo de Reembolso según Facturae"
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice__facturae_end_date
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_line__facturae_end_date
 #, fuzzy
-#| msgid "Facturae code"
 msgid "Facturae End Date"
 msgstr "Código de Facturae"
 
 #. module: l10n_es_facturae
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_line__facturae_file_date
 #, fuzzy
-#| msgid "Factura-E file"
 msgid "Facturae File Date"
 msgstr "Fichero Factura-E"
 
 #. module: l10n_es_facturae
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_line__facturae_file_reference
 #, fuzzy
-#| msgid "Facturae Refund Reason"
 msgid "Facturae File Reference"
 msgstr "Motivo de Reembolso según Facturae"
 
@@ -487,16 +518,21 @@ msgstr "Motivo de Reembolso según Facturae"
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice__facturae_start_date
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_line__facturae_start_date
 #, fuzzy
-#| msgid "Facturae code"
 msgid "Facturae Start Date"
 msgstr "Código de Facturae"
 
 #. module: l10n_es_facturae
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_line__facturae_transaction_date
 #, fuzzy
-#| msgid "Facturae code"
 msgid "Facturae Transaction Date"
 msgstr "Código de Facturae"
+
+#. module: l10n_es_facturae
+#: model:ir.model.fields,field_description:l10n_es_facturae.field_res_company__facturae_version
+#: model:ir.model.fields,field_description:l10n_es_facturae.field_res_partner__facturae_version
+#: model:ir.model.fields,field_description:l10n_es_facturae.field_res_users__facturae_version
+msgid "Facturae Version"
+msgstr ""
 
 #. module: l10n_es_facturae
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_payment_mode__facturae_code
@@ -703,14 +739,12 @@ msgstr "La integración no puede ser actualizada"
 #. module: l10n_es_facturae
 #: model:ir.model,name:l10n_es_facturae.model_account_invoice_integration
 #, fuzzy
-#| msgid "Integration cannot be sent"
 msgid "Integration for an invoice"
 msgstr "La integración no puede ser enviada"
 
 #. module: l10n_es_facturae
 #: model:ir.model,name:l10n_es_facturae.model_account_invoice_integration_method
 #, fuzzy
-#| msgid "Integration Methods"
 msgid "Integration method for invoices"
 msgstr "Métodos de integración"
 
@@ -728,7 +762,6 @@ msgstr "Factura"
 #. module: l10n_es_facturae
 #: model:ir.model,name:l10n_es_facturae.model_account_invoice_line
 #, fuzzy
-#| msgid "Invoice"
 msgid "Invoice Line"
 msgstr "Factura"
 
@@ -782,24 +815,6 @@ msgstr "Log"
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_integration__attachment_id
 msgid "Main file"
 msgstr "Fichero principal"
-
-#. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:217
-#, python-format
-msgid "Mandate account BIC must be 11"
-msgstr "El BIC del banco de la cuenta del mandato es demasiado corto"
-
-#. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:219
-#, python-format
-msgid "Mandate account is too small"
-msgstr "La cuenta del mandato es demasiado corta"
-
-#. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:213
-#, python-format
-msgid "Mandate is missing"
-msgstr "No existe mandato"
 
 #. module: l10n_es_facturae
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_account_invoice_integration__method_id
@@ -885,29 +900,23 @@ msgstr "Pagado"
 #. module: l10n_es_facturae
 #: code:addons/l10n_es_facturae/models/account_invoice.py:215
 #, python-format
-msgid "Partner bank in mandate is missing"
-msgstr "El banco del mandato es obligatorio"
-
-#. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:223
-#, python-format
 msgid "Partner bank is missing"
 msgstr "El banco es obligatorio"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:206
+#: code:addons/l10n_es_facturae/models/account_invoice.py:207
 #, python-format
 msgid "Partner state not provided"
 msgstr "El estado es obligatorio"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:204
+#: code:addons/l10n_es_facturae/models/account_invoice.py:205
 #, python-format
 msgid "Partner vat is too small"
 msgstr "El identificador fiscal del Cliente es demasiado corto"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:200
+#: code:addons/l10n_es_facturae/models/account_invoice.py:201
 #, python-format
 msgid "Partner vat not provided"
 msgstr "El NIF es obligatorio"
@@ -923,7 +932,7 @@ msgid "Payment Modes"
 msgstr "Modos de pago"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:210
+#: code:addons/l10n_es_facturae/models/account_invoice.py:211
 #, python-format
 msgid "Payment mode is required"
 msgstr "El módo de pago es obligatorio"
@@ -1016,6 +1025,12 @@ msgstr "Registrado en REC"
 
 #. module: l10n_es_facturae
 #: selection:account.invoice.integration,integration_status:0
+#, fuzzy
+msgid "Registered on RFC"
+msgstr "Registrado en RCF"
+
+#. module: l10n_es_facturae
+#: selection:account.invoice.integration,integration_status:0
 msgid "Rejected"
 msgstr "Rechazado"
 
@@ -1040,13 +1055,13 @@ msgid "Second"
 msgstr "Segundo"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:226
+#: code:addons/l10n_es_facturae/models/account_invoice.py:218
 #, python-format
 msgid "Selected account BIC must be 11"
 msgstr "El BIC del banco de la cuenta debe tener 11 carácteres"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:228
+#: code:addons/l10n_es_facturae/models/account_invoice.py:220
 #, python-format
 msgid "Selected account is too small"
 msgstr "La cuenta seleccionada es demasiado corta"
@@ -1065,7 +1080,6 @@ msgstr "Enviar cancelación"
 #. module: l10n_es_facturae
 #: selection:account.invoice.integration,integration_status:0
 #, fuzzy
-#| msgid "Send"
 msgid "Sended"
 msgstr "Enviar"
 
@@ -1088,7 +1102,7 @@ msgstr "Serie de la factura"
 
 #. module: l10n_es_facturae
 #: code:addons/l10n_es_facturae/models/account_invoice.py:101
-#: code:addons/l10n_es_facturae/models/account_invoice.py:521
+#: code:addons/l10n_es_facturae/models/account_invoice.py:534
 #, python-format
 msgid "Start date cannot be later than end date"
 msgstr ""
@@ -1101,7 +1115,7 @@ msgid "State"
 msgstr "Estado"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/res_partner.py:43
+#: code:addons/l10n_es_facturae/models/res_partner.py:48
 #, python-format
 msgid "State must be defined"
 msgstr "La provincia es obligatoria"
@@ -1118,7 +1132,7 @@ msgid "Tax"
 msgstr "Impuesto"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:197
+#: code:addons/l10n_es_facturae/models/account_invoice.py:198
 #, python-format
 msgid "Taxes not provided in invoice line %s"
 msgstr "No hay impuestos en la línea de factura %s"
@@ -1129,7 +1143,7 @@ msgid "Templates for Taxes"
 msgstr "Plantillas para Impuestos"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:478
+#: code:addons/l10n_es_facturae/models/account_invoice.py:477
 #, python-format
 msgid ""
 "The generated XML file is not valid against the official XML Schema "
@@ -1165,13 +1179,13 @@ msgid "Update Date"
 msgstr "Fecha de actualización"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/res_partner.py:36
+#: code:addons/l10n_es_facturae/models/res_partner.py:41
 #, python-format
 msgid "Vat must be defined"
 msgstr "El número de IVA debe estar definido"
 
 #. module: l10n_es_facturae
-#: code:addons/l10n_es_facturae/models/account_invoice.py:230
+#: code:addons/l10n_es_facturae/models/account_invoice.py:222
 #, python-format
 msgid ""
 "You can only create Factura-E files for invoices that have been validated."
@@ -1279,8 +1293,8 @@ msgid "[19] Pago mediante tarjeta"
 msgstr "[19] Pago mediante tarjeta"
 
 #. module: l10n_es_facturae
+#: code:addons/l10n_es_facturae/models/account_invoice.py:442
 #: code:addons/l10n_es_facturae/models/account_invoice.py:450
-#: code:addons/l10n_es_facturae/models/account_invoice.py:458
 #, python-format
 msgid "facturae"
 msgstr "facturae"
@@ -1306,6 +1320,18 @@ msgstr "Órgano gestor"
 #: model:ir.model.fields,field_description:l10n_es_facturae.field_res_users__organo_proponente
 msgid "Órgano proponente"
 msgstr "Órgano proponente"
+
+#~ msgid "Mandate account BIC must be 11"
+#~ msgstr "El BIC del banco de la cuenta del mandato es demasiado corto"
+
+#~ msgid "Mandate account is too small"
+#~ msgstr "La cuenta del mandato es demasiado corta"
+
+#~ msgid "Mandate is missing"
+#~ msgstr "No existe mandato"
+
+#~ msgid "Partner bank in mandate is missing"
+#~ msgstr "El banco del mandato es obligatorio"
 
 #~ msgid "account.invoice.integration"
 #~ msgstr "account.invoice.integration"
