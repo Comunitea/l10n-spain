@@ -132,7 +132,7 @@
                     <InvoicesCount t-esc="'1'"/>
                     <TotalInvoicesAmount>
                         <TotalAmount t-esc="('%.2f' if version == '3_2' else '%.8f') % (invoice.currency_id.round(invoice.amount_total))"/>
-                        <EquivalentInEuros t-esc="'%.2f' % ((invoice.currency_id.round(invoice.amount_total) * euro_rate / currency_rate)"/>
+                        <EquivalentInEuros t-esc="'%.2f' % ((invoice.currency_id.round(invoice.amount_total) * euro_rate / currency_rate))"/>
                     </TotalInvoicesAmount>
                     <TotalOutstandingAmount>
                         <TotalAmount t-esc="('%.2f' if version == '3_2' else '%.8f') % (invoice.currency_id.round(invoice.amount_total))"/>
