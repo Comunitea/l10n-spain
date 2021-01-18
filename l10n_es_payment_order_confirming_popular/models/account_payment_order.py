@@ -35,7 +35,7 @@ class AccountPaymentOrder(models.Model):
         return str.encode(txt_file), self.name + '.BP'
 
     def _pop_cabecera(self):
-        fecha_planificada = self.date_scheduled
+        fecha_planificada = fields.Datetime.to_string(self.date_scheduled)
         fecha_planificada = fecha_planificada.replace('-', '')
         dia = fecha_planificada[6:]
         mes = fecha_planificada[4:6]
@@ -290,7 +290,7 @@ class AccountPaymentOrder(models.Model):
         fecha_factura = 8 * ' '
         invoice = line.payment_line_ids[0].move_line_id.invoice_id
         if invoice:
-            fecha_factura = invoice.date_invoice.replace('-', '')
+            fecha_factura = fields.Datetime.to_string(invoice.date_invoice).replace('-', '')
             dia = fecha_factura[6:]
             mes = fecha_factura[4:6]
             ano = fecha_factura[:4]
@@ -299,7 +299,7 @@ class AccountPaymentOrder(models.Model):
         # 38 - 45 Fecha vencimiento / Referencia factura
         if not self.post_financing_date:
             raise UserError(_('post-financing date mandatory'))
-        text += fields.Date.from_string(self.post_financing_date).strftime('%d%m%Y').ljust(8)
+        text += self.post_financing_date.strftime('%d%m%Y').ljust(8)
         # 46 - 59 Numero de factura
         num_factura = 14 * ' '
         if invoice:
