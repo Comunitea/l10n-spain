@@ -79,8 +79,7 @@ class AccountPaymentOrder(models.Model):
         text = self._get_fix_part('010', '010')
 
         # 41 - 48 Fecha de envío del fichero
-        date_file = fields.Date.from_string(self.date_scheduled)\
-            .strftime('%d%m%Y')
+        date_file = self.date_scheduled.strftime('%d%m%Y')
         text += date_file
         # 40 - 52 Código banco
         text += '0182'
@@ -94,11 +93,9 @@ class AccountPaymentOrder(models.Model):
 
         # PRIMER REGISTRO CABECERA ORDENANTE
         text = self._get_fix_part('020', '010')
-        # import pdb; pdb.set_trace()
         # 41 - 48 Fecha de envio del fichero
         # date_now = time.strftime('%d%m%Y')
-        # date_file = fields.Date.from_string(self.date_generated)\
-        #     .strftime('%d%m%Y')
+        # date_file = self.date_generated.strftime('%d%m%Y')
         text += date_file
         # 49 - 56 Fecha de la remesa
         # date_pos = fields.Date.from_string(self.post_financing_date)\
@@ -252,15 +249,13 @@ class AccountPaymentOrder(models.Model):
                     # 31 - 36: Fecha factura
                     fecha_factura = 6 * ' '
                     if inv.date_invoice:
-                        fecha_factura = inv.date_invoice.replace('-', '')
+                        fecha_factura = fields.Datetime.to_string(inv.date_invoice).replace('-', '')
                         dia = fecha_factura[6:]
                         mes = fecha_factura[4:6]
                         ano = fecha_factura[:4]
                         fecha_factura = dia + mes + ano
                     else:
-                        fecha_factura = fields.Date.from_string(
-                            pl.move_line_id.
-                            date).strftime('%d%m%Y')
+                        fecha_factura = pl.move_line_id.date.strftime('%d%m%Y')
                     if inv.date_invoice > self.date_scheduled:
                         raise UserError(
                             _("Error: La factura %s tiene una fecha mayor que \
@@ -273,8 +268,7 @@ class AccountPaymentOrder(models.Model):
                     # mes = fecha_vencimiento[4:6]
                     # ano = fecha_vencimiento[:4]
                     # fecha_vencimiento = dia + mes + ano
-                    new_due_date = fields.Datetime.from_string(
-                        self.date_scheduled) + datetime.timedelta(days=3)
+                    new_due_date = self.date_scheduled + datetime.timedelta(days=3)
                     fecha_vencimiento = new_due_date.strftime('%d%m%Y')
                     fecha_vencimiento2 = new_due_date.strftime('%Y-%m-%d')
 
