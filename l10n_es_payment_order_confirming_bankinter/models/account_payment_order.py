@@ -71,7 +71,7 @@ class AccountPaymentOrder(models.Model):
             # De 27 a 29. Nümero de dato
             text += '001'
             # De 30 a 35. Fecha de envío
-            fecha = fields.Date.from_string(self.date_scheduled).strftime('%y%m%d')
+            fecha = self.date_scheduled.strftime('%y%m%d')
             text += fecha
             # De 36 a 41. Fecha de Emisión
             text += fecha
@@ -250,7 +250,7 @@ class AccountPaymentOrder(models.Model):
                 # Sigo chequeando que esté establecida la fecha de postfinanciación
                 if not self.post_financing_date:
                     raise UserError(_('post-financing date mandatory'))
-                text += fields.Date.from_string(self.date_scheduled).strftime('%y%m%d').ljust(6)
+                text += self.date_scheduled.strftime('%y%m%d').ljust(6)
                 # 36 - 51 Numero de factura. Sustituyo el número de factura por la referncia del pago agrupado
                 text += self.convert(line.name, 16)
                 # 52 - 65 Libre
