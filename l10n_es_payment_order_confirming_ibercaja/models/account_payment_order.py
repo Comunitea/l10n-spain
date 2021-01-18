@@ -73,7 +73,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. 3n. Número de Dato
                 text += '001'
                 # Zona F1. 6n. Fecha de envío del soporte
-                fecha = fields.Date.from_string(self.date_scheduled).strftime('%d%m%y')
+                fecha = self.date_scheduled.strftime('%d%m%y')
                 text += fecha
                 # Zona F2. 6n. Fecha de envío de las órdenes. A ceros porque se harán según lo indicado en cada factura.
                 text += '0' * 6
@@ -187,7 +187,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona F. 36an. Número o referencia que figura en la factura. (Tomo el número de pago agrupado).
                 text += self.convert(line.name, 36)
                 # Zona G. 7n. Fecha de emisión de la factura ajustado a la derecha. Tomo como fecha la del pago agrupado.
-                text += fields.Date.from_string(self.date_scheduled).strftime('%d%m%y').rjust(7,'0')
+                text += self.date_scheduled.strftime('%d%m%y').rjust(7,'0')
             
             # Cierre de cada línea
             text = text.ljust(72) + '\r\n'
