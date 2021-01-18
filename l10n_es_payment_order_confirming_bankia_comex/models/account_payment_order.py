@@ -110,7 +110,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. (3). Número de dato. '001'
                 text += '001'
                 # Zona F1. (6). Fecha de envío del fichero
-                date_file = fields.Date.from_string(self.date_scheduled).strftime('%d%m%y')
+                date_file = self.date_scheduled.strftime('%d%m%y')
                 text += date_file
                 # Zona F2. (6). Fecha de emisión de las órdenes.
                 text += date_file
@@ -217,8 +217,7 @@ class AccountPaymentOrder(models.Model):
                 else:
                     # REGISTRO 10
                     # Zona D. (12) Fecha de vencimiento (Postfinanciación) 
-                    date_post_finan = fields.Date.from_string(self.post_financing_date) \
-                            .strftime('%d%m%Y')
+                    date_post_finan = self.post_financing_date.strftime('%d%m%Y')
                     text += self.convert(date_post_finan, 12)
 
             # FIN PARTE COMUN
@@ -299,7 +298,7 @@ class AccountPaymentOrder(models.Model):
                 # Zona E. (3). Número de dato '042'
                 text += '042'
                 # Zona F1. (9) Fecha de emisión de la factura. Tomo el primer registro.
-                fcha_fra = fields.Date.from_string(self.date_scheduled) - datetime.timedelta(days = 2)
+                fcha_fra = self.date_scheduled - datetime.timedelta(days = 2)
                 text += self.convert(fcha_fra.strftime('%d%m%Y'), 9)
                 # Zona F2. (13). Referencia del proveedor.
                 text += self.convert(nif_prov, 13)
