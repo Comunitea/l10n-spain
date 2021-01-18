@@ -44,7 +44,7 @@ class AccountPaymentOrder(models.Model):
             raise UserError(
                 _("Error: El tipo de fecha de ejecución deber ser del\
                   pago debe ser fijo"))
-            fecha_planificada = fields.Daterime.to_string(self.date_scheduled)
+            fecha_planificada = fields.Datetime.to_string(self.date_scheduled)
             fecha_planificada = fecha_planificada.replace('-', '')
             dia = fecha_planificada[6:]
             mes = fecha_planificada[4:6]
