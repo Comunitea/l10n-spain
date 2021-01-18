@@ -3,7 +3,7 @@
 
 {
     'name': 'Exportación de fichero bancario Confirming para Abanca',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': 'Comunitea, '
               'Odoo Community Association (OCA)',
     'contributors': [

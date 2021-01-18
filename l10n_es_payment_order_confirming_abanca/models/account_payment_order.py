@@ -89,8 +89,7 @@ class AccountPaymentOrder(models.Model):
         # 50 a 51. Alfanumérico. Libre 4
         text += ' '
         # 51 a 59. Fecha Remesa
-        date_file = fields.Date.from_string(self.date_scheduled)\
-            .strftime('%d%m%Y')
+        date_file = self.date_scheduled.strftime('%d%m%Y')
         text += date_file
         # 59 a 62. Moneda ISO (EUR)
         text += self.company_currency_id.name
@@ -151,8 +150,7 @@ class AccountPaymentOrder(models.Model):
                 amount = amount.replace('.', '')
                 text += amount.rjust(15, '0')
                 # 51 a 59. Fecha vto pago
-                date_post_finan = fields.Date.from_string(self.post_financing_date) \
-                    .strftime('%d%m%Y')
+                date_post_finan = self.post_financing_date.strftime('%d%m%Y')
                 text += date_post_finan
                 # 59 a 60. Anulación Orden
                 text += ' '
@@ -273,15 +271,14 @@ class AccountPaymentOrder(models.Model):
                     text += 'P' if pl.amount_currency >= 0 else 'N'
                     # De 51 a 59. Fecha factura
                     if inv.date_invoice:
-                        fecha_factura = inv.date_invoice.replace('-', '')
-                        dia = fecha_factura[6:]
+                        fecha_factura = fields.Datetime.to_string(inv.date_invoice).replace('-', '')
+                        dia = fecha_factura[6:8]
                         mes = fecha_factura[4:6]
                         ano = fecha_factura[:4]
                         fecha_factura = dia + mes + ano
                     else:
-                        fecha_factura = fields.Date.from_string(
-                            pl.move_line_id.
-                            date).strftime('%d%m%Y')
+                        fecha_factura = pl.move_line_id.
+                            date.strftime('%d%m%Y')
                     if inv.date_invoice > self.date_scheduled:
                         raise UserError(
                             _("Error: La factura %s tiene una fecha mayor que \
