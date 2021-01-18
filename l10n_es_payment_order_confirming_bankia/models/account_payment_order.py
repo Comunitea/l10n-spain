@@ -75,7 +75,7 @@ class AccountPaymentOrder(models.Model):
         # 30 Identificador de cabecera
         text += 'A'
         # 31-36 Fecha de generación del soporte
-        text += fields.Date.from_string(fields.Date.context_today(self)).strftime('%y%m%d')
+        text += fields.Date.context_today(self).strftime('%y%m%d')
         # 37-42 Sin uso
         text += ''.ljust(6)
         # 43 Modo respuesta F=fichero
@@ -146,7 +146,7 @@ class AccountPaymentOrder(models.Model):
             text += ' ' * 8
         else:
             # Si es pronto pago escribo la fecha de postfinanciación
-            text += fields.Date.from_string(self.post_financing_date).strftime('%Y%m%d').ljust(8)
+            text += self.post_financing_date.strftime('%Y%m%d').ljust(8)
         
         # 69-73 Sin uso
         text += ''.ljust(5)
@@ -159,14 +159,14 @@ class AccountPaymentOrder(models.Model):
         invoice = line.payment_line_ids[0].move_line_id.invoice_id
         if invoice:
             # 91-96 Fecha del documento
-            text += fields.Date.from_string(invoice.date_invoice).strftime('%y%m%d')
+            text += invoice.date_invoice.strftime('%y%m%d')
         else:
             # 91-96 Fecha del documento
-            text += fields.Date.from_string(line.payment_line_ids[0].move_line_id.date).strftime('%y%m%d')
+            text += line.payment_line_ids[0].move_line_id.date.strftime('%y%m%d')
         # 97-111 Sin uso
         text += ''.ljust(15)
         # 112-117 Fecha del pago
-        text += fields.Date.from_string(line.date).strftime('%y%m%d')
+        text += line.date.strftime('%y%m%d')
         # 118-132 Importe
         text += self.convert(line.amount_currency, 15)
         # 133-135 Divisa, siempre EUR
