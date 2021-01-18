@@ -55,25 +55,25 @@ class AccountPaymentOrder(models.Model):
         fecha_planificada = 6 * ' '
         if self.date_prefered == 'due':
             fecha_planificada = self.payment_line_ids \
-                and self.payment_line_ids[0].ml_maturity_date \
-                or date.today().strftime('%Y-%d-%m')
-            fecha_planificada = fields.Date.from_string(fecha_planificada)
+                and self.payment_line_ids[0].ml_maturity_date
+                or date.today()
+            # fecha_planificada = fields.Date.from_string(fecha_planificada)
         elif self.date_prefered == 'now':
-            fecha_planificada = date.today().strftime('%d%m%y')
+            fecha_planificada = date.today()
         else:
             fecha_planificada = self.date_scheduled
             if not fecha_planificada:
                 raise UserError(
                     _("Error: Fecha planificada no \
                         establecida en la Orden de pago."))
-            else:
-                fecha_planificada = fields.Date.from_string(fecha_planificada)
+            # else:
+                # fecha_planificada = fields.Date.from_string(fecha_planificada)
         return fecha_planificada.strftime('%d%m%y')
 
     def _get_fecha_vencimiento(self, line):
         fecha_vencimiento = 8 * ' '
         if line.date:
-            fecha_vencimiento = line.date.replace('-', '')
+            fecha_vencimiento = fields.Datetime.to_string(line.date).replace('-', '')
             dia = fecha_vencimiento[6:]
             mes = fecha_vencimiento[4:6]
             ano = fecha_vencimiento[0:4]
@@ -331,8 +331,7 @@ class AccountPaymentOrder(models.Model):
                 # 46 - 53 Fecha factura
                 fecha_factura = 8 * ' '
                 if invoice.date_invoice:
-                    fecha_factura = fields.Date.from_string(
-                        invoice.date_invoice).strftime('%d-%m-%y')
+                    fecha_factura = invoice.date_invoice.strftime('%d-%m-%y')
                 else:
                     fecha_factura = fields.Date.from_string(
                         payment_line.move_line_id.date).strftime(
