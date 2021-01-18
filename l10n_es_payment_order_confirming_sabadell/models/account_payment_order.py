@@ -81,7 +81,7 @@ class AccountPaymentOrder(models.Model):
         vat = self.convert_vat(self.company_partner_bank_id.partner_id)
         text += self.convert(vat, 15)
         # De 67 a 75. Fecha de proceso del fichero. Fecha en que se paga a los proveedoes.
-        date_file = fields.Date.from_string(self.date_scheduled).strftime('%Y%m%d')
+        date_file = self.date_scheduled.strftime('%Y%m%d')
         text += date_file
         # De 75 a 83. Fecha de la remesa. Fecha de generación del fichero.
         text += date_file
@@ -226,23 +226,20 @@ class AccountPaymentOrder(models.Model):
                     text += amount.rjust(15, '0')
                     # De 38 a 46. Fecha de emisión
                     if inv.date_invoice:
-                        fecha_factura = inv.date_invoice.replace('-', '')
+                        fecha_factura = fields.Datetime.to_string(inv.date_invoice).replace('-', '')
                         dia = fecha_factura[6:]
                         mes = fecha_factura[4:6]
                         ano = fecha_factura[:4]
                         fecha_factura = ano + mes + dia
                     else:
-                        fecha_factura = fields.Date.from_string(
-                            pl.move_line_id.
-                                date).strftime('%Y%m%d')
+                        fecha_factura = pl.move_line_id.date.strftime('%Y%m%d')
                     if inv.date_invoice > self.date_scheduled:
                         raise UserError(
                             _("Error: La factura %s tiene una fecha mayor que \
                             La remesa") % inv.number)
                     text += fecha_factura
                     # De 46 a 54. Fecha d evencimiento. Postfinanciación.
-                    date_post_finan = fields.Date.from_string(self.post_financing_date) \
-                        .strftime('%Y%m%d')
+                    date_post_finan = self.post_financing_date.strftime('%Y%m%d')
                     text += date_post_finan
                     # De 54 a 62. Fecha de prórroga aplazamiento.
                     text += ' ' * 8
