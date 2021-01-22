@@ -277,7 +277,7 @@ class AccountPaymentOrder(models.Model):
                         ano = fecha_factura[:4]
                         fecha_factura = dia + mes + ano
                     else:
-                        fecha_factura = pl.move_line_id.
+                        fecha_factura = pl.move_line_id.\
                             date.strftime('%d%m%Y')
                     if inv.date_invoice > self.date_scheduled:
                         raise UserError(
