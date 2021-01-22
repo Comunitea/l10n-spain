@@ -3,7 +3,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
-    'name': 'Exportación de fichero bancario Confirming para BBVA',
+    'name': 'Exportación de fichero bancario Confirming para Santander',
     'version': '12.0.1.0.0',
     'author': 'Soluntec, '
               'Odoo Community Association (OCA)',
