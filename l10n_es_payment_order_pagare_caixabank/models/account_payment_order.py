@@ -55,7 +55,7 @@ class AccountPaymentOrder(models.Model):
         fecha_planificada = 6 * ' '
         if self.date_prefered == 'due':
             fecha_planificada = self.payment_line_ids \
-                and self.payment_line_ids[0].ml_maturity_date
+                and self.payment_line_ids[0].ml_maturity_date \
                 or date.today()
             # fecha_planificada = fields.Date.from_string(fecha_planificada)
         elif self.date_prefered == 'now':
