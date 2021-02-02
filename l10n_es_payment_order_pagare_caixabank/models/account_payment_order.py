@@ -55,7 +55,7 @@ class AccountPaymentOrder(models.Model):
         fecha_planificada = 6 * ' '
         if self.date_prefered == 'due':
             fecha_planificada = self.payment_line_ids \
-                and self.payment_line_ids[0].ml_maturity_date
+                and self.payment_line_ids[0].ml_maturity_date \
                 or date.today()
             # fecha_planificada = fields.Date.from_string(fecha_planificada)
         elif self.date_prefered == 'now':
@@ -136,7 +136,7 @@ class AccountPaymentOrder(models.Model):
                 ordenante = self.company_partner_bank_id.partner_id.name
                 if not ordenante:
                     raise UserError(
-                        _("Error: Propietario de la cuenta no establecido para\
+                        _("Error: Propietario de la cuenta no establecido para \
                         la cuenta %s.") %
                         self.company_partner_bank_id.acc_number)
                 ordenante = self.strim_txt(ordenante, 36)
