@@ -302,7 +302,7 @@
                             <Quantity t-esc="line.quantity"/>
                             <UnitOfMeasure t-if="False"/>
                             <UnitPriceWithoutTax t-esc="('%.6f' if version == '3_2' else '%.8f') % line.price_unit"/>
-                            <t t-set="subtotal_gross" t-value="round(line.quantity * line.price_unit, line.company_currency_id.decimal_places)"/>
+                            <t t-set="subtotal_gross" t-value="invoice.currency_id.round(line.quantity * line.price_unit)"/>
                             <TotalCost t-esc="('%.6f' if version == '3_2' else '%.8f') % subtotal_gross"/>
                             <DiscountsAndRebates t-if="line.discount != 0">
                                 <Discount>
