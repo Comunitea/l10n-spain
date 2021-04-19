@@ -60,7 +60,7 @@ class AccountInvoiceIntegration(models.Model):
                 password,
                 use_digest=True,
                 timestamp_token=timestamp_token,
-                use_zulu_timestamp=True,
+                zulu_timestamp=True,
             ),
         )
         return client
