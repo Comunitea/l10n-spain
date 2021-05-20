@@ -74,10 +74,6 @@ class AccountPaymentOrder(models.Model):
         fecha_vencimiento = 8 * ' '
         if line.date:
             fecha_vencimiento = line.date.strftime('%d%m%Y')
-            dia = fecha_vencimiento[6:]
-            mes = fecha_vencimiento[4:6]
-            ano = fecha_vencimiento[0:4]
-            fecha_vencimiento = dia + mes + ano
         return fecha_vencimiento
 
     def _pop_cabecera_pagare_caix(self):
