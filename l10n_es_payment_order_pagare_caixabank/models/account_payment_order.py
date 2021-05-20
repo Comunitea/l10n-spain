@@ -73,7 +73,7 @@ class AccountPaymentOrder(models.Model):
     def _get_fecha_vencimiento(self, line):
         fecha_vencimiento = 8 * ' '
         if line.date:
-            fecha_vencimiento = fields.Datetime.to_string(line.date).replace('-', '')
+            fecha_vencimiento = line.date.strftime('%d%m%Y')
             dia = fecha_vencimiento[6:]
             mes = fecha_vencimiento[4:6]
             ano = fecha_vencimiento[0:4]
