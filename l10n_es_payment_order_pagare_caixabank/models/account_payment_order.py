@@ -166,7 +166,7 @@ class AccountPaymentOrder(models.Model):
                 text += ciudad_pro.upper()
             ###################################################################
 
-            text = text[:72] + '\r\n'
+            text = text[:72] + '\r'
             all_text += text
             self.num_lineas += 1
         return all_text
@@ -359,7 +359,7 @@ class AccountPaymentOrder(models.Model):
                 text += 35 * ' '
             ###################################################################
 
-            text = text[:72] + '\r\n'
+            text = text[:72] + '\r'
             all_text += text
             self.num_lineas += 1
         return all_text
@@ -389,5 +389,5 @@ class AccountPaymentOrder(models.Model):
             total_reg = str(total_reg)
             text += total_reg.zfill(10)
 
-            text = text[:72] + '\r\n'
+            text = text[:72] + '\r'
             return text
