@@ -21,6 +21,24 @@ class AccountPaymentOrder(models.Model):
             elif len(text) > size:
                 text = text[:size]
         return text
+    
+    # Lo sobreescribo ya que el original convierte el \n a espacio
+    def my_to_ascii(self, text):
+        """Converts special characters such as those with accents to their
+        ASCII equivalents"""
+        old_chars = ['á', 'é', 'í', 'ó', 'ú', 'à', 'è', 'ì', 'ò', 'ù', 'ä',
+                     'ë', 'ï', 'ö', 'ü', 'â', 'ê', 'î', 'ô', 'û', 'Á', 'É',
+                     'Í', 'Ú', 'Ó', 'À', 'È', 'Ì', 'Ò', 'Ù', 'Ä', 'Ë', 'Ï',
+                     'Ö', 'Ü', 'Â', 'Ê', 'Î', 'Ô', 'Û', 'ñ', 'Ñ', 'ç', 'Ç',
+                     'ª', 'º', '·']
+        new_chars = ['a', 'e', 'i', 'o', 'u', 'a', 'e', 'i', 'o', 'u', 'a',
+                     'e', 'i', 'o', 'u', 'a', 'e', 'i', 'o', 'u', 'A', 'E',
+                     'I', 'U', 'O', 'A', 'E', 'I', 'O', 'U', 'A', 'E', 'I',
+                     'O', 'U', 'A', 'E', 'I', 'O', 'U', 'n', 'N', 'c', 'C',
+                     'a', 'o', '.']
+        for old, new in zip(old_chars, new_chars):
+            text = text.replace(old, new)
+        return text
 
     @api.multi
     def generate_payment_file(self):
@@ -33,7 +51,7 @@ class AccountPaymentOrder(models.Model):
             txt_file += self._pop_beneficiarios_conf_caix(line)
         txt_file += self._pop_totales_conf_caix(line, self.num_lineas)
         # return str.encode(txt_file, 'ascii'), self.name + '.CAX'
-        return txt_file.encode('ascii','ignore'), self.name + '.CAX'
+        return self.my_to_ascii(txt_file).encode('ascii','ignore'), self.name + '.CAX'
 
     def _pop_cabecera_conf_caix(self):
         """
@@ -146,7 +164,7 @@ class AccountPaymentOrder(models.Model):
                 text += ciudad_pro.upper()
             ###################################################################
 
-            text = text.ljust(100)+'\n'
+            text += '\r\n'
             all_text += text
             self.num_lineas += 1
         return all_text
@@ -450,7 +468,7 @@ class AccountPaymentOrder(models.Model):
                 # 66 - 72 Libre
                 text += 7 * ' '
             ###################################################################
-            text = text.ljust(100)+'\n'
+            text += '\r\n'
             all_text += text
             self.num_lineas += 1
         return all_text
@@ -485,5 +503,5 @@ class AccountPaymentOrder(models.Model):
             # 66 - 72 Libre
             text += 7 * ' '
 
-            text = text.ljust(72)+'\n'
+            text += '\r\n'
             return text
