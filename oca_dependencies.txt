@@ -4,6 +4,8 @@ account-invoicing
 bank-payment
 bank-statement-import
 community-data-files
+connector
+edi
 intrastat-extrastat
 mis-builder
 partner-contact
