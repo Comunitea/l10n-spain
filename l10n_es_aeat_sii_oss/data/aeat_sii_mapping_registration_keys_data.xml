@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<openerp>
+    <data>
 
     <record id="aeat_sii_oss_mapping_registration_keys_1" model="aeat.sii.mapping.registration.keys">
         <field name="code">17</field>
@@ -7,4 +8,5 @@
         <field name="type">sale</field>
     </record>
 
-</odoo>
+    </data>
+</openerp>
