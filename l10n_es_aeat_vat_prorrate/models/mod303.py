@@ -24,6 +24,11 @@ PRORRATE_TAX_CODES = {
     'REDC014': 'REDBI014',
     'REDC05': 'REDBI05',
     'REDC52': 'REDBI52',
+    # Casillas 30/31
+    'SOIBIC': 'OIBIBI',
+    'SOIBIC4': 'OIBIBI4',
+    'SOIBIC10': 'OIBIBI10',
+    'SOIBIC21': 'OIBIBI21',
     # Casillas 32/33
     'DIBYSCC': 'IBYSCBI',
     'DIBYSCC4': 'IBYSCBI4',
