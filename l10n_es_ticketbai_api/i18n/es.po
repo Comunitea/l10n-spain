@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-13 14:22+0000\n"
-"PO-Revision-Date: 2021-04-13 14:22+0000\n"
+"POT-Creation-Date: 2021-06-17 09:33+0000\n"
+"PO-Revision-Date: 2021-06-17 09:33+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -346,7 +346,7 @@ msgid "Developer"
 msgstr "Entidad desarrolladora"
 
 #. module: l10n_es_ticketbai_api
-#: code:addons/l10n_es_ticketbai_api/models/ticketbai_installation.py:19
+#: code:addons/l10n_es_ticketbai_api/models/ticketbai_installation.py:21
 #: sql_constraint:tbai.installation:0
 #, python-format
 msgid "Developer must be unique!"
@@ -574,7 +574,7 @@ msgid "License Key"
 msgstr "Licencia TBAI"
 
 #. module: l10n_es_ticketbai_api
-#: code:addons/l10n_es_ticketbai_api/models/ticketbai_installation.py:20
+#: code:addons/l10n_es_ticketbai_api/models/ticketbai_installation.py:22
 #: sql_constraint:tbai.installation:0
 #, python-format
 msgid "License Key must be unique!"
@@ -796,9 +796,8 @@ msgstr "Respuesta"
 
 #. module: l10n_es_ticketbai_api
 #: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_invoice__tbai_response_ids
-#, fuzzy
 msgid "Responses"
-msgstr "Respuesta"
+msgstr "Respuestas"
 
 #. module: l10n_es_ticketbai_api
 #: model:ir.model.fields,help:l10n_es_ticketbai_api.field_tbai_invoice__simplified_invoice
@@ -853,7 +852,7 @@ msgid "Software Name"
 msgstr "Nombre del software"
 
 #. module: l10n_es_ticketbai_api
-#: code:addons/l10n_es_ticketbai_api/models/ticketbai_installation.py:18
+#: code:addons/l10n_es_ticketbai_api/models/ticketbai_installation.py:20
 #: sql_constraint:tbai.installation:0
 #, python-format
 msgid "Software Name must be unique!"
@@ -867,7 +866,7 @@ msgstr "Número de identificación fiscal español"
 #. module: l10n_es_ticketbai_api
 #: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_invoice__state
 #: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_response__state
-msgid "State"
+msgid "Status"
 msgstr "Estado"
 
 #. module: l10n_es_ticketbai_api
@@ -945,7 +944,6 @@ msgstr "NIF"
 
 #. module: l10n_es_ticketbai_api
 #: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_res_company__tbai_tax_agency_id
-#: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_tax_agency__name
 msgid "Tax Agency"
 msgstr "Hacienda"
 
@@ -953,6 +951,11 @@ msgstr "Hacienda"
 #: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_tax_agency__tax_agency_version_ids
 msgid "Tax Agency Version"
 msgstr "Hacienda - versión"
+
+#. module: l10n_es_ticketbai_api
+#: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_tax_agency__name
+msgid "Tax Agency name"
+msgstr "Hacienda"
 
 #. module: l10n_es_ticketbai_api
 #: code:addons/l10n_es_ticketbai_api/models/res_company.py:111
@@ -1653,7 +1656,7 @@ msgid "TicketBAI Tax Agency"
 msgstr "TicketBAI Hacienda"
 
 #. module: l10n_es_ticketbai_api
-#: code:addons/l10n_es_ticketbai_api/models/ticketbai_tax_agency.py:74
+#: code:addons/l10n_es_ticketbai_api/models/ticketbai_tax_agency.py:75
 #, python-format
 msgid ""
 "TicketBAI Tax Agency %s:\n"
@@ -1663,7 +1666,7 @@ msgstr ""
 "TicketBAI versión %s permite un máximo de 5 caracteres."
 
 #. module: l10n_es_ticketbai_api
-#: code:addons/l10n_es_ticketbai_api/models/ticketbai_tax_agency.py:106
+#: code:addons/l10n_es_ticketbai_api/models/ticketbai_tax_agency.py:107
 #, python-format
 msgid ""
 "TicketBAI Tax Agency %s:\n"
@@ -1686,6 +1689,11 @@ msgstr "TicketBAI Respuesta Hacienda"
 #: model:ir.model,name:l10n_es_ticketbai_api.model_tbai_response_message
 msgid "TicketBAI Tax Agency Invoice response messages"
 msgstr "TicketBAI Mensaje Respuesta Hacienda"
+
+#. module: l10n_es_ticketbai_api
+#: model:ir.model,name:l10n_es_ticketbai_api.model_tbai_installation
+msgid "TicketBAI installation"
+msgstr "TicketBAI instalación"
 
 #. module: l10n_es_ticketbai_api
 #: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_tax_agency__version
@@ -1741,8 +1749,3 @@ msgstr "XML Respuesta"
 #: model:ir.model.fields,field_description:l10n_es_ticketbai_api.field_tbai_invoice_customer__zip
 msgid "ZIP Code"
 msgstr "Código postal"
-
-#. module: l10n_es_ticketbai_api
-#: model:ir.model,name:l10n_es_ticketbai_api.model_tbai_installation
-msgid "tbai.installation"
-msgstr "TicketBAI Instalación"
