@@ -165,10 +165,10 @@
                     <t t-foreach="invoice.tax_line_ids" t-as="tax_line">
                         <t t-if="tax_line.tax_id.amount &lt; 0">
                             <t t-set="withheld" t-value="True"/>
-                            <t t-set="amount_tax_withheld" t-value="amount_tax_withheld - tax_line.amount"/>
+                            <t t-set="amount_tax_withheld" t-value="amount_tax_withheld - invoice.currency_id.round(tax_line.amount)"/>
                         </t>
                         <t t-if="tax_line.tax_id.amount &gt; 0">
-                            <t t-set="amount_tax" t-value="amount_tax + tax_line.amount"/>
+                            <t t-set="amount_tax" t-value="amount_tax + invoice.currency_id.round(tax_line.amount)"/>
                         </t>
                     </t>
                     <InvoiceHeader>
