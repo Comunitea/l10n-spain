@@ -54,6 +54,19 @@ class L10nEsAeatReport(models.AbstractModel):
         selection = self.get_period_type_selection()
         return selection and selection[0][0] or False
 
+    def _get_export_config(self, date):
+        model = self.env['ir.model'].search([('model', '=', self._name)])
+        return self.env['aeat.model.export.config'].search([
+            ('model', '=', model.id),
+            ('date_start', '<=', date),
+            '|',
+            ('date_end', '=', False),
+            ('date_end', '>=', date),
+        ], limit=1)
+
+    def _default_export_config_id(self):
+        return self._get_export_config(fields.Date.today())
+
     company_id = fields.Many2one(
         'res.company', string='Company', required=True, readonly=True,
         default=_default_company, states={'draft': [('readonly', False)]})
@@ -100,7 +113,7 @@ class L10nEsAeatReport(models.AbstractModel):
         comodel_name="ir.model", compute='_compute_report_model')
     export_config = fields.Many2one(
         comodel_name='aeat.model.export.config', string='Export config',
-        domain="[('model', '=', model)]")
+        domain="[('model', '=', model)]", default=_default_export_config_id,)
     period_type = fields.Selection(
         selection="get_period_type_selection", string="Period type",
         required=True, default=_default_period_type,
@@ -171,6 +184,8 @@ class L10nEsAeatReport(models.AbstractModel):
                     }
                 self.periods = self.fiscalyear_id.period_ids.filtered(
                     lambda x: not x.special)
+                self.export_config = self.\
+                    _get_export_config(self.fiscalyear_id.date_start).id
             elif self.period_type in ('1T', '2T', '3T', '4T'):
                 # Trimestral
                 start_month = (int(self.period_type[:1]) - 1) * 3 + 1
@@ -191,6 +206,8 @@ class L10nEsAeatReport(models.AbstractModel):
                             dt=fields.Date.to_string(
                                 datetime(year=year, month=month, day=1)))
                         self.periods += period
+                self.export_config = self.\
+                    _get_export_config(period.date_start).id
             elif self.period_type in ('01', '02', '03', '04', '05', '06',
                                       '07', '08', '09', '10', '11', '12'):
                 # Mensual
@@ -213,6 +230,8 @@ class L10nEsAeatReport(models.AbstractModel):
                             }
                     }
                 self.periods = period
+                self.export_config = self.\
+                    _get_export_config(period.date_start).id
 
     @api.model
     def _report_identifier_get(self, vals):

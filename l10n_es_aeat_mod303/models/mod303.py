@@ -14,14 +14,6 @@ class L10nEsAeatMod303Report(models.Model):
     _name = "l10n.es.aeat.mod303.report"
     _description = "AEAT 303 Report"
 
-    def _get_export_conf(self):
-        try:
-            return self.env.ref(
-                'l10n_es_aeat_mod303.'
-                'aeat_mod303_2017_main_export_config').id
-        except ValueError:
-            return self.env['aeat.model.export.config']
-
     def _default_counterpart_303(self):
         return self.env['account.account'].search(
             [('code', 'like', '4750%'), ('type', '!=', 'view')])[:1]
@@ -86,7 +78,6 @@ class L10nEsAeatMod303Report(models.Model):
         comodel_name='res.currency', string='Currency',
         related='company_id.currency_id', store=True, readonly=True)
     number = fields.Char(default='303')
-    export_config = fields.Many2one(default=_get_export_conf)
     company_partner_id = fields.Many2one(
         'res.partner',
         string='Partner',
@@ -354,15 +345,6 @@ class L10nEsAeatMod303Report(models.Model):
         if self.period_type not in ('4T', '12'):
             self.regularizacion_anual = 0
             self.exonerated_390 = '2'
-        if (not self.fiscalyear_id or
-                self.fiscalyear_id.date_start < '2018-01-01'):
-            self.export_config = self.env.ref(
-                'l10n_es_aeat_mod303.'
-                'aeat_mod303_2017_main_export_config')
-        else:
-            self.export_config = self.env.ref(
-                'l10n_es_aeat_mod303.'
-                'aeat_mod303_2018_main_export_config')
 
     @api.onchange('type')
     def onchange_type(self):
