@@ -23,7 +23,7 @@ AEAT modelo 303 - OSS
     :target: https://runbot.odoo-community.org/runbot/189/11.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 Módulo ampliación del modelo 303 (IVA - Autodeclaración) para
 incluir los datos de la ventanilla única o One-Stop Shop (OSS).
@@ -56,6 +56,7 @@ Contributors
 
 * Angel Moya <angel.moya@pesol.es>
 * Rodrigo Bonilla <rodrigo.bonilla@factorlibre.com>
+* Omar Castiéira <omar@comunitea.com>
 
 Maintainers
 ~~~~~~~~~~~
