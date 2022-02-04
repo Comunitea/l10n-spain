@@ -272,7 +272,7 @@ class AccountPaymentOrder(models.Model):
                     fecha_vencimiento = new_due_date.strftime('%d%m%Y')
                     fecha_vencimiento2 = new_due_date.strftime('%Y-%m-%d')
 
-                    if fecha_vencimiento2 > self.post_financing_date:
+                    if datetime.strptime(fecha_vencimiento2, '%Y-%M-%d') > self.post_financing_date:
                         raise UserError(
                             _("Error: La fecha de vencimiento no puede ser \ayor que la fecha de cargo (fecha post financiación)"))
 
@@ -285,7 +285,7 @@ class AccountPaymentOrder(models.Model):
                         self.total_pos_amount += abs(pl.amount_currency)
                     else:
                         self.total_neg_amount += abs(pl.amount_currency)
-                    
+
                     amount = "{:.2f}".format((abs(pl.amount_currency)))
                     amount = amount.replace('.', '')
                     text += amount.rjust(15, '0')
