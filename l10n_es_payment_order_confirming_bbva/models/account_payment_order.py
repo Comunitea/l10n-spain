@@ -249,7 +249,7 @@ class AccountPaymentOrder(models.Model):
                     # 31 - 36: Fecha factura
                     fecha_factura = 6 * ' '
                     if inv.date_invoice:
-                        fecha_factura = fields.Datetime.to_string(inv.date_invoice).replace('-', '')
+                        fecha_factura = fields.Date.to_string(inv.date_invoice).replace('-', '')
                         dia = fecha_factura[6:]
                         mes = fecha_factura[4:6]
                         ano = fecha_factura[:4]
