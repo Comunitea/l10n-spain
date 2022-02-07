@@ -98,7 +98,7 @@ class AccountPaymentOrder(models.Model):
         # date_file = self.date_generated.strftime('%d%m%Y')
         text += date_file
         # 49 - 56 Fecha de la remesa
-        # date_pos = fields.Date.from_string(self.post_financing_date)\
+        # date_pos = fields.Date.from_string(self.stfinancingpost_financing_date)\
         #     .strftime('%d%m%Y')
         text += date_file
 
@@ -272,7 +272,7 @@ class AccountPaymentOrder(models.Model):
                     fecha_vencimiento = new_due_date.strftime('%d%m%Y')
                     fecha_vencimiento2 = new_due_date.strftime('%Y-%m-%d')
 
-                    if datetime.datetime.strptime(fecha_vencimiento2, '%Y-%m-%d') > self.post_financing_date:
+                    if fields.Date.from_string(fecha_vencimiento2, '%Y-%m-%d') > self.post_financing_date:
                         raise UserError(
                             _("Error: La fecha de vencimiento no puede ser \ayor que la fecha de cargo (fecha post financiación)"))
 
