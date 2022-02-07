@@ -3,7 +3,7 @@
 from odoo import api, models, _, fields
 from odoo.exceptions import UserError
 import time
-from datetime import datetime
+import datetime
 
 
 class AccountPaymentOrder(models.Model):
@@ -272,7 +272,7 @@ class AccountPaymentOrder(models.Model):
                     fecha_vencimiento = new_due_date.strftime('%d%m%Y')
                     fecha_vencimiento2 = new_due_date.strftime('%Y-%m-%d')
 
-                    if datetime.strptime(fecha_vencimiento2, '%Y-%m-%d') > self.post_financing_date:
+                    if datetime.datetime.strptime(fecha_vencimiento2, '%Y-%m-%d') > self.post_financing_date:
                         raise UserError(
                             _("Error: La fecha de vencimiento no puede ser \ayor que la fecha de cargo (fecha post financiación)"))
 
