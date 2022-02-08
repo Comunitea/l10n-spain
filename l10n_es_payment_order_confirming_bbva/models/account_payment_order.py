@@ -268,7 +268,7 @@ class AccountPaymentOrder(models.Model):
                     # mes = fecha_vencimiento[4:6]
                     # ano = fecha_vencimiento[:4]
                     # fecha_vencimiento = dia + mes + ano
-                    new_due_date = self.date_scheduled + datetime.timedelta(days=3)
+                    new_due_date = self.date_scheduled + datetime.timedelta(days=1)
                     fecha_vencimiento = new_due_date.strftime('%d%m%Y')
                     fecha_vencimiento2 = new_due_date.strftime('%Y-%m-%d')
 
