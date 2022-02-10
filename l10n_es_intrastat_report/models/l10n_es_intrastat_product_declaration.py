@@ -51,8 +51,11 @@ class L10nEsIntrastatProductDeclaration(models.Model):
         if incoterm_id:
             line_vals['incoterm_id'] = incoterm_id.id
         if self.type == 'dispatches' and int(self.year) >= 2022:
-            line_vals['partner_vat'] =\
-                inv_line.invoice_id.partner_shipping_id.vat or 'QV999999999999'
+            if inv_line.invoice_id.partner_shipping_id.commercial_partner_id.country_id.intrastat:
+                line_vals['partner_vat'] =\
+                    inv_line.invoice_id.partner_shipping_id.vat or 'QV999999999999'
+            else:
+                line_vals['partner_vat'] = 'QV999999999999'
 
     def _gather_invoices_init(self):
         if self.company_id.country_id.code != 'ES':
