@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 # Copyright 2021 PESOL - Angel Moya
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0
 

@@ -1,3 +1,8 @@
 * Angel Moya <angel.moya@pesol.es>
-* Rodrigo Bonilla <rodrigo.bonilla@factorlibre.com>
-* Omar Castiñeira <omar@comunitea.com>
+* `Factor Libre <https://factorlibre.com>`_:
+
+  * Rodrigo Bonilla
+
+* `Tecnativa <https://www.tecnativa.com>`_:
+
+  * Pedro M. Baeza
