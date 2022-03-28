@@ -344,7 +344,8 @@ class L10nEsVatBook(models.Model):
 
     def _get_account_move_lines(self, taxes=None, account=None):
         return self.env["account.move.line"].search(
-            self._account_move_line_domain(taxes=taxes, account=account)
+            self._account_move_line_domain(taxes=taxes, account=account),
+            order="move_id ASC, tax_line_id ASC"
         )
 
     @ormcache("self.id")
