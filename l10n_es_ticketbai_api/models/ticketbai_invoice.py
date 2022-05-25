@@ -70,7 +70,7 @@ class TicketBAIInvoice(models.Model):
         self.ensure_one()
         error_msg = ''
         try:
-            tbai_api = self.get_ticketbai_api()
+            tbai_api = self.sudo().get_ticketbai_api()
         except exceptions.ValidationError as ve:
             _logger.exception(ve)
             tbai_api = None
@@ -639,8 +639,7 @@ class TicketBAIInvoice(models.Model):
         res = OrderedDict([
             (TicketBaiQRParams.tbai_identifier.value, self.tbai_identifier),
         ])
-        if self.number_prefix:
-            res[TicketBaiQRParams.invoice_number_prefix.value] = self.number_prefix
+        res[TicketBaiQRParams.invoice_number_prefix.value] = self.number_prefix or ""
         res[TicketBaiQRParams.invoice_number.value] = self.number
         res[TicketBaiQRParams.invoice_total_amount.value] = self.amount_total
         return res
@@ -674,7 +673,8 @@ class TicketBAIInvoice(models.Model):
     def get_tbai_xml_signed_and_signature_value(self):
         root = self.get_tbai_xml_unsigned()
         p12 = self.company_id.tbai_certificate_get_p12()
-        signature_value = XMLSchema.sign(root, p12)
+        tax_agency = self.company_id.tbai_tax_agency_id
+        signature_value = XMLSchema.sign(root, p12, tax_agency)
         return root, signature_value
 
     def build_tbai_invoice(self):
@@ -755,9 +755,13 @@ class TicketBAIInvoice(models.Model):
         detalles_factura = self.build_detalles_factura()
         if detalles_factura:
             res["DetallesFactura"] = detalles_factura
-        res["ImporteTotalFactura"] = self.amount_total
         if self.tax_retention_amount_total:
+            res["ImporteTotalFactura"] = "%.2f" % (
+                float(self.amount_total) + float(self.tax_retention_amount_total)
+            )
             res["RetencionSoportada"] = self.tax_retention_amount_total
+        else:
+            res["ImporteTotalFactura"] = self.amount_total
         res["Claves"] = self.build_claves()
         return res
 
@@ -765,6 +769,8 @@ class TicketBAIInvoice(models.Model):
         """Support only for one customer."""
         gipuzkoa_tax_agency = self.env.ref(
             "l10n_es_ticketbai_api.tbai_tax_agency_gipuzkoa")
+        araba_tax_agency = self.env.ref(
+            "l10n_es_ticketbai_api.tbai_tax_agency_araba")
         tax_agency = self.company_id.tbai_tax_agency_id
         res = []
         if 100 < len(self.tbai_customer_ids):
@@ -785,14 +791,14 @@ class TicketBAIInvoice(models.Model):
             customer_res["ApellidosNombreRazonSocial"] = customer.name
             if customer.zip:
                 customer_res["CodigoPostal"] = customer.zip
-            elif tax_agency == gipuzkoa_tax_agency:
+            elif tax_agency in (gipuzkoa_tax_agency, araba_tax_agency):
                 raise exceptions.ValidationError(_(
                     "TicketBAI Invoice %s:\n"
                     "ZIP code for %s is required for the Tax Agency %s!"
                 ) % (self.name, customer.name, tax_agency.name))
             if customer.address:
                 customer_res["Direccion"] = customer.address
-            elif tax_agency == gipuzkoa_tax_agency:
+            elif tax_agency in (gipuzkoa_tax_agency, araba_tax_agency):
                 raise exceptions.ValidationError(_(
                     "TicketBAI Invoice %s:\n"
                     "Address for %s is required for the Tax Agency %s!"
@@ -917,8 +923,10 @@ class TicketBAIInvoice(models.Model):
     def build_detalles_factura(self):
         gipuzkoa_tax_agency = self.env.ref(
             "l10n_es_ticketbai_api.tbai_tax_agency_gipuzkoa")
+        araba_tax_agency = self.env.ref(
+            "l10n_es_ticketbai_api.tbai_tax_agency_araba")
         tax_agency = self.company_id.tbai_tax_agency_id
-        if tax_agency == gipuzkoa_tax_agency:
+        if tax_agency in (gipuzkoa_tax_agency, araba_tax_agency):
             id_detalle_factura = self.build_id_detalle_factura()
             if id_detalle_factura:
                 res = {"IDDetalleFactura": id_detalle_factura}
@@ -1014,7 +1022,9 @@ class TicketBAIInvoice(models.Model):
         return res
 
     def build_facturas_rectificadas_sustituidas(self):
-        if self.is_invoice_refund:
+        res = {}
+        if self.is_invoice_refund or \
+                SiNoType.S.value == self.substitutes_simplified_invoice:
             refunds_values = []
             for refund in self.tbai_invoice_refund_ids:
                 vals = OrderedDict()
@@ -1025,8 +1035,6 @@ class TicketBAIInvoice(models.Model):
                 vals["FechaExpedicionFactura"] = refund.expedition_date
                 refunds_values.append(vals)
             res = {"IDFacturaRectificadaSustituida": refunds_values}
-        else:
-            res = {}
         return res
 
     def build_huella_tbai(self):
@@ -1161,7 +1169,10 @@ class TicketBAIInvoice(models.Model):
                     "All Invoice recipients must be from the same country."
                 ) % self.name)
             elif 1 == len(country_codes) and country_codes[0] == spain_country_code:
-                spanish_or_no_customers = True
+                # Solo se admite desglose por operación cuando existe destinatario
+                # extranjero (tipo IDOtro o que sea un NIF que empiece por N)
+                spanish_or_no_customers = not (
+                    self.tbai_customer_ids[:1].nif or "").startswith('N')
         if spanish_or_no_customers:
             res = {"DesgloseFactura": OrderedDict()}
             sujeta = self.build_sujeta()

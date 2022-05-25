@@ -28,6 +28,7 @@ setuptools.setup(
         'odoo12-addon-l10n_es_aeat_mod216',
         'odoo12-addon-l10n_es_aeat_mod296',
         'odoo12-addon-l10n_es_aeat_mod303',
+        'odoo12-addon-l10n_es_aeat_mod303_oss',
         'odoo12-addon-l10n_es_aeat_mod347',
         'odoo12-addon-l10n_es_aeat_mod349',
         'odoo12-addon-l10n_es_aeat_mod390',
@@ -38,6 +39,7 @@ setuptools.setup(
         'odoo12-addon-l10n_es_aeat_vat_prorrate_asset',
         'odoo12-addon-l10n_es_dua',
         'odoo12-addon-l10n_es_dua_sii',
+        'odoo12-addon-l10n_es_dua_ticketbai_batuz',
         'odoo12-addon-l10n_es_facturae',
         'odoo12-addon-l10n_es_facturae_efact',
         'odoo12-addon-l10n_es_facturae_face',
@@ -51,6 +53,9 @@ setuptools.setup(
         'odoo12-addon-l10n_es_subcontractor_certificate',
         'odoo12-addon-l10n_es_ticketbai',
         'odoo12-addon-l10n_es_ticketbai_api',
+        'odoo12-addon-l10n_es_ticketbai_api_batuz',
+        'odoo12-addon-l10n_es_ticketbai_batuz',
+        'odoo12-addon-l10n_es_ticketbai_pos',
         'odoo12-addon-l10n_es_toponyms',
         'odoo12-addon-l10n_es_vat_book',
         'odoo12-addon-payment_redsys',
@@ -58,5 +63,6 @@ setuptools.setup(
     classifiers=[
         'Programming Language :: Python',
         'Framework :: Odoo',
+        'Framework :: Odoo :: 12.0',
     ]
 )
