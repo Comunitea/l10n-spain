@@ -45,12 +45,13 @@ class AccountPaymentOrder(models.Model):
         pt = re.compile('(?P<entidad>\d{4})\-(?P<sucursal>\d{4})\-(?P<dc>\d{2})\-(?P<nCuenta>\d{10})')
 
         comp = re.match(pt,datos_contrato)
-       
+
         if comp:
-            entidad_contrato = comp['entidad']
-            sucursal_contrato = comp['sucursal']
-            dc_contrato = comp['dc']
-            numCta_contrato =  comp['nCuenta']
+            dict = comp.groupdict()
+            entidad_contrato = dict['entidad']
+            sucursal_contrato = dict['sucursal']
+            dc_contrato = dict['dc']
+            numCta_contrato =  dict['nCuenta']
         else:
             raise UserError(
                         _("Error: El contrato %s no sigue el formato\
