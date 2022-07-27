@@ -4,6 +4,7 @@ from odoo import api, models, _, fields
 from odoo.exceptions import UserError
 import re
 
+
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
 
@@ -95,7 +96,7 @@ class AccountPaymentOrder(models.Model):
 
     def _pop_detalle_bk(self, line):
         all_text = ''
-        for i in range(12):
+        for i in range(13):
             # Me salto los opcionales
             if (i + 1) in [5, 6, 7]:
                 continue
@@ -181,10 +182,10 @@ class AccountPaymentOrder(models.Model):
                          la Ciudad.") % line['partner_id']['name'])
                 text += self.convert(ciudad_pro, 32)
                 # 67 - 72 Libre
-                text += 6 * ' ' 
+                text += 6 * ' '
 
             # Optativo numero teléfono
-            # if (i + 1) == 5: 
+            # if (i + 1) == 5:
             #     # 27 - 29 Numero de dato
             #     text += '017'
 
@@ -214,14 +215,14 @@ class AccountPaymentOrder(models.Model):
                 else:
                     cuenta = 34 * ' '
                     text += cuenta
-                
+
                 # 64 Libre
                 text += ' '
                 # 65 - 66 Código switf pais proveedor. 'ES' son todos pagos nacionales
                 text += 'ES'
                 # 67 - 72 Libre
                 text += 6 * ' '
- 
+
             if (i + 1) == 9:
                 # 27 - 29 Numero de dato
                 text += '174'
@@ -245,12 +246,24 @@ class AccountPaymentOrder(models.Model):
                 text += 35 * ' '
 
             if (i + 1) == 11:
+                # 27 - 29. Número de dato
+                text += '182'
+                # Referencia del proveedor
+                nif = line['partner_id']['vat']
+                if not nif:
+                    raise UserError(
+                        _("Error: El Proveedor %s no tiene \
+                        establecido el NIF.") % line['partner_id']['name'])
+                text += self.convert(nif[2:], 12)
+
+            if (i + 1) == 12:
                 # 27 - 29 Numero de dato
                 text += '018'
                 # 30 - 35 Fecha vencimiento
                 # Sigo chequeando que esté establecida la fecha de postfinanciación
                 if not self.post_financing_date:
                     raise UserError(_('post-financing date mandatory'))
+                # Asigno como fecha de vencimiento de la factura la fecha del ejecución del pago.
                 text += self.date_scheduled.strftime('%y%m%d').ljust(6)
                 # 36 - 51 Numero de factura. Sustituyo el número de factura por la referncia del pago agrupado
                 text += self.convert(line.name, 16)
@@ -259,12 +272,12 @@ class AccountPaymentOrder(models.Model):
                 # 66 - 72 Libre
                 text += 7 * ' '
 
-            if (i + 1) == 12:
+            if (i + 1) == 13:
                 # 27 - 29 Numero de dato
                 text += '019'
                 # 30 - 41 Libre
                 text += 12 * ' '
-       
+
             text = text.ljust(72)+'\r\n'
             all_text += text
         self.num_records += 1
@@ -288,7 +301,7 @@ class AccountPaymentOrder(models.Model):
         text += num.zfill(8)
 
         # 50 - 59 Num total de registros
-        total_reg = 1 + (self.num_records * 9) + 1
+        total_reg = 1 + (self.num_records * 10) + 1
         total_reg = str(total_reg)
         text += total_reg.zfill(10)
 
