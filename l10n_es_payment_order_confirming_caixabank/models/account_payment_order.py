@@ -269,7 +269,7 @@ class AccountPaymentOrder(models.Model):
                 text += '1'
                 # 31 - 32: Código ISO pais destino
                 # TODO lo dejo siempre a ES?
-                text += 'ES'
+                text += line.partner_bank_id.acc_number[:2]
                 # 63 - 38 Libre
                 text += 6 * ' '
                 # 39 - 50: Código SWIFT del banco destino (bic)
