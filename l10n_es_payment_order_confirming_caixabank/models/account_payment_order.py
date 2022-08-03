@@ -21,6 +21,24 @@ class AccountPaymentOrder(models.Model):
             elif len(text) > size:
                 text = text[:size]
         return text
+    
+    # Lo sobreescribo ya que el original convierte el \n a espacio
+    def my_to_ascii(self, text):
+        """Converts special characters such as those with accents to their
+        ASCII equivalents"""
+        old_chars = ['á', 'é', 'í', 'ó', 'ú', 'à', 'è', 'ì', 'ò', 'ù', 'ä',
+                     'ë', 'ï', 'ö', 'ü', 'â', 'ê', 'î', 'ô', 'û', 'Á', 'É',
+                     'Í', 'Ú', 'Ó', 'À', 'È', 'Ì', 'Ò', 'Ù', 'Ä', 'Ë', 'Ï',
+                     'Ö', 'Ü', 'Â', 'Ê', 'Î', 'Ô', 'Û', 'ñ', 'Ñ', 'ç', 'Ç',
+                     'ª', 'º', '·']
+        new_chars = ['a', 'e', 'i', 'o', 'u', 'a', 'e', 'i', 'o', 'u', 'a',
+                     'e', 'i', 'o', 'u', 'a', 'e', 'i', 'o', 'u', 'A', 'E',
+                     'I', 'U', 'O', 'A', 'E', 'I', 'O', 'U', 'A', 'E', 'I',
+                     'O', 'U', 'A', 'E', 'I', 'O', 'U', 'n', 'N', 'c', 'C',
+                     'a', 'o', '.']
+        for old, new in zip(old_chars, new_chars):
+            text = text.replace(old, new)
+        return text
 
     @api.multi
     def generate_payment_file(self):
@@ -33,7 +51,7 @@ class AccountPaymentOrder(models.Model):
             txt_file += self._pop_beneficiarios_conf_caix(line)
         txt_file += self._pop_totales_conf_caix(line, self.num_lineas)
         # return str.encode(txt_file, 'ascii'), self.name + '.CAX'
-        return txt_file.encode('ascii','ignore'), self.name + '.CAX'
+        return self.my_to_ascii(txt_file).encode('ascii','ignore'), self.name + '.CAX'
 
     def _pop_cabecera_conf_caix(self):
         """
@@ -146,7 +164,7 @@ class AccountPaymentOrder(models.Model):
                 text += ciudad_pro.upper()
             ###################################################################
 
-            text = text.ljust(100)+'\n'
+            text += '\r\n'
             all_text += text
             self.num_lineas += 1
         return all_text
@@ -168,12 +186,12 @@ class AccountPaymentOrder(models.Model):
     def _pop_beneficiarios_conf_caix(self, line):
         all_text = ''
         bloque_registros = [
-            '010', '043', '044', '011', '012', '014',
+            '010', '043', '044', '046', '011', '012', '014',
             '015', '016', '017', '018', '019'
         ]
         fixed_text = ''
         # 1 - 2: Código registro
-        fixed_text += '01'
+        fixed_text += '06'
         # 3 - 4: Codigo operación
         fixed_text += '56'
         # 5 - 14: NIF ordenante
@@ -197,9 +215,6 @@ class AccountPaymentOrder(models.Model):
 
             # Supongo que en el confirming siempre hay una factura
             invoice = line.payment_line_ids[0].move_line_id.invoice_id
-            if not invoice:
-                raise UserError(_(
-                    'No existe factura relacionada con la línea de pago'))
 
             # LÍNEA 1
             ###################################################################
@@ -255,7 +270,7 @@ class AccountPaymentOrder(models.Model):
                 # 30 - 63: Cuenta de pago para proveedores
                 cuenta = line.partner_bank_id.acc_number
                 cuenta = cuenta.replace(' ', '')
-                text += cuenta
+                text += self.strim_txt(cuenta, 34)
                 # 64: Concepto de la ordern
                 text += '7'
                 # 65 - 72 Libre
@@ -285,6 +300,17 @@ class AccountPaymentOrder(models.Model):
                 text += line.partner_bank_id.bank_id.bic
                 # 51 - 72 Libre
                 text += 6 * ' '
+            ###################################################################
+
+            # LÍNEA 3bis
+            ###################################################################
+            if tipo_dato == '046':
+                # 30 - 59 -- LARGO DE 30
+                # Fecha de postfinanciación de la remesa.
+                if not self.post_financing_date:
+                    raise UserError(_('post-financing date mandatory'))
+                # Asigno como fecha de vencimiento de la factura la fecha del ejecución del pago.
+                text += self.post_financing_date.strftime('%d%m%y').ljust(30)
             ###################################################################
 
             # LÍNEA 4
@@ -373,29 +399,20 @@ class AccountPaymentOrder(models.Model):
                     fecha_factura =  fields.Datetime.to_string(invoice.date_invoice).replace('-', '')
                     dia = fecha_factura[6:8]
                     mes = fecha_factura[4:6]
-                    ano = fecha_factura[:4]
+                    ano = fecha_factura[2:4]
                     fecha_factura = dia + mes + ano
+                else:
+                    fecha_factura = line.payment_line_ids[0].move_line_id.date.strftime('%d%m%y')
                 text += fecha_factura
 
                 # 37 - 51: Número factura
-                if invoice:
-                    referencia_factura = invoice.reference.replace('-', '')
-                    if not invoice.reference:
-                        raise UserError(
-                            _("Error: La factura %s no tiene establecida\
-                               la referencia de proveedor.") % invoice.number)
-                    text += self.strim_txt(referencia_factura, 15)
+                text += self.strim_txt(line.communication, 15)
 
                 # 52 - 57: Fecha de vencimiento
-                fecha_vencimiento = 6 * ' '
-                if not self.date_scheduled:
-                    raise UserError(
-                        _("Error: La fecha de post financiación no está \
-                           establecida"))
                 fecha_vencimiento = fields.Datetime.to_string(self.date_scheduled).replace('-', '')
                 dia = fecha_vencimiento[6:8]
                 mes = fecha_vencimiento[4:6]
-                ano = fecha_vencimiento[:4]
+                ano = fecha_vencimiento[2:4]
                 fecha_vencimiento = dia + mes + ano
                 text += fecha_vencimiento
 
@@ -451,7 +468,7 @@ class AccountPaymentOrder(models.Model):
                 # 66 - 72 Libre
                 text += 7 * ' '
             ###################################################################
-            text = text.ljust(100)+'\n'
+            text += '\r\n'
             all_text += text
             self.num_lineas += 1
         return all_text
@@ -486,5 +503,5 @@ class AccountPaymentOrder(models.Model):
             # 66 - 72 Libre
             text += 7 * ' '
 
-            text = text.ljust(72)+'\n'
+            text += '\r\n'
             return text
