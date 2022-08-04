@@ -228,7 +228,7 @@ class AccountPaymentOrder(models.Model):
 
                 # 42 - 59 Num banco, Num sucursal, Num cuenta
                 control = ''
-                if (line.partner_id.countr_id == 'ES') \
+                if (line.partner_id.country_id == 'ES') \
                         and (self.payment_mode_id.conf_caixabank_type == 'T'):
                     cuenta = line.partner_bank_id.acc_number
                     cuenta = cuenta.replace(' ', '')
@@ -251,7 +251,7 @@ class AccountPaymentOrder(models.Model):
                 text += 2 * ' '
 
                 # 64 - 65: Digito control
-                if (line.partner_id.countr_id == 'ES') \
+                if (line.partner_id.country_id == 'ES') \
                         and (self.payment_mode_id.conf_caixabank_type != 'C'):
                     text += control
                 else:
