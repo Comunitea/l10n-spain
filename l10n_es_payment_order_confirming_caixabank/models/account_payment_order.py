@@ -21,7 +21,7 @@ class AccountPaymentOrder(models.Model):
             elif len(text) > size:
                 text = text[:size]
         return text
-    
+
     # Lo sobreescribo ya que el original convierte el \n a espacio
     def my_to_ascii(self, text):
         """Converts special characters such as those with accents to their
@@ -228,7 +228,8 @@ class AccountPaymentOrder(models.Model):
 
                 # 42 - 59 Num banco, Num sucursal, Num cuenta
                 control = ''
-                if self.payment_mode_id.conf_caixabank_type == 'T':
+                if (line.partner_id.countr_id == 'ES') \
+                        and (self.payment_mode_id.conf_caixabank_type == 'T'):
                     cuenta = line.partner_bank_id.acc_number
                     cuenta = cuenta.replace(' ', '')
                     tipo_cuenta = self.company_partner_bank_id.acc_type
@@ -250,12 +251,13 @@ class AccountPaymentOrder(models.Model):
                 text += 2 * ' '
 
                 # 64 - 65: Digito control
-                if self.payment_mode_id.conf_caixabank_type != 'C':
+                if (line.partner_id.countr_id == 'ES') \
+                        and (self.payment_mode_id.conf_caixabank_type != 'C'):
                     text += control
                 else:
                     text += '  '
                 # 66: Proveedor no residente
-                text += 'N'
+                text += 'N' if line.partner_id.country_id == 'ES' else 'S'
                 # 67: Indicador confirmación
                 text += 'C'
                 # 68 - 70: Moneda de factura
