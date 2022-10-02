@@ -687,6 +687,7 @@ class AccountMove(models.Model):
         taxes_sfrisp = self._get_sii_taxes_map(["SFRISP"])
         taxes_sfrns = self._get_sii_taxes_map(["SFRNS"])
         taxes_sfrnd = self._get_sii_taxes_map(["SFRND"])
+        taxes_sfrbi = self._get_sii_taxes_map(["SFRBI"])
         taxes_not_in_total = self._get_sii_taxes_map(["NotIncludedInTotal"])
         taxes_not_in_total_neg = self._get_sii_taxes_map(["NotIncludedInTotalNegative"])
         base_not_in_total = self._get_sii_taxes_map(["BaseNotIncludedInTotal"])
@@ -728,6 +729,8 @@ class AccountMove(models.Model):
                     ["BaseImponible", "CuotaSoportada"],
                 ):
                     base_dict["DetalleIVA"].append(tax_dict)
+            if tax in taxes_sfrbi:
+                base_dict["DetalleIVA"].update(BienInversion="S")
         return taxes_dict, tax_amount, not_in_amount_total
 
     def _is_sii_simplified_invoice(self):
