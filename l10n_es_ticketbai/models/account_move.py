@@ -300,8 +300,8 @@ class AccountMove(models.Model):
                         {
                             "description": description_line,
                             "quantity": line.tbai_get_value_cantidad(),
-                            "price_unit": "%.8f" % line.price_unit,
-                            "discount_amount": line.tbai_get_value_descuento(),
+                            "price_unit": "%.8f" % (abs(line.balance) / line.quantity),
+                            "discount_amount": "0.00",
                             "amount_total": line.tbai_get_value_importe_total(),
                         },
                     )
@@ -614,19 +614,6 @@ class AccountMoveLine(models.Model):
         else:
             sign = 1
         return "%.2f" % (sign * self.quantity)
-
-    def tbai_get_value_descuento(self):
-        if self.discount:
-            if RefundType.differences.value == self.move_id.tbai_refund_type:
-                sign = -1
-            else:
-                sign = 1
-            res = "%.2f" % (
-                sign * self.quantity * self.price_unit * self.discount / 100.0
-            )
-        else:
-            res = "0.00"
-        return res
 
     def tbai_get_value_importe_total(self):
         tbai_maps = self.env["tbai.tax.map"].search([("code", "=", "IRPF")])

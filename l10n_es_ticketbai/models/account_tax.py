@@ -211,12 +211,12 @@ class AccountTax(models.Model):
         base = 0
         for line in invoice_id.line_ids:
             if self.id in line.tax_ids.ids:
-                base += line.price_subtotal
+                base += abs(line.balance)
         return base
 
     def tbai_get_invoice_amount_for_tax_group(self, invoice_id):
         amount = 0
         for line in invoice_id.line_ids:
-            if self.id in line.tax_ids.ids:
-                amount += line.price_subtotal * self.amount / 100
+            if self.id == line.tax_line_id.id:
+                amount += abs(line.balance)
         return amount
