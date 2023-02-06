@@ -11,7 +11,7 @@
 
 {
     "name": "Suministro Inmediato de Información en el IVA",
-    "version": "8.0.2.17.5",
+    "version": "8.0.2.18.2",
     "category": "Accounting & Finance",
     "website": "https://odoospain.odoo.com",
     "author": "Acysos S.L.,"
@@ -36,6 +36,7 @@
     "depends": [
         "account_refund_original",
         "l10n_es_aeat",
+        "l10n_es",
         "connector",
         "account_invoice_currency",
     ],
