@@ -367,7 +367,6 @@
                             <Installment>
                                 <InstallmentDueDate t-esc="invoice.date_due or invoice.date_invoice"/>
                                 <InstallmentAmount t-esc="'%.2f' % (invoice.currency_id.round(invoice.residual))"/>
-                                <PaymentMeans t-esc="invoice.payment_mode_id.facturae_code"/>
                                 <t t-set="partner_bank" t-value="invoice.partner_banks_to_show()[:1]"/>
                                 <t t-set="bank" t-value="partner_bank.bank_id"/>
                                 <t t-set="payment_means"
