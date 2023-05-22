@@ -4,7 +4,7 @@
 
 from odoo import _, api, exceptions, fields, models
 
-PRORRATE_TAX_LINE_MAPPING = {11: 10, 29: 28, 33: 32, 35: 34, 37: 36, 39: 38, 41: 40}
+PRORRATE_TAX_LINE_MAPPING = {11: 10, 29: 28, 31:30, 33: 32, 35: 34, 37: 36, 39: 38, 41: 40}
 
 
 class L10nEsAeatMod303Report(models.Model):
