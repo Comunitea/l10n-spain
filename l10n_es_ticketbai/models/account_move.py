@@ -20,7 +20,10 @@ class AccountMove(models.Model):
         context = self.env.context
         invoice_type = context.get("move_type", context.get("default_move_type"))
         if invoice_type in ["out_invoice", "out_refund"]:
-            key = self.env["tbai.vat.regime.key"].search([("code", "=", "01")], limit=1)
+            code = "01"
+            if self.env.user.company_id.tbai_vat_regime_simplified:
+                code = "52"
+            key = self.env["tbai.vat.regime.key"].search([("code", "=", code)], limit=1)
             return key
 
     tbai_enabled = fields.Boolean(related="company_id.tbai_enabled", readonly=True)
@@ -387,8 +390,12 @@ class AccountMove(models.Model):
                 )
             )
         if simplified_regime_key:
-            # Taxes in simplified regime, not surchage
-            vals["vat_regime_key"] = "51"
+            if self.company_id.tbai_vat_regime_simplified:
+                # Taxes in simplified regime, not surchage
+                vals["vat_regime_key"] = "52"
+            else:
+                # Taxes in surchage regime, not simplified
+                vals["vat_regime_key"] = "51"
         vals["tbai_tax_ids"] = taxes
         return vals
 

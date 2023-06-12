@@ -195,7 +195,11 @@ odoo.define("l10n_es_ticketbai_pos.tbai_models", function (require) {
                 vatLinesJson.forEach(function (vatLineJson) {
                     var vatLine = vatLineJson[2];
                     if (vatLine.tax.tbai_vat_regime_simplified) {
-                        self.vat_regime_key = "51";
+                        if (company.tbai_vat_regime_simplified) {
+                            self.vat_regime_key = "52";  // Simplified
+                        } else {
+                            self.vat_regime_key = "51";  // Surcharge
+                        }
                     }
                 });
             }
