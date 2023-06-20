@@ -3,12 +3,13 @@
 <odoo>
     <!-- ###### VISTA DETALLES DE LOS REGISTROS FABRICANTE ###### -->
     <!-- Tree view -->
-    <record id="l10n_es_aeat_mod_592_manufacturer_entries_view_tree" model="ir.ui.view">
-        <field name="name">l10n_es_aeat_mod_592_manufacturer_eentries.view.tree</field>
-        <field name="model">l10n.es.aeat.mod592.report.line.manufacturer</field>
+    <record id="l10n_es_aeat_mod_592_report_line_view_tree" model="ir.ui.view">
+        <field name="name">l10n_es_aeat_mod_592report_line.view.tree</field>
+        <field name="model">l10n.es.aeat.mod592.report.line</field>
         <field name="arch" type="xml">
-            <tree string="AEAT 592 Manufacturer Entries record detail" decoration-danger="entries_ok">
+            <tree string="AEAT 592 Report Line" decoration-danger="entries_ok">
                 <field name="sequence" invisible="1" />
+                <field name="plastic_type" optional="show" />
                 <field name="entries_ok" invisible="1" />
                 <field name="entry_number" optional="show" />
                 <field name="date_done" optional="show" />
@@ -31,11 +32,11 @@
     </record>
 
     <!-- Form view -->
-    <record id="l10n_es_aeat_mod_592_manufacturer_entries_view_form" model="ir.ui.view">
-        <field name="name">l10n_es_aeat_mod_592_manufacturer_entries.view.form</field>
-        <field name="model">l10n.es.aeat.mod592.report.line.manufacturer</field>
+    <record id="l10n_es_aeat_mod_592_report_line_view_form" model="ir.ui.view">
+        <field name="name">l10n_es_aeat_mod_592report_line.view.form</field>
+        <field name="model">l10n.es.aeat.mod592.report.line</field>
         <field name="arch" type="xml">
-            <form string="AEAT 592 Manufacturer Entries record detail">
+            <form string="AEAT 592 Report Line">
                 <group>
                     <field
                         name="error_text"
@@ -45,6 +46,7 @@
                     <field name="sequence" invisible="1" />
                     <field name="entries_ok" invisible="1" />
                     <field name="entry_number" />
+                    <field name="plastic_type" />
                     <field name="date_done" />
                     <field name="concept" />
                     <field name="product_key" />
@@ -60,6 +62,12 @@
                 </group>
             </form>
         </field>
+    </record>
+
+    <record id="action_l10n_es_aeat_mod592_report_line" model="ir.actions.act_window">
+        <field name="name">Mod 592 Report Lines</field>
+        <field name="res_model">l10n.es.aeat.mod592.report.line</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     
