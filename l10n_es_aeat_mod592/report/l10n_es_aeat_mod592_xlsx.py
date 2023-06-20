@@ -90,20 +90,20 @@ class Mod592XlsxManufacturer(models.AbstractModel):
     ):
         """Fill entries data"""
 
-        sheet.write("A" + str(row), line.numero_asiento[:20])
-        sheet.write("B" + str(row), self.format_boe_date(line.fecha_hecho))
-        sheet.write("C" + str(row), line.concepto[:1])
-        sheet.write("D" + str(row), line.clave_producto[:1])
-        sheet.write("E" + str(row), (line.descripcion_producto or "")[:30])
-        sheet.write("F" + str(row), line.regimen_fiscal_manufacturer[:5])
+        sheet.write("A" + str(row), line.entry_number[:20])
+        sheet.write("B" + str(row), self.format_boe_date(line.date_done))
+        sheet.write("C" + str(row), line.concept[:1])
+        sheet.write("D" + str(row), line.product_key[:1])
+        sheet.write("E" + str(row), (line.product_description or "")[:30])
+        sheet.write("F" + str(row), line.fiscal_manufacturer[:5])
         sheet.write("G" + str(row), (line.justificante or "")[:40])
-        sheet.write("H" + str(row), (line.proveedor_tipo_documento or "")[:1])
+        sheet.write("H" + str(row), (line.supplier_document_type or "")[:1])
         sheet.write("I" + str(row),
-                    (line.proveedor_numero_documento or "")[:15])
-        sheet.write("J" + str(row), (line.proveedor_razon_social or "")[:150])
-        sheet.write("K" + str(row), line.kilogramos)
-        sheet.write("L" + str(row), line.kilogramos_no_reciclados)
-        sheet.write("M" + str(row), (line.observaciones_asiento or ""))
+                    (line.supplier_document_number or "")[:15])
+        sheet.write("J" + str(row), (line.supplier_social_reason or "")[:150])
+        sheet.write("K" + str(row), line.kgs)
+        sheet.write("L" + str(row), line.no_recycling_kgs)
+        sheet.write("M" + str(row), (line.entry_note or ""))
 
         if draft_export:
             last_column = sheet.dim_colmax
@@ -116,7 +116,7 @@ class Mod592XlsxManufacturer(models.AbstractModel):
         received_sheet = self.create_entries_sheet(
             workbook, book, draft_export)
         lines = book.manufacturer_line_ids
-        lines = lines.sorted(key=lambda l: (l.fecha_hecho, l.numero_asiento))
+        lines = lines.sorted(key=lambda l: (l.date_done, l.entry_number))
         row = 2
         for line in lines:
             self.fill_entries_row_data(
@@ -201,19 +201,19 @@ class Mod592XlsxAcquirer(models.AbstractModel):
     ):
         """Fill entries data"""
 
-        sheet.write("A" + str(row), line.numero_asiento[:20])
-        sheet.write("B" + str(row), self.format_boe_date(line.fecha_hecho))
-        sheet.write("C" + str(row), line.concepto[:1])
-        sheet.write("D" + str(row), line.clave_producto[:1])
-        sheet.write("E" + str(row), line.regimen_fiscal_manufacturer[:5])
+        sheet.write("A" + str(row), line.entry_number[:20])
+        sheet.write("B" + str(row), self.format_boe_date(line.date_done))
+        sheet.write("C" + str(row), line.concept[:1])
+        sheet.write("D" + str(row), line.product_key[:1])
+        sheet.write("E" + str(row), line.fiscal_manufacturer[:5])
         sheet.write("F" + str(row), (line.justificante or "")[:40])
-        sheet.write("G" + str(row), (line.proveedor_tipo_documento or "")[:1])
+        sheet.write("G" + str(row), (line.supplier_document_type or "")[:1])
         sheet.write("H" + str(row),
-                    (line.proveedor_numero_documento or "")[:15])
-        sheet.write("I" + str(row), (line.proveedor_razon_social or "")[:150])
-        sheet.write("J" + str(row), line.kilogramos)
-        sheet.write("K" + str(row), line.kilogramos_no_reciclados)
-        sheet.write("L" + str(row), (line.observaciones_asiento or ""))
+                    (line.supplier_document_number or "")[:15])
+        sheet.write("I" + str(row), (line.supplier_social_reason or "")[:150])
+        sheet.write("J" + str(row), line.kgs)
+        sheet.write("K" + str(row), line.no_recycling_kgs)
+        sheet.write("L" + str(row), (line.entry_note or ""))
 
         if draft_export:
             last_column = sheet.dim_colmax
@@ -226,7 +226,7 @@ class Mod592XlsxAcquirer(models.AbstractModel):
         received_sheet = self.create_entries_sheet(
             workbook, book, draft_export)
         lines = book.manufacturer_line_ids
-        lines = lines.sorted(key=lambda l: (l.fecha_hecho, l.numero_asiento))
+        lines = lines.sorted(key=lambda l: (l.date_done, l.entry_number))
         row = 2
         for line in lines:
             self.fill_entries_row_data(

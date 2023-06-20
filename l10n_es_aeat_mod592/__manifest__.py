@@ -21,6 +21,7 @@
         "views/account_move.xml",
         "views/stock_move.xml",
         "views/mod592_view.xml",
+        "views/mod592_report_line_view.xml",
         "views/mod592_acquirer_line_view.xml",
         "views/mod592_manufacturer_line_view.xml",
         "views/res_company.xml",
