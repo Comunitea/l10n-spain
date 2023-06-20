@@ -9,6 +9,7 @@ class ResPartner(models.Model):
     _description = "ResPartner"
     _inherit = "res.partner"
 
+    # todo related?
     product_plastic_document_type = fields.Selection(
         [
             ("1", _("(1) NIF or Spanish NIE")),

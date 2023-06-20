@@ -25,6 +25,8 @@
         <field name="arch" type="xml">
             <header position="inside">
                 <field name="company_plastic_type" invisible="1"/>
+                <field name="report_line_ids" invisible="1"/>
+                <field name="company_plastic_type" invisible="1"/>
                 <!-- MANUFACTURER -->
                 <button name="export_xlsx_manufacturer" string="Export XLSX" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'acquirer')]}" />
                 <button name="export_csv_manufacturer" string="Export CSV" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'acquirer')]}" />
@@ -32,6 +34,40 @@
                 <button name="export_xlsx_acquirer" string="Export XLSX" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'manufacturer')]}" />
                 <button name="export_csv_acquirer" string="Export CSV" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'manufacturer')]}" />
             </header>
+
+            <group name="group_declaration" position="before"> 
+                <!-- <div class="oe_button_box" name="button_box">
+                    <button
+                        class="oe_stat_button"
+                        name="view_action_mod592_report_line"
+                        type="object"
+                        string="View Report Lines"
+                        attrs="{'invisible': [('report_line_ids', '==', False)]}"
+                        icon="fa-list"
+                    />
+                </div> -->
+                <div class="oe_button_box" name="button_box">
+                    <button
+                        class="oe_stat_button"
+                        name="view_action_mod592_report_line_acquirer"
+                        type="object"
+                        string="View Adquirer Lines"
+                        attrs="{'invisible': [('report_line_ids', '==', False)]}"
+                        icon="fa-list"
+                    />
+                </div>
+                <div class="oe_button_box" name="button_box">
+                    <button
+                        class="oe_stat_button"
+                        name="view_action_mod592_report_line_manofacturer"
+                        type="object"
+                        string="View Manofacturer Lines"
+                        attrs="{'invisible': [('report_line_ids', '==', False)]}"
+                        icon="fa-list"
+                    />
+                </div>
+            
+            </group>
             <group name="group_declaration" position="after">
                 <notebook colspan="4">
                     <page string="General">
