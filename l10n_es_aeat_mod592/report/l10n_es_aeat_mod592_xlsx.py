@@ -95,8 +95,8 @@ class Mod592XlsxManufacturer(models.AbstractModel):
         sheet.write("C" + str(row), line.concept[:1])
         sheet.write("D" + str(row), line.product_key[:1])
         sheet.write("E" + str(row), (line.product_description or "")[:30])
-        sheet.write("F" + str(row), line.fiscal_manufacturer[:5])
-        sheet.write("G" + str(row), (line.justificante or "")[:40])
+        sheet.write("F" + str(row), (line.fiscal_manufacturer or "")[:5])
+        sheet.write("G" + str(row), (line.proof or "")[:40])
         sheet.write("H" + str(row), (line.supplier_document_type or "")[:1])
         sheet.write("I" + str(row),
                     (line.supplier_document_number or "")[:15])
@@ -105,10 +105,11 @@ class Mod592XlsxManufacturer(models.AbstractModel):
         sheet.write("L" + str(row), line.no_recycling_kgs)
         sheet.write("M" + str(row), (line.entry_note or ""))
 
-        if draft_export:
-            last_column = sheet.dim_colmax
-            num_row = row - 1
-            sheet.write(num_row, last_column)
+        # todo Error?
+        # if draft_export:
+        #     last_column = sheet.dim_colmax
+        #     num_row = row - 1
+        #     sheet.write(num_row, last_column)
 
     def generate_xlsx_report(self, workbook, data, objects):
         book = objects[0]
@@ -205,8 +206,8 @@ class Mod592XlsxAcquirer(models.AbstractModel):
         sheet.write("B" + str(row), self.format_boe_date(line.date_done))
         sheet.write("C" + str(row), line.concept[:1])
         sheet.write("D" + str(row), line.product_key[:1])
-        sheet.write("E" + str(row), line.fiscal_manufacturer[:5])
-        sheet.write("F" + str(row), (line.justificante or "")[:40])
+        sheet.write("E" + str(row), (line.fiscal_manufacturer or "")[:5])
+        sheet.write("F" + str(row), (line.proof or "")[:40])
         sheet.write("G" + str(row), (line.supplier_document_type or "")[:1])
         sheet.write("H" + str(row),
                     (line.supplier_document_number or "")[:15])
@@ -215,10 +216,11 @@ class Mod592XlsxAcquirer(models.AbstractModel):
         sheet.write("K" + str(row), line.no_recycling_kgs)
         sheet.write("L" + str(row), (line.entry_note or ""))
 
-        if draft_export:
-            last_column = sheet.dim_colmax
-            num_row = row - 1
-            sheet.write(num_row, last_column)
+        # todo error?
+        # if draft_export:
+        #     last_column = sheet.dim_colmax
+        #     num_row = row - 1
+        #     sheet.write(num_row, last_column)
 
     def generate_xlsx_report(self, workbook, data, objects):
         book = objects[0]

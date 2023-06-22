@@ -15,7 +15,7 @@ class Mod592CsvManufacturer(models.AbstractModel):
         for obj in objects.manufacturer_line_ids:
             writer.writerow({
                 'entry_number': obj.entry_number,
-                'date_done': obj.date_done,
+                'date_done': obj.date_done.strftime("%d/%m/%Y"),
                 'concept': obj.concept,
                 'product_key': obj.product_key,
                 'product_description': obj.product_description,
@@ -59,7 +59,7 @@ class Mod592CsvAcquirer(models.AbstractModel):
         for obj in objects.acquirer_line_ids:
             writer.writerow({
                 'entry_number': obj.entry_number,
-                'date_done': obj.date_done,
+                'date_done': obj.date_done.strftime("%d/%m/%Y"),
                 'concept': obj.concept,
                 'product_key': obj.product_key,
                 'fiscal_acquirer': obj.fiscal_acquirer,

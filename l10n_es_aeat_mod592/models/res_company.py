@@ -13,3 +13,8 @@ class ResCompany(models.Model):
         ('acquirer', _('Acquirer')),
         ('both', _('Both')),
     ], string='Company Plastic Type', default='acquirer')
+
+    company_plastic_acquirer = fields.Boolean(
+        string='Company Plastic Acquirer', default=True)
+    company_plastic_manufacturer = fields.Boolean(
+        string='Plastic Manufacturer', default=True)

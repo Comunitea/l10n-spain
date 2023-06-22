@@ -11,13 +11,14 @@ class L10nEsAeatmod592LineManufacturer(models.Model):
 
     _description = "AEAT 592 Manufacturer report"
     _name = "l10n.es.aeat.mod592.report.line.manufacturer"
+    _rec_name = "entry_number"
 
     sequence = fields.Integer(default=1)
-    entry_number = fields.Char(_('Entrie number'), store=True, limit=20)
+    entry_number = fields.Char(string='Entrie number', store=True, limit=20)
 
 
 
-    date_done = fields.Date(_('Date'), store=True, limit=10)
+    date_done = fields.Date(string='Date', store=True, limit=10)
     concept = fields.Selection(
         [
             ("1", _("(1) Initial existence")),
@@ -26,16 +27,16 @@ class L10nEsAeatmod592LineManufacturer(models.Model):
             ("4", _("(4) Delivery or making available of the products accounted for")),
             ("5", _("(5) Other cancellations of the products accounted for other than their delivery or availability")),
         ],
-        string=_('Concept'), store=True, limit=1)
+        string=_('Concept'))
     product_key = fields.Selection(
         [
             ("A", _("(A) Non-reusable")),
             ("B", _("(B) Semi-finished")),
             ("C", _("(C) Plastic product intended to allow the closure")),
         ],
-        string=_('Key product'), store=True, limit=1)
+        string='Key product')
     product_description = fields.Char(
-        _('Product description'), store=True, limit=30)
+        string='Product description')
     fiscal_manufacturer = fields.Selection(
         [
             ("A", _("(A) Subjection and non-exemption ")),
@@ -50,27 +51,21 @@ class L10nEsAeatmod592LineManufacturer(models.Model):
             ("J", _("(J) Exemption article 75 g) 1º Law 7/2022, of April 8")),
             ("K", _("(K) Exemption article 75 g) 2º Law 7/2022, of April 8")),
         ],
-        string=_("Fiscal regime manufacturer"), store=True, limit=5
-    )
+        string="Fiscal regime manufacturer")
 
-    proof = fields.Char(_('Proof document'), store=True, limit=40)
+    proof = fields.Char('Proof document')
     supplier_document_type = fields.Selection(
         [
             ("1", _("(1) NIF or Spanish NIE")),
             ("2", _("(2) Intra-Community VAT NIF")),
             ("3", _("(3) Others")),
         ],
-        string=_('Supplier document type'), store=True, limit=1
-    )
-    supplier_document_number = fields.Char(
-        _('Supplier document number'), store=True, limit=15)
-    supplier_social_reason = fields.Char(
-        _('Supplier name'), store=True, limit=150)
-    kgs = fields.Float(_('Weight'), store=True, limit=17)
-    no_recycling_kgs = fields.Float(
-        _('Weight non reclycable'), store=True, limit=17)
-    entry_note = fields.Text(
-        _('Entries observation'), store=True, limit=200)
+        string='Supplier document type')
+    supplier_document_number = fields.Char(string='Supplier document number')
+    supplier_social_reason = fields.Char('Supplier name')
+    kgs = fields.Float('Weight')
+    no_recycling_kgs = fields.Float('Weight non reclycable')
+    entry_note = fields.Text('Entries observation')
     report_id = fields.Many2one(
         comodel_name="l10n.es.aeat.mod592.report", string="Mod592 Report")
     # move_line_id = fields.Many2one(
@@ -97,8 +92,6 @@ class L10nEsAeatmod592LineManufacturer(models.Model):
         """Checks if all line fields are filled."""
         for record in self:
             errors = []
-            # if not record.supplier_document_number:
-            #     errors.append(_("Without VAT"))
             if not record.product_key:
                 errors.append(_("Without product key"))
             if not record.supplier_social_reason:
@@ -119,13 +112,3 @@ class L10nEsAeatmod592LineManufacturer(models.Model):
             # record.entries_ok = bool(not errors)
             record.entries_ok = True
             record.error_text = ", ".join(errors)
-
-    # @api.model
-    # def create(self, vals):
-    #     for record in self:
-    #         seq = self.env['ir.sequence'].next_by_code(
-    #             'l10n.es.aeat.mod592.report.line.manufacturer')
-    #         asiento = self.move_line.move_id.name
-    #         record.write({
-    #             'entry_number': str(seq + asiento),
-    #         })
