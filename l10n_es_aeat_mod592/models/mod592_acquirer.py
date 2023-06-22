@@ -11,12 +11,13 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
 
     _description = "AEAT 592 Acquirer report"
     _name = "l10n.es.aeat.mod592.report.line.acquirer"
+    _rec_name = "entry_number"
 
     report_id = fields.Many2one(
         comodel_name="l10n.es.aeat.mod592.report", string="Mod592 Report")
     sequence = fields.Integer(default=1)
+
     entry_number = fields.Char('Entrie number')
-    date_done = fields.Date('Date')
     concept = fields.Selection(
         [
             ("1", _("(1) Intra-community acquisition")),
@@ -24,7 +25,7 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
             ("3", _("(3) Inadequacy or destruction")),
             ("4", _("(4) Return for destruction or reincorporation into the manufacturing process")),
         ],
-        string='Concept', store=True, limit=1)
+        string='Concept')
     product_key = fields.Selection(
         [
             ("A", _("(A) Non-reusable")),
@@ -32,6 +33,7 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
             ("C", _("(C) Plastic product intended to allow the closure")),
         ],
         string='Product Key')
+    date_done = fields.Date('Date')
 
     fiscal_acquirer = fields.Selection(
         [
@@ -67,9 +69,7 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
         'Weiht non reclycable')
     entry_note = fields.Text(
         'Entries observation')
-    # move_line_id = fields.Many2one(
-    #     comodel_name="account.move.line", string="Journal Item", required=True
-    # )
+
     stock_move_id = fields.Many2one(
         comodel_name="stock.move", string="Stock Move", required=True
     )
@@ -110,14 +110,3 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
 
             record.entries_ok = bool(not errors)
             record.error_text = ", ".join(errors)
-
-    @api.model
-    def create(self, vals):
-        if vals.get('entry_number', _('Entries')) == _('Entries'):
-            if 'company_id' in vals:
-                vals['entry_number'] = self.env['ir.sequence'].with_context(
-                    force_company=vals['company_id']).next_by_code(
-                        'l10n.es.aeat.mod592.report.line.acquirer') + str(self.entry_number)
-            else:
-                vals['entry_number'] = self.env['ir.sequence'].next_by_code(
-                    'l10n.es.aeat.mod592.report.line.acquirer') + str(self.entry_number)

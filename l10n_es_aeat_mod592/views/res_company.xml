@@ -8,6 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='aeat_config']" position="inside">
                 <field name="company_plastic_type" />
+                <field name="company_plastic_acquirer" />
+                <field name="company_plastic_manufacturer"/>
             </xpath>
         </field>
     </record>
