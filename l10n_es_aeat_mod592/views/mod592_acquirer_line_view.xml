@@ -7,9 +7,9 @@
         <field name="name">l10n_es_aeat_mod_592_acquirer_entries.view.tree</field>
         <field name="model">l10n.es.aeat.mod592.report.line.acquirer</field>
         <field name="arch" type="xml">
-            <tree string="AEAT 592 Acquirer Entries record detail" decoration-danger="entries_ok">
-                <field name="entries_ok" invisible="1" />
+            <tree string="AEAT 592 Acquirer Entries record detail" decoration-danger="entries_ok == False">
                 <field name="entry_number" optional="show" />
+                <field name="stock_move_id" optional="show" />
                 <field name="date_done" optional="show" />
                 <field name="concept" optional="show" />
                 <field name="product_key" optional="show" />
@@ -20,11 +20,8 @@
                 <field name="kgs" optional="show" />
                 <field name="no_recycling_kgs" optional="show" />
                 <field name="entry_note" optional="hide" />
-                <field
-                    name="error_text"
-                    attrs="{'invisible': [('entries_ok', '=', True)]}"
-                    optional="hide"
-                />
+                <field name="entries_ok" optional="hide" />
+                <field name="error_text" optional="hide" />
             </tree>
         </field>
     </record>
@@ -37,13 +34,8 @@
             <form string="AEAT 592 Acquirer Entries record detail">
                 <sheet>
                     <group>
-                        <field
-                            name="error_text"
-                            attrs="{'invisible': [('entries_ok', '=', True)]}"
-                            class="text-danger"
-                        />
-                        <field name="entries_ok" invisible="1" />
                         <field name="entry_number" />
+                        <field name="stock_move_id"/>
                         <field name="date_done" />
                         <field name="concept" />
                         <field name="product_key" />
@@ -54,6 +46,12 @@
                         <field name="kgs" />
                         <field name="no_recycling_kgs" />
                         <field name="entry_note" />
+                        <field name="entries_ok" invisible="1" />
+                        <field
+                            name="error_text"
+                            attrs="{'invisible': [('entries_ok', '=', True)]}"
+                            class="text-danger"
+                        />
                         <field name="report_id" invisible="1" />
 
                     </group>

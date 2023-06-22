@@ -25,56 +25,45 @@
         <field name="arch" type="xml">
             <header position="inside">
                 <field name="company_plastic_type" invisible="1"/>
-                <field name="report_line_ids" invisible="1"/>
                 <field name="company_plastic_type" invisible="1"/>
                 <!-- MANUFACTURER -->
-                <button name="export_xlsx_manufacturer" string="Export XLSX" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'acquirer')]}" />
-                <button name="export_csv_manufacturer" string="Export CSV" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'acquirer')]}" />
+                <!-- <button name="export_xlsx_manufacturer" string="Export XLSX Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', False)]}" /> -->
+                <button name="export_csv_manufacturer" string="Export CSV Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', 'False')]}" />
                 <!-- ACQUIRER -->
-                <button name="export_xlsx_acquirer" string="Export XLSX" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'manufacturer')]}" />
-                <button name="export_csv_acquirer" string="Export CSV" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('company_plastic_type', '=', 'manufacturer')]}" />
+                <!-- <button name="export_xlsx_acquirer" string="Export XLSX Acquirer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('acquirer_line_ids', '=', 'False')]}" /> -->
+                <button name="export_csv_acquirer" string="Export CSV Acquirer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('acquirer_line_ids', '=', 'False')]}" />
             </header>
 
-            <group name="group_declaration" position="before"> 
-                <!-- <div class="oe_button_box" name="button_box">
-                    <button
-                        class="oe_stat_button"
-                        name="view_action_mod592_report_line"
-                        type="object"
-                        string="View Report Lines"
-                        attrs="{'invisible': [('report_line_ids', '==', False)]}"
-                        icon="fa-list"
-                    />
-                </div> -->
+            <field name="allow_posting" position="before">
+                <field name="acquirer_line_ids" invisible="1"/> 
+                <field name="manufacturer_line_ids" invisible="1"/> 
                 <div class="oe_button_box" name="button_box">
                     <button
-                        class="oe_stat_button"
-                        name="view_action_mod592_report_line_acquirer"
-                        type="object"
-                        string="View Adquirer Lines"
-                        attrs="{'invisible': [('report_line_ids', '==', False)]}"
-                        icon="fa-list"
-                    />
-                </div>
-                <div class="oe_button_box" name="button_box">
+                            class="oe_stat_button"
+                            name="view_action_mod592_report_line_acquirer"
+                            type="object"
+                            attrs="{'invisible': [('acquirer_line_ids', '==', False)]}"
+                            icon="fa-list">
+                        <field name="num_lines_acquirer" string="Acquirer entries" widget="statinfo"/>
+                    </button>
                     <button
                         class="oe_stat_button"
-                        name="view_action_mod592_report_line_manofacturer"
+                        name="view_action_mod592_report_line_manufacturer"
                         type="object"
-                        string="View Manofacturer Lines"
-                        attrs="{'invisible': [('report_line_ids', '==', False)]}"
-                        icon="fa-list"
-                    />
+                        attrs="{'invisible': [('manufacturer_line_ids', '==', False)]}"
+                        icon="fa-list">
+                        <field name="num_lines_manufacturer" string="Manufacturer entries" widget="statinfo"/>
+                    </button>
                 </div>
-            
-            </group>
+            </field>
             <group name="group_declaration" position="after">
                 <notebook colspan="4">
                     <page string="General">
                         <group string="Generic">
                             <field name="amount_plastic_tax" col="2"/>
                         </group>
-                        <group string="Manufacturer Result" attrs="{'invisible':[('company_plastic_type', '=', 'acquirer')]}">
+                        <!-- <group string="Manufacturer Result" attrs="{'invisible':[('company_plastic_type', '=', 'acquirer')]}"> -->
+                        <group string="Manufacturer Result">
                             <group>
                                 <field name="total_manufacturer_entries_records" />
                             </group>
@@ -89,7 +78,8 @@
                             </group>
 
                         </group>
-                        <group string="Acquirer Result" attrs="{'invisible':[('company_plastic_type', '=', 'manufacturer')]}">
+                        <!-- <group string="Acquirer Result" attrs="{'invisible':[('company_plastic_type', '=', 'manufacturer')]}"> -->
+                        <group string="Acquirer Result">
                             <group>
                                 <field name="total_acquirer_entries_records" />
                             </group>
@@ -104,19 +94,6 @@
                             </group>
                         </group>
                     </page>
-                    <page string="Manufacturer Entries Records" attrs="{'invisible':[('company_plastic_type', '=', 'acquirer')]}">
-                        <group name="manufacturer_entries_records" string="Manufacturer Entries Record">
-                            <field name="manufacturer_line_ids" nolabel="1" />
-                        </group>
-
-                    </page>
-                    <page string="Acquirer Entries Records" attrs="{'invisible':[('company_plastic_type', '=', 'manufacturer')]}">
-                        <group name="acquirer_entries_records" string="Acquirer Entries Record">
-                            <field name="acquirer_line_ids" nolabel="1" />
-                        </group>
-
-                    </page>
-
                 </notebook>
             </group>
             <form position="inside">
