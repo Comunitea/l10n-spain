@@ -24,8 +24,6 @@
         <field name="inherit_id" ref="l10n_es_aeat.view_l10n_es_aeat_report_form" />
         <field name="arch" type="xml">
             <header position="inside">
-                <field name="company_plastic_type" invisible="1"/>
-                <field name="company_plastic_type" invisible="1"/>
                 <!-- MANUFACTURER -->
                 <!-- <button name="export_xlsx_manufacturer" string="Export XLSX Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', False)]}" /> -->
                 <button name="export_csv_manufacturer" string="Export CSV Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', 'False')]}" />
@@ -62,34 +60,17 @@
                         <group string="Generic">
                             <field name="amount_plastic_tax" col="2"/>
                         </group>
-                        <!-- <group string="Manufacturer Result" attrs="{'invisible':[('company_plastic_type', '=', 'acquirer')]}"> -->
-                        <group string="Manufacturer Result">
-                            <group>
+                        <group>
+                            <group string="Manufacturer Result">
                                 <field name="total_manufacturer_entries_records" />
-                            </group>
-                            <group>
                                 <field name="total_weight_manufacturer_records" />
-                            </group>
-                            <group>
                                 <field name="total_weight_manufacturer_non_reclyclable_records" />
-                            </group>
-                            <group>
                                 <field name="total_amount_manufacturer_records" />
                             </group>
-
-                        </group>
-                        <!-- <group string="Acquirer Result" attrs="{'invisible':[('company_plastic_type', '=', 'manufacturer')]}"> -->
-                        <group string="Acquirer Result">
-                            <group>
+                            <group string="Acquirer Result">
                                 <field name="total_acquirer_entries_records" />
-                            </group>
-                            <group>
                                 <field name="total_weight_acquirer_records" />
-                            </group>
-                            <group>
                                 <field name="total_weight_acquirer_non_reclyclable_records" />
-                            </group>
-                            <group>
                                 <field name="total_amount_acquirer_records" />
                             </group>
                         </group>
@@ -105,6 +86,7 @@
             </form>
         </field>
     </record>
+
     <!-- Window action -->
     <record id="action_l10n_es_aeat_mod592_report" model="ir.actions.act_window">
         <field name="name">AEAT AEAT 592 Model</field>
@@ -124,6 +106,7 @@
         <field name="view_id" ref="view_l10n_es_aeat_mod592_report_form" />
         <field name="act_window_id" ref="action_l10n_es_aeat_mod592_report" />
     </record>
+
     <!-- Menu action -->
     <menuitem id="menu_aeat_mod592_report" parent="l10n_es_aeat.menu_root_aeat" action="action_l10n_es_aeat_mod592_report" sequence="592" name="AEAT 592 Model" />
 </odoo>

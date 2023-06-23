@@ -1,13 +1,11 @@
 # Copyright 2023 Nicolás Ramos - (https://binhex.es)
+# Copyright 2023 Javier Colmenero - (https://javier@comunitea.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import re
-import logging
 
 from odoo import api, fields, models, exceptions, _
 from odoo.osv import expression
-from pprint import pprint
 
-_logger = logging.getLogger(__name__)
 
 
 class L10nEsAeatmod592Report(models.Model):
@@ -90,7 +88,6 @@ class L10nEsAeatmod592Report(models.Model):
         'Number of lines manufacturer', 
         compute='_compute_num_lines_manufacturer')
 
-    company_plastic_type = fields.Selection(related="company_id.company_plastic_type")
 
     def _compute_totals_acquirer(self):
         for record in self:
@@ -155,46 +152,79 @@ class L10nEsAeatmod592Report(models.Model):
             ("picking_id.partner_id", "!=", False),
             ("company_id", "=", self.company_id.id),
             ("product_id.is_plastic_tax", "=", True),
+            ("product_id.tax_plastic_type", "=", 'acquirer'),
         ]
         # Intracomunitary Adquisitions
         domain_concept_1 = [
-            ("picking_code", "=", "incoming"),
             ("location_id.usage", "=", "supplier"),
             ("picking_id.partner_id.product_plastic_document_type", "=", '2'),
         ]
         # Deduction by: Non Spanish Shipping
         domain_concept_2 = [
-            ("picking_code", "=", "outgoing"),
             ("location_dest_id.usage", "=", "customer"),
             ("picking_id.partner_id.product_plastic_document_type", "!=", '1'),
         ]
         # Deduction by: Scrap
+        # TODO: No scrap if quant is not intracomunitaty acquisition
         domain_concept_3 = [
             ("location_dest_id.scrap_location", "=", True),
         ]
         # Deduction by adquisition returns
         domain_concept_4 = [
             ("location_dest_id.usage", "=", 'supplier'),
-            ("picking_code", "=", "outgoing"),
+            ("origin_returned_move_id", "!=",False),
         ]
-
         domain = expression.AND([
             domain_base, expression.OR([
                 domain_concept_1, domain_concept_2, 
                 domain_concept_3, domain_concept_4])])
-        pprint(domain)
         return domain
 
     def get_manufacturer_moves_domain(self):
-        return [
+        domain_base = [
             ("date", ">=", self.date_start),
             ("date", "<=", self.date_end),
-            ("state", "=", "no_existe"),
-            # ("state", "=", "done"),
-            ("picking_code", "=", "outgoing"),
+            ("state", "=", "done"),
+            ("picking_id.partner_id", "!=", False),
             ("company_id", "=", self.company_id.id),
             ("product_id.is_plastic_tax", "=", True),
+            ("product_id.tax_plastic_type", "=", 'manufacturer'),
         ]
+        # Initial Existence
+        # If first sale, locate all existence
+        # domain_concept_1 = [
+        #     ("location_dest_id.usage", "=", "internal"),
+        # ]
+
+        # Manufacturation by Atticle 71.b of Law 7/2022
+        # domain_concept_2 = [
+        #     ("location_dest_id.usage", "=", "production"),
+        # ]
+
+        # Return products for destruction, or re-manufacturation
+        domain_concept_3 = [
+            ("location_dest_id.scrap_location", "=", True),
+        ]
+
+        # Sales to non spanish customers
+        domain_concept_4 = [
+            ("location_dest_id.usage", "=", 'customer'),
+            ("picking_id.partner_id.product_plastic_document_type", "==", '1'),
+        ]
+
+        # ? Another destructions
+        # domain_concept_5 = [
+        #     ("location_dest_id.scrap_location", "=", True),
+        # ]
+
+        # domain = expression.AND([
+        #     domain_base, expression.OR([
+        #         domain_concept_1, domain_concept_2, 
+        #         domain_concept_3, domain_concept_4])])
+        domain = expression.AND([
+            domain_base, expression.OR([
+                domain_concept_3, domain_concept_4])])
+        return domain
 
     def _get_acquirer_moves(self):
         """Returns the stock moves of the acquirer."""
@@ -217,7 +247,6 @@ class L10nEsAeatmod592Report(models.Model):
             self._cleanup_report()
             if self.company_id.company_plastic_acquirer:
                 acquirer_moves = self._get_acquirer_moves()
-                # import ipdb; ipdb.set_trace()
                 self._create_592_acquirer_details(acquirer_moves)
 
             if self.company_id.company_plastic_manufacturer:
@@ -241,7 +270,7 @@ class L10nEsAeatmod592Report(models.Model):
         if acquirer_values:
             self.env['l10n.es.aeat.mod592.report.line.acquirer'].\
                 create(acquirer_values)
-       
+
     def _create_592_manufacturer_details(self, move_lines):
         # line_values = []
         manufacturer_values = []
@@ -290,8 +319,7 @@ class L10nEsAeatmod592Report(models.Model):
             "stock_move_id": move_line.id,
 
             "date_done": move_line.date,
-            # "concept": move_line.product_plastic_concept_manufacturer,
-            "concept": "1",
+            "concept": move_line._get_manufacturer_concept_move(),
             "product_key": product.product_plastic_type_key,
             "product_description": move_line.name,
             "fiscal_manufacturer": product.product_plastic_tax_regime_manufacturer,
@@ -386,3 +414,9 @@ class L10nEsAeatmod592Report(models.Model):
             'l10n_es_aeat_mod592.action_l10n_es_aeat_mod592_report_line_manufacturer').read()[0]
         action['domain'] = [('id', 'in', self.manufacturer_line_ids.ids)]
         return action
+
+
+
+# # Buenas @nramosbinhex.
+# Estoy intentando continuar con este PR. Tenemos una rama donde estoy trabajando. Me gustaría hacer un PR a la rama 14 de tu organización, pero por algún motivo no sale en el listado de forks de OCA/l10n_es_spain. Es decir a la hora de proponer un PR no me encuentra el fork de BinhexSystemss, a pesar de que lo tenéis público. No se si puede ser algo de la configuración de vuestra cuenta en github.
+# Si conseguís que aparezca propongo el PR en tu rama, y si lo mergeas este PR ya quedaría actualizado con mis cambios.
