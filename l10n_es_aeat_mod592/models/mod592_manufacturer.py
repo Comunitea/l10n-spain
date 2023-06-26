@@ -17,8 +17,6 @@ class L10nEsAeatmod592LineManufacturer(models.Model):
     sequence = fields.Integer(default=1)
     entry_number = fields.Char(string='Entrie number', store=True, limit=20)
 
-
-
     date_done = fields.Date(string='Date', store=True, limit=10)
     concept = fields.Selection(
         [
