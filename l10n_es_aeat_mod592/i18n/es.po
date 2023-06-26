@@ -1273,7 +1273,7 @@ msgstr "Kilogramos"
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_manufacturer__no_recycling_kgs
 msgid "Weight non reclycable"
-msgstr "Kilogramos no reciclables"
+msgstr "Kilogramos no reciclados"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_acquirer__kgs
@@ -1285,7 +1285,7 @@ msgstr "Kilogramos"
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_acquirer__no_recycling_kgs
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.mod592_entries_record_head
 msgid "Weiht non reclycable"
-msgstr "Kilogramos no reciclables"
+msgstr "Kilogramos no reciclados"
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
@@ -1305,7 +1305,7 @@ msgstr "Sin Kilogramos"
 #: code:addons/l10n_es_aeat_mod592/models/mod592_manufacturer.py:0
 #, python-format
 msgid "Without Weiht non recyclable"
-msgstr "Sin kilogramos no reciclables"
+msgstr "Sin kilogramos no reciclados"
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
