@@ -61,8 +61,11 @@ class ProductTemplate(models.Model):
 
     tax_plastic_type = fields.Selection([
         ('manufacturer', _('Manufacturer')),
-        ('acquirer', _('Acquirer'))],
+        ('acquirer', _('Acquirer')),
+        ('both', _('Both')),
+    ],
         string='Tax Plastic Type',
+        default='both'
     )
 
     @api.onchange('product_plastic_weight_non_recyclable')

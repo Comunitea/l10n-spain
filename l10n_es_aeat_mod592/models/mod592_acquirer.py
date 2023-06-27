@@ -90,20 +90,18 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
         """Checks if all line fields are filled."""
         for record in self:
             errors = []
-            if not record.supplier_document_number:
-                errors.append(_("Without VAT"))
-            if not record.product_key:
-                errors.append(_("Without product key"))
-            if not record.supplier_social_reason:
-                errors.append(_("Without supplier name"))
             if not record.entry_number:
                 errors.append(_("Without entrie number"))
+            if not record.concept:
+                errors.append(_("Without concept"))
+            if not record.product_key:
+                errors.append(_("Without product key"))
+            if record.concept != '3' and not record.supplier_social_reason:
+                errors.append(_("Without supplier name"))
             if not record.fiscal_acquirer:
                 errors.append(_("Without regime"))
-            if not record.supplier_document_type:
-                errors.append(_("Without supplier document"))
-            if not record.supplier_document_number:
-                errors.append(_("Without document number"))
+            if record.concept != '3' and not record.supplier_document_number:
+                errors.append(_("Without VAT"))
             if not record.kgs > 0.0:
                 errors.append(_("Without Weiht"))
             if not record.no_recycling_kgs > 0.0:
