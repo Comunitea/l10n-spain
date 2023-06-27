@@ -481,7 +481,7 @@ msgstr "Tipo de icono de actividad"
 msgid ""
 "All entries records fields (Entrie number, VAT number Concept, Key product, "
 "Fiscal regime, etc must be filled."
-msgstr ""
+msgstr "Todos los campos de los asientes (Nª asiento, NIF, Concepto, clave producto, régimen fiscal...) deben estar rellenados."
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__allow_posting
@@ -508,7 +508,7 @@ msgstr "Cuenta bancaria"
 #: model:ir.model.fields.selection,name:l10n_es_aeat_mod592.selection__product_template__tax_plastic_type__both
 #, python-format
 msgid "Both"
-msgstr ""
+msgstr "Ambos"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__calculation_date
@@ -519,7 +519,7 @@ msgstr "Fecha de cálculo"
 #: model:ir.model.fields,help:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_acquirer__entries_ok
 #: model:ir.model.fields,help:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_manufacturer__entries_ok
 msgid "Checked if record is OK"
-msgstr "Comprobado si el registro es correcto"
+msgstr "Marcado si el registro es correcto"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model,name:l10n_es_aeat_mod592.model_res_company
@@ -802,7 +802,7 @@ msgstr "Diairo en el que contabilizar el asiento."
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_manufacturer__product_key
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.mod592_entries_record_head
 msgid "Key product"
-msgstr "Cla. producto"
+msgstr "Clave producto"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__representative_vat
@@ -1192,7 +1192,7 @@ msgstr "Tipo de documento del proveedor/destinatario"
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__support_type
 msgid "Support Type"
-msgstr "Tipo de JUSTIFICANTE"
+msgstr "Justificante"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_acquirer__proof
@@ -1239,7 +1239,7 @@ msgstr "Importe total fabricante"
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_acquirer_entries_records
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_manufacturer_entries_records
 msgid "Total entries records"
-msgstr "Nº de asientos adquirente"
+msgstr "Nº de asientos"
 
 #. module: l10n_es_aeat_mod592
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.mod592_summary
@@ -1362,7 +1362,7 @@ msgstr ""
 #: code:addons/l10n_es_aeat_mod592/models/mod592_manufacturer.py:0
 #, python-format
 msgid "Without entrie number"
-msgstr "SIn numero de registro"
+msgstr "Sin numero de registro"
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
