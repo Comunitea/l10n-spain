@@ -26,7 +26,7 @@
             <header position="inside">
                 <!-- MANUFACTURER -->
                 <!-- <button name="export_xlsx_manufacturer" string="Export XLSX Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', False)]}" /> -->
-                <button name="export_csv_manufacturer" string="Export CSV Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', 'False')]}" />
+                <!-- <button name="export_csv_manufacturer" string="Export CSV Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', 'False')]}" /> -->
                 <!-- ACQUIRER -->
                 <!-- <button name="export_xlsx_acquirer" string="Export XLSX Acquirer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('acquirer_line_ids', '=', 'False')]}" /> -->
                 <button name="export_csv_acquirer" string="Export CSV Acquirer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('acquirer_line_ids', '=', 'False')]}" />
