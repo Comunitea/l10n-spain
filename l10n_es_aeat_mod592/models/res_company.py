@@ -10,5 +10,6 @@ class ResCompany(models.Model):
 
     company_plastic_acquirer = fields.Boolean(
         string='Company Plastic Acquirer', default=True)
+    # Todo: remove readonly and implement
     company_plastic_manufacturer = fields.Boolean(
-        string='Plastic Manufacturer', default=True)
+        string='Plastic Manufacturer', default=False, readonly=True)

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-26 15:54+0000\n"
-"PO-Revision-Date: 2023-06-26 15:54+0000\n"
+"POT-Creation-Date: 2023-06-27 12:20+0000\n"
+"PO-Revision-Date: 2023-06-27 12:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,9 @@ msgstr "(3) Otros"
 msgid ""
 "(3) Return of products for destruction or reincorporation into the "
 "manufacturing process"
-msgstr "(3) Retorno de productos para destrucción o reincorporación al proceso de fabricación"
+msgstr ""
+"(3) Retorno de productos para destrucción o reincorporación al proceso de "
+"fabricación"
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_manufacturer.py:0
@@ -105,7 +107,8 @@ msgstr "(4) Entrega o puesta a disposición de los productos contabilizados"
 #, python-format
 msgid ""
 "(4) Return for destruction or reincorporation into the manufacturing process"
-msgstr "(4) Devolución para destrucción o reincorporación al proceso de fabricación"
+msgstr ""
+"(4) Devolución para destrucción o reincorporación al proceso de fabricación"
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_manufacturer.py:0
@@ -114,7 +117,9 @@ msgstr "(4) Devolución para destrucción o reincorporación al proceso de fabri
 msgid ""
 "(5) Other cancellations of the products accounted for other than their "
 "delivery or availability"
-msgstr "(5) Otras anulaciones de los productos contabilizados distintas a su entrega o puesta a disposición"
+msgstr ""
+"(5) Otras anulaciones de los productos contabilizados distintas a su entrega"
+" o puesta a disposición"
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
@@ -431,6 +436,21 @@ msgid "Acquirer entries"
 msgstr "Asientos de adquirente"
 
 #. module: l10n_es_aeat_mod592
+#: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__show_error_acquirer
+msgid "Acquirer lines with error"
+msgstr "Línas de adquirente con error"
+
+#. module: l10n_es_aeat_mod592
+#: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__show_error_manufacturer
+msgid "Manufacturer lines with error"
+msgstr "Línas de fabricante con error"
+
+#. module: l10n_es_aeat_mod592
+#: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.view_l10n_es_aeat_mod592_report_form
+msgid "Acquirer lines with errors"
+msgstr "Línas de adquirente con errores"
+
+#. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__message_needaction
 msgid "Action Needed"
 msgstr "Acción necesaria"
@@ -482,6 +502,13 @@ msgstr "Contador de adjuntos"
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__partner_bank_id
 msgid "Bank account"
 msgstr "Cuenta bancaria"
+
+#. module: l10n_es_aeat_mod592
+#: code:addons/l10n_es_aeat_mod592/models/product_template.py:0
+#: model:ir.model.fields.selection,name:l10n_es_aeat_mod592.selection__product_template__tax_plastic_type__both
+#, python-format
+msgid "Both"
+msgstr ""
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__calculation_date
@@ -608,7 +635,7 @@ msgstr "Registro"
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_acquirer__entry_number
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_manufacturer__entry_number
 msgid "Entrie number"
-msgstr "Nº registro"
+msgstr "Nº de asiento"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_acquirer__entries_ok
@@ -707,7 +734,7 @@ msgstr "Nombre completo"
 #. module: l10n_es_aeat_mod592
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.view_l10n_es_aeat_mod592_report_form
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #. module: l10n_es_aeat_mod592
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.view_l10n_es_aeat_mod592_report_form
@@ -842,6 +869,11 @@ msgstr "Resultado del fabricante"
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.view_l10n_es_aeat_mod592_report_form
 msgid "Manufacturer entries"
 msgstr "Registros del fabricante"
+
+#. module: l10n_es_aeat_mod592
+#: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.view_l10n_es_aeat_mod592_report_form
+msgid "Manufacturer lines with errors"
+msgstr "Líneas del fabricante con errores"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__message_has_error
@@ -1115,7 +1147,11 @@ msgid ""
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr "Estado basado en actividades\nVencido: La fecha de vencimiento ya ha pasado\nHoy: La fecha de la actividad es hoy\nPlanificado: Actividades futuras."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencido: La fecha de vencimiento ya ha pasado\n"
+"Hoy: La fecha de la actividad es hoy\n"
+"Planificado: Actividades futuras."
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model,name:l10n_es_aeat_mod592.model_stock_move
@@ -1161,12 +1197,12 @@ msgstr "Tipo de JUSTIFICANTE"
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report_line_acquirer__proof
 msgid "Supporting document"
-msgstr "documento justificativo"
+msgstr "Justificante"
 
 #. module: l10n_es_aeat_mod592
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.mod592_summary
 msgid "Surnames and name contact:"
-msgstr "nombre y apellidos del contacto:"
+msgstr "Nombre y apellidos del contacto:"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_product_product__tax_plastic_type
@@ -1185,39 +1221,41 @@ msgstr "El peso no reciclable debe ser igual o menor que"
 msgid ""
 "This account will be the counterpart for all the journal items that are "
 "regularized when posting the report."
-msgstr "Esta cuenta será la contrapartida de todos los asientos que se regularicen al contabilizar el informe."
+msgstr ""
+"Esta cuenta será la contrapartida de todos los asientos que se regularicen "
+"al contabilizar el informe."
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_amount_acquirer_records
 msgid "Total amount acquirer records"
-msgstr "Nº total de registros adquirentes"
+msgstr "Importe total adquirente"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_amount_manufacturer_records
 msgid "Total amount manufacturer records"
-msgstr "Nº total de registros fabricantes"
+msgstr "Importe total fabricante"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_acquirer_entries_records
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_manufacturer_entries_records
 msgid "Total entries records"
-msgstr "Total de registros"
+msgstr "Nº de asientos adquirente"
 
 #. module: l10n_es_aeat_mod592
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.mod592_summary
 msgid "Total number of records:"
-msgstr "Total de registros:"
+msgstr "Nº de asientos:"
 
 #. module: l10n_es_aeat_mod592
 #: model_terms:ir.ui.view,arch_db:l10n_es_aeat_mod592.mod592_summary
 msgid "Total weight record:"
-msgstr "Total registro peso:"
+msgstr "Total Kgs plástico:"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_weight_acquirer_records
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_weight_manufacturer_records
 msgid "Total weight records"
-msgstr "Total registro peso:"
+msgstr "Total Kgs plástico:"
 
 #. module: l10n_es_aeat_mod592
 #: model:ir.model.fields,field_description:l10n_es_aeat_mod592.field_l10n_es_aeat_mod592_report__total_weight_acquirer_non_reclyclable_records
@@ -1309,10 +1347,15 @@ msgstr "Sin kilogramos no reciclados"
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
+#, python-format
+msgid "Without concept"
+msgstr ""
+
+#. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_manufacturer.py:0
 #, python-format
 msgid "Without document number"
-msgstr "Sin numero de documento"
+msgstr ""
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
@@ -1336,11 +1379,10 @@ msgid "Without regime"
 msgstr "Sin regimen"
 
 #. module: l10n_es_aeat_mod592
-#: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
 #: code:addons/l10n_es_aeat_mod592/models/mod592_manufacturer.py:0
 #, python-format
 msgid "Without supplier document"
-msgstr "Sin documento del proveedor"
+msgstr ""
 
 #. module: l10n_es_aeat_mod592
 #: code:addons/l10n_es_aeat_mod592/models/mod592_acquirer.py:0
