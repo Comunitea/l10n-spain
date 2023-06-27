@@ -4,13 +4,13 @@
 
 {
     "name": "AEAT modelo 592",
-    "version": "14.0.1.0.0",
+    "version": "11.0.1.0.0",
     "category": "Localisation/Accounting",
     "author": "Binhex System Solutions, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-spain",
     "license": "AGPL-3",
     "depends": [
-        "product", "account", "stock", "mrp", "l10n_es",
+        "product", "account", "stock", "l10n_es",
         "l10n_es_aeat", "report_xlsx", "report_csv"],
     "data": [
         "security/ir.model.access.csv",
