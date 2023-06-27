@@ -30,6 +30,7 @@ class StockMove(models.Model):
 
     def _get_manufacturer_concept_move(self):
         """
+        TODO: Make good concept classification. This is onlly a draft
         """
         self.ensure_one()
         concept = ""
@@ -39,9 +40,18 @@ class StockMove(models.Model):
         dest_loc_scrap = self.location_dest_id.scrap_location
 
         # Initial Existence
-        if dest_loc_scrap:
+        if dest_loc_usage == 'internal':
+            concept = "1"
+        # Manofacturer
+        elif dest_loc_usage == 'production':
+            concept = "2"
+        # Initial Existence
+        elif dest_loc_usage == 'production' and dest_loc_scrap:
             concept = "3"
         # Sales to spanish customers
         elif dest_loc_usage == "customer" and doc_type == 1:
             concept = "4"
+        # Scrap
+        elif dest_loc_scrap:
+            concept = "5"
         return concept
