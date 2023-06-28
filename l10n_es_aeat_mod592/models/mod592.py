@@ -1,11 +1,12 @@
 # Copyright 2023 Nicolás Ramos - (https://binhex.es)
 # Copyright 2023 Javier Colmenero - (https://javier@comunitea.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import re
 
+
+import re
 from odoo import api, fields, models, exceptions, _
 from odoo.osv import expression
-
+from pprint import pprint
 
 
 class L10nEsAeatmod592Report(models.Model):
@@ -93,7 +94,7 @@ class L10nEsAeatmod592Report(models.Model):
     show_error_manufacturer = fields.Boolean(
         'Manufacturer lines with error',
         compute='_compute_show_error_manufacturer')
-    
+
     def _compute_show_error_acquirer(self):
         for report in self:
             report.show_error_acquirer = any(
@@ -147,6 +148,7 @@ class L10nEsAeatmod592Report(models.Model):
     def _compute_num_lines_manufacturer(self):
         for report in self:
             report.num_lines_manufacturer = len(report.manufacturer_line_ids)
+
     def _compute_num_lines_manufacturer(self):
         for report in self:
             report.num_lines_manufacturer = len(report.manufacturer_line_ids)
@@ -195,6 +197,7 @@ class L10nEsAeatmod592Report(models.Model):
             domain_base, expression.OR([
                 domain_concept_1, domain_concept_2, 
                 domain_concept_3, domain_concept_4])])
+        pprint(domain)
         return domain
 
     def get_manufacturer_moves_domain(self):
@@ -390,7 +393,7 @@ class L10nEsAeatmod592Report(models.Model):
         (partner records and partner refund) are filled
         """
         for item in self:
-            if item.show_acquirer_error or item.show_manufacturer_error:
+            if item.show_error_acquirer or item.show_error_manufacturer:
                 raise exceptions.UserError(
                     _(
                         "All entries records fields (Entrie number, VAT number "
