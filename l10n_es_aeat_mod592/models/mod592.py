@@ -163,38 +163,39 @@ class L10nEsAeatmod592Report(models.Model):
         TODO: Date range search by invoice related date or day 15 of next month
         whathever is first
         """
-        domain_base = [
+        domain_base = expression.normalize_domain([
             ("date", ">=", self.date_start),
             ("date", "<=", self.date_end),
             ("state", "=", "done"),
             ("picking_id.partner_id", "!=", False),
             ("company_id", "=", self.company_id.id),
             ("product_id.is_plastic_tax", "=", True),
-        ]
+        ])
         # Intracomunitary Adquisitions
-        domain_concept_1 = [
+        domain_concept_1 = expression.normalize_domain([
             ("location_id.usage", "=", "supplier"),
             ("picking_id.partner_id.product_plastic_document_type", "=", '2'),
-        ]
+        ])
         # Deduction by: Non Spanish Shipping
-        domain_concept_2 = [
+        domain_concept_2 = expression.normalize_domain([
             ("location_dest_id.usage", "=", "customer"),
             ("picking_id.partner_id.product_plastic_document_type", "!=", '1'),
-        ]
+        ])
         # Deduction by: Scrap
         # TODO: No scrap if quant is not intracomunitaty acquisition
-        domain_concept_3 = [
+        domain_concept_3 = expression.normalize_domain([
             ("location_dest_id.scrap_location", "=", True),
-        ]
-        # Deduction by adquisition returns
-        domain_concept_4 = [
+        ])
+        # Deduction by adquisition returns)
+        domain_concept_4 = expression.normalize_domain([
             ("location_dest_id.usage", "=", 'supplier'),
-            ("origin_returned_move_id", "!=",False),
-        ]
+            ("origin_returned_move_id", "!=" ,False),
+        ])
         domain = expression.AND([
             domain_base, expression.OR([
                 domain_concept_1, domain_concept_2, 
                 domain_concept_3, domain_concept_4])])
+        domain = expression.normalize_domain(domain)
         return domain
 
     def get_manufacturer_moves_domain(self):
@@ -206,6 +207,7 @@ class L10nEsAeatmod592Report(models.Model):
         """
         false_domain = [('id', '<', 0)]
 
+        # todo normalize domains like in acquirer
         # Code below is only a idea od what we could do whithout develop
         # strong traceability of manofactured quants.
         # domain_base = [
@@ -257,8 +259,8 @@ class L10nEsAeatmod592Report(models.Model):
     def _get_acquirer_moves(self):
         """Returns the stock moves of the acquirer."""
         self.ensure_one()
-        moves = self.env["stock.move"].search(
-            self.get_acquirer_moves_domain())
+        domain = self.get_acquirer_moves_domain()
+        moves = self.env["stock.move"].search(domain)
         return moves
 
     def _get_manufacturer_moves(self):
@@ -285,17 +287,13 @@ class L10nEsAeatmod592Report(models.Model):
         return True
 
     def _create_592_acquirer_details(self, move_lines):
-        # line_values = []
-        acquirer_values = []
         prefix = 'ADQ-'
         sequence = 0
         for move_line in move_lines:
             sequence += 1
             entry_number = prefix + str(sequence)
-            acquirer_values.append(
-                self._get_report_acquirer_vals(move_line, entry_number))
-
-        if acquirer_values:
+            acquirer_values = self._get_report_acquirer_vals(
+                move_line, entry_number)
             self.env['l10n.es.aeat.mod592.report.line.acquirer'].\
                 create(acquirer_values)
 

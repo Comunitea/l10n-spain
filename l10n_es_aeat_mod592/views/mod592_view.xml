@@ -40,7 +40,7 @@
                             class="oe_stat_button"
                             name="view_action_mod592_report_line_acquirer"
                             type="object"
-                            attrs="{'invisible': [('acquirer_line_ids', '=', False)]}"
+                            attrs="{'invisible': [('num_lines_acquirer', '=', 0)]}"
                             icon="fa-list">
                         <field name="num_lines_acquirer" string="Acquirer entries" widget="statinfo"/>
                     </button>
@@ -48,7 +48,7 @@
                         class="oe_stat_button"
                         name="view_action_mod592_report_line_manufacturer"
                         type="object"
-                        attrs="{'invisible': [('manufacturer_line_ids', '=', False)]}"
+                        attrs="{'invisible': [('num_lines_manufacturer', '=', 0)]}"
                         icon="fa-list">
                         <field name="num_lines_manufacturer" string="Manufacturer entries" widget="statinfo"/>
                     </button>
