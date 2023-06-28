@@ -25,11 +25,12 @@
         <field name="arch" type="xml">
             <header position="inside">
                 <!-- MANUFACTURER -->
+                <!-- Commented excel cause not necessary. Maybe be can remove it -->
                 <!-- <button name="export_xlsx_manufacturer" string="Export XLSX Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', False)]}" /> -->
-                <!-- <button name="export_csv_manufacturer" string="Export CSV Manufacturer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('manufacturer_line_ids', '=', 'False')]}" /> -->
+                <button name="export_csv_manufacturer" string="Export CSV Manufacturer" type="object" icon="fa-share" attrs="{'invisible':['|', ('state', '!=', 'done'), ('num_lines_manufacturer', '=', 0)]}" />
                 <!-- ACQUIRER -->
                 <!-- <button name="export_xlsx_acquirer" string="Export XLSX Acquirer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('acquirer_line_ids', '=', 'False')]}" /> -->
-                <button name="export_csv_acquirer" string="Export CSV Acquirer" type="object" icon="fa-share" attrs="{'invisible':[('state', '!=', 'done'), ('acquirer_line_ids', '=', 'False')]}" />
+                <button name="export_csv_acquirer" string="Export CSV Acquirer" type="object" icon="fa-share" attrs="{'invisible':['|', ('state', '!=', 'done'), ('num_lines_acquirer', '=', 0)]}" />
             </header>
 
             <field name="allow_posting" position="before">
@@ -40,7 +41,7 @@
                             class="oe_stat_button"
                             name="view_action_mod592_report_line_acquirer"
                             type="object"
-                            attrs="{'invisible': [('num_lines_acquirer', '=', 0)]}"
+                            attrs="{'invisible': [('acquirer_line_ids', '=', False)]}"
                             icon="fa-list">
                         <field name="num_lines_acquirer" string="Acquirer entries" widget="statinfo"/>
                     </button>
@@ -48,7 +49,7 @@
                         class="oe_stat_button"
                         name="view_action_mod592_report_line_manufacturer"
                         type="object"
-                        attrs="{'invisible': [('num_lines_manufacturer', '=', 0)]}"
+                        attrs="{'invisible': [('manufacturer_line_ids', '=', False)]}"
                         icon="fa-list">
                         <field name="num_lines_manufacturer" string="Manufacturer entries" widget="statinfo"/>
                     </button>
