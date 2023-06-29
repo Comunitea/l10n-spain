@@ -388,7 +388,7 @@ class L10nEsAeatmod592Report(models.Model):
         (partner records and partner refund) are filled
         """
         for item in self:
-            if item.show_acquirer_error or item.show_manufacturer_error:
+            if item.show_error_acquirer or item.show_error_manufacturer:
                 raise exceptions.UserError(
                     _(
                         "All entries records fields (Entrie number, VAT number "

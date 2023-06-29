@@ -58,10 +58,10 @@
             <group name="group_declaration" position="before">
                 <field name="show_error_acquirer" invisible="1"/>
                 <field name="show_error_manufacturer" invisible="1"/>
-                <div style="color:red" attrs="{'invisible': [('show_error_acquirer', '=', False)]}">
+                <div style="color:red" attrs="{'invisible': [('num_lines_acquirer', '=', 0)]}">
                     <h2>Acquirer lines with errors</h2>
                 </div>
-                <div style="color:red" attrs="{'invisible': [('show_error_manufacturer', '=', False)]}">
+                <div style="color:red" attrs="{'invisible': [('num_lines_manufacturer', '=', 0)]}">
                     <h2>Manufacturer lines with errors</h2>
                 </div>
             </group>
