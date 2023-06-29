@@ -9,41 +9,41 @@ class Mod592CsvManufacturer(models.AbstractModel):
     _name = "report.l10n_es_aeat_mod592.l10n_es_aeat_mod592_csv_man"
     _description = "Mod592 CSV Manufacturer"
     _inherit = "report.report_csv.abstract"
-
+    
     def generate_csv_report(self, writer, data, objects):
         writer.writeheader()
         for obj in objects.manufacturer_line_ids:
             writer.writerow({
-                'entry_number': obj.entry_number,
-                'date_done': obj.date_done.strftime("%d/%m/%Y"),
-                'concept': obj.concept,
-                'product_key': obj.product_key,
-                'product_description': obj.product_description,
-                'fiscal_manufacturer': obj.fiscal_manufacturer,
-                'proof': obj.proof,
-                'supplier_document_type': obj.supplier_document_type,
-                'supplier_document_number': obj.supplier_document_number,
-                'supplier_social_reason': obj.supplier_social_reason,
-                'kgs': obj.kgs,
-                'no_recycling_kgs': obj.no_recycling_kgs,
-                'entry_note': obj.entry_note or "",
+                'Número de asiento': obj.entry_number,
+                'Fecha Hecho Contabilizado': obj.date_done.strftime("%d/%m/%Y"),
+                'Concepto': obj.concept,
+                'Clave Producto"': obj.product_key,
+                'Descripción Producto': obj.product_description,
+                'Régimen Fiscal': obj.fiscal_manufacturer,
+                'Justificante': obj.proof,
+                'Prov./Dest.: Tipo Documento': obj.supplier_document_type,
+                'Prov./Dest.: Nº Documento': obj.supplier_document_number,
+                'Prov./Dest.: Razón Social': obj.supplier_social_reason,
+                'Kilogramos': obj.kgs,
+                'Kilogramos No Reciclados': obj.no_recycling_kgs,
+                'Observaciones': obj.entry_note or "",
             })
 
     def csv_report_options(self):
         res = super().csv_report_options()
-        res["fieldnames"].append("entry_number")
-        res["fieldnames"].append("date_done")
-        res["fieldnames"].append("concept")
-        res["fieldnames"].append("product_key")
-        res["fieldnames"].append("product_description")
-        res["fieldnames"].append("fiscal_manufacturer")
-        res["fieldnames"].append("proof")
-        res["fieldnames"].append("supplier_document_type")
-        res["fieldnames"].append("supplier_document_number")
-        res["fieldnames"].append("supplier_social_reason")
-        res["fieldnames"].append("kgs")
-        res["fieldnames"].append("no_recycling_kgs")
-        res["fieldnames"].append("entry_note")
+        res["fieldnames"].append("Número de asiento")
+        res["fieldnames"].append("Fecha Hecho Contabilizado")
+        res["fieldnames"].append("Concepto")
+        res["fieldnames"].append("Clave Producto")
+        res["fieldnames"].append("Descripción Producto")
+        res["fieldnames"].append("Régimen Fiscal")
+        res["fieldnames"].append("Justificante")
+        res["fieldnames"].append("Kilogramos")
+        res["fieldnames"].append("Kilogramos No Reciclados")
+        res["fieldnames"].append("Prov./Dest.: Tipo Documento")
+        res["fieldnames"].append("Prov./Dest.: Nº Documento")
+        res["fieldnames"].append("Prov./Dest.: Razón Social")
+        res["fieldnames"].append("Observaciones")
         res['delimiter'] = ';'
         res['quoting'] = csv.QUOTE_ALL
         return res
@@ -58,34 +58,34 @@ class Mod592CsvAcquirer(models.AbstractModel):
         writer.writeheader()
         for obj in objects.acquirer_line_ids:
             writer.writerow({
-                'entry_number': obj.entry_number,
-                'date_done': obj.date_done.strftime("%d/%m/%Y"),
-                'concept': obj.concept,
-                'product_key': obj.product_key,
-                'fiscal_acquirer': obj.fiscal_acquirer,
-                'proof': obj.proof,
-                'supplier_document_type': obj.supplier_document_type,
-                'supplier_document_number': obj.supplier_document_number,
-                'supplier_social_reason': obj.supplier_social_reason,
-                'kgs': obj.kgs,
-                'no_recycling_kgs': obj.no_recycling_kgs,
-                'entry_note': obj.entry_note or "",
+                'Número de asiento': obj.entry_number,
+                'Fecha Hecho Contabilizado': obj.date_done.strftime("%d/%m/%Y"),
+                'Concepto': obj.concept,
+                'Clave Producto': obj.product_key,
+                'Descripción Producto': obj.fiscal_acquirer,
+                'Justificante': obj.proof,
+                'Kilogramos': obj.kgs,
+                'Kilogramos No Reciclados': obj.no_recycling_kgs,
+                'Prov./Dest.: Tipo Documento': obj.supplier_document_type,
+                'Prov./Dest.: Nº Documento': obj.supplier_document_number,
+                'Prov./Dest.: Razón Social': obj.supplier_social_reason,
+                'Observaciones': obj.entry_note or "",
             })
 
     def csv_report_options(self):
         res = super().csv_report_options()
-        res["fieldnames"].append("entry_number")
-        res["fieldnames"].append("date_done")
-        res["fieldnames"].append("concept")
-        res["fieldnames"].append("product_key")
-        res["fieldnames"].append("fiscal_acquirer")
-        res["fieldnames"].append("proof")
-        res["fieldnames"].append("supplier_document_type")
-        res["fieldnames"].append("supplier_document_number")
-        res["fieldnames"].append("supplier_social_reason")
-        res["fieldnames"].append("kgs")
-        res["fieldnames"].append("no_recycling_kgs")
-        res["fieldnames"].append("entry_note")
+        res["fieldnames"].append("Número de asiento")
+        res["fieldnames"].append("Fecha Hecho Contabilizado")
+        res["fieldnames"].append("Concepto")
+        res["fieldnames"].append("Clave Producto")
+        res["fieldnames"].append("Descripción Producto")
+        res["fieldnames"].append("Justificante")
+        res["fieldnames"].append("Kilogramos")
+        res["fieldnames"].append("Kilogramos No Reciclados")
+        res["fieldnames"].append("Prov./Dest.: Tipo Documento")
+        res["fieldnames"].append("Prov./Dest.: Nº Documento")
+        res["fieldnames"].append("Prov./Dest.: Razón Social")
+        res["fieldnames"].append("Observaciones")
         res['delimiter'] = ';'
         res['quoting'] = csv.QUOTE_ALL
         return res

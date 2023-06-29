@@ -25,7 +25,6 @@
         "report/aeat_mod592.xml",
         "report/common_templates.xml",
         "report/report_views.xml",
-        "report/mod592_xlsx.xml",
         "report/mod592_csv.xml",
         "data/ir_sequence_data.xml"
     ],
