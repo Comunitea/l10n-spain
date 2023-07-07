@@ -10,7 +10,7 @@ from odoo.osv import expression
 
 class L10nEsAeatmod592Report(models.Model):
     _name = "l10n.es.aeat.mod592.report"
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'l10n.es.aeat.report']
+    _inherit = 'l10n.es.aeat.report'
     _description = "AEAT 592 report"
     _aeat_number = "592"
     _period_quarterly = False
