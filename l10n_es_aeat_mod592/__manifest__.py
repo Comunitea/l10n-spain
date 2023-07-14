@@ -15,6 +15,8 @@
     "data": [
         "security/ir.model.access.csv",
         "security/ir_rule.xml",
+        "data/ir_sequence_data.xml",
+        "data/mod592_data.xml",
         "views/product_template.xml",
         "views/product_template.xml",
         "views/res_partner.xml",
@@ -26,7 +28,6 @@
         "report/common_templates.xml",
         "report/report_views.xml",
         "report/mod592_csv.xml",
-        "data/ir_sequence_data.xml"
     ],
     "development_status": "Beta",
     "installable": True,

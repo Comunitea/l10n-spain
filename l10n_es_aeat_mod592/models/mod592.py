@@ -14,13 +14,14 @@ class L10nEsAeatmod592Report(models.Model):
     _inherit = "l10n.es.aeat.report"
     _description = "AEAT 592 report"
     _aeat_number = "592"
-    _period_quarterly = False
+    _period_quarterly = True
     _period_monthly = True
     _period_yearly = False
 
     number = fields.Char(default="592")
     amount_plastic_tax = fields.Float(
-        string="Amount tax for non recyclable", store=True, default=0.45
+        string="Amount tax for non recyclable", store=True, default=0.45,
+        digits="Plastic Weight"
     )
     manufacturer_line_ids = fields.One2many(
         comodel_name="l10n.es.aeat.mod592.report.line.manufacturer",

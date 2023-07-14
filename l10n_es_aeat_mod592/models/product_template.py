@@ -10,11 +10,15 @@ class ProductTemplate(models.Model):
     _description = "Product Template"
     _inherit = "product.template"
 
-    is_plastic_tax = fields.Boolean("Is plastic tax?",  tracking=True)
-    product_plastic_tax_weight = fields.Float("Product plastic weight")
+    is_plastic_tax = fields.Boolean("Is plastic tax?", tracking=True)
+    product_plastic_tax_weight = fields.Float(
+        string="Product plastic weight",
+        digits="Plastic Weight")
+
     product_plastic_weight_non_recyclable = fields.Float(
-        "Product plastic weight non recyclable"
-    )
+        string="Product plastic weight non recyclable",
+        digits="Plastic Weight")
+
     product_plastic_type_key = fields.Selection(
         [
             ("A", _("(A) Non-reusable")),

@@ -65,9 +65,9 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
         'Supplier document number')
     supplier_social_reason = fields.Char(
         'Supplier name')
-    kgs = fields.Float('Weiht')
+    kgs = fields.Float('Weiht', digits="Plastic Weight")
     no_recycling_kgs = fields.Float(
-        'Weiht non reclycable')
+        'Weiht non reclycable', digits="Plastic Weight")
     entry_note = fields.Text(
         'Entries observation')
 
