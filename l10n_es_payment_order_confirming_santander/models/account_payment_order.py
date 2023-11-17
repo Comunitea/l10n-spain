@@ -79,7 +79,8 @@ class AccountPaymentOrder(models.Model):
         # B1. De 2 a 5. Código Mnemotécnico de la operación.
         text += self.payment_mode_id.num_contract
         # B2. De 5 a 15. Código de cedente. No es obligatorio si se comunica el mnemotécnico
-        text += ' ' * 10
+        # Su el Mnemotécnico tiene 4 posiciones serían 9 especios mas y si tiene 3 serían 10 espacio
+        text = text.ljust(14)
         # B3. De 15 a 18. Número de operación. No es obligatorio si se comunica el mnemotécnico
         text += ' ' * 3
         # B4. De 18 a 40. Id cedente.
