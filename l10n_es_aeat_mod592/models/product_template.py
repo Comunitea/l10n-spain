@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, exceptions, _
+import odoo.addons.decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
@@ -11,9 +12,10 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     is_plastic_tax = fields.Boolean("Is plastic tax?",  tracking=True)
-    product_plastic_tax_weight = fields.Float("Product plastic weight")
+    product_plastic_tax_weight = fields.Float(
+        "Product plastic weight", digits=dp.get_precision("Stock Weight"),)
     product_plastic_weight_non_recyclable = fields.Float(
-        "Product plastic weight non recyclable"
+        "Product plastic weight non recyclable", digits=dp.get_precision("Stock Weight"),
     )
     product_plastic_type_key = fields.Selection(
         [

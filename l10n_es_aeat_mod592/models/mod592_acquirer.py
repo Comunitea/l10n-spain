@@ -4,6 +4,8 @@
 import logging
 
 from odoo import api, fields, models, _
+import odoo.addons.decimal_precision as dp
+
 
 _logger = logging.getLogger(__name__)
 
@@ -65,9 +67,9 @@ class L10nEsAeatmod592LineAcquirer(models.Model):
         'Supplier document number')
     supplier_social_reason = fields.Char(
         'Supplier name')
-    kgs = fields.Float('Weiht')
+    kgs = fields.Float('Weiht', digits=dp.get_precision("Stock Weight"),)
     no_recycling_kgs = fields.Float(
-        'Weiht non reclycable')
+        'Weiht non reclycable', digits=dp.get_precision("Stock Weight"),)
     entry_note = fields.Text(
         'Entries observation')
 

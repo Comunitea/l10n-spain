@@ -5,6 +5,7 @@ import re
 
 from odoo import api, fields, models, exceptions, _
 from odoo.osv import expression
+import odoo.addons.decimal_precision as dp
 
 
 
@@ -45,11 +46,13 @@ class L10nEsAeatmod592Report(models.Model):
     total_weight_acquirer_records = fields.Float(
         compute="_compute_totals_acquirer",
         string="Total weight records",
+        digits=dp.get_precision("Stock Weight"),
         store=False,
     )
     total_weight_acquirer_non_reclyclable_records = fields.Float(
         compute="_compute_totals_acquirer",
         string="Total weight records non reclyclable",
+        digits=dp.get_precision("Stock Weight"),
         store=False,
     )
     total_amount_acquirer_records = fields.Float(
@@ -67,11 +70,13 @@ class L10nEsAeatmod592Report(models.Model):
     total_weight_manufacturer_records = fields.Float(
         compute="_compute_totals_manufacturer",
         string="Total weight records",
+        digits=dp.get_precision("Stock Weight"),
         store=True,
     )
     total_weight_manufacturer_non_reclyclable_records = fields.Float(
         compute="_compute_totals_manufacturer",
         string="Total weight records non reclyclable",
+        digits=dp.get_precision("Stock Weight"),
         store=True,
     )
     total_amount_manufacturer_records = fields.Float(
