@@ -123,7 +123,7 @@ class AccountPaymentOrder(models.Model):
         all_text = ''
 
         for pl in line.payment_line_ids:
-            for i in range(4):    
+            for i in range(4):
                 if(i + 3) == 3:
                     # De 1 a 1. Número de registro
                     text = self._get_fix_part_sabadell('3')
@@ -226,11 +226,7 @@ class AccountPaymentOrder(models.Model):
                     text += amount.rjust(15, '0')
                     # De 38 a 46. Fecha de emisión
                     if inv.date_invoice:
-                        fecha_factura = fields.Datetime.to_string(inv.date_invoice).replace('-', '')
-                        dia = fecha_factura[6:]
-                        mes = fecha_factura[4:6]
-                        ano = fecha_factura[:4]
-                        fecha_factura = ano + mes + dia
+                        fecha_factura = self.inv.date_invoice.strftime('%Y%m%d')
                     else:
                         fecha_factura = pl.move_line_id.date.strftime('%Y%m%d')
                     if inv.date_invoice > self.date_scheduled:
