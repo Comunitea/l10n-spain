@@ -226,7 +226,7 @@ class AccountPaymentOrder(models.Model):
                     text += amount.rjust(15, '0')
                     # De 38 a 46. Fecha de emisión
                     if inv.date_invoice:
-                        fecha_factura = self.inv.date_invoice.strftime('%Y%m%d')
+                        fecha_factura = inv.date_invoice.strftime('%Y%m%d')
                     else:
                         fecha_factura = pl.move_line_id.date.strftime('%Y%m%d')
                     if inv.date_invoice > self.date_scheduled:
