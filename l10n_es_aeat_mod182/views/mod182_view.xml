@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- #################
+    ### AEAT MODEL 182 ###
+    ################## -->
+    <!-- Tree view -->
+    <record id="view_l10n_es_aeat_mod182_report_tree" model="ir.ui.view">
+        <field name="model">l10n.es.aeat.mod182.report</field>
+        <field name="inherit_id" ref="l10n_es_aeat.view_l10n_es_aeat_report_tree" />
+        <field name="arch" type="xml">
+            <field name="period_type" position="after">
+                <field name="number" />
+            </field>
+        </field>
+    </record>
+    <!-- Form view -->
+    <record id="view_l10n_es_aeat_mod182_report_form" model="ir.ui.view">
+        <field name="model">l10n.es.aeat.mod182.report</field>
+        <field name="inherit_id" ref="l10n_es_aeat.view_l10n_es_aeat_report_form" />
+        <field name="arch" type="xml">
+            <!-- <field name="company_vat" position="after">
+                <field name="company_vat_mod182" />
+            </field> -->
+            <field name="allow_posting" position="before">
+                <field name="line_ids" invisible="1"/> 
+                <div class="oe_button_box" name="button_box">
+                    <button
+                            class="oe_stat_button"
+                            name="view_action_mod182_lines"
+                            type="object"
+                            attrs="{'invisible': [('lines_count', '=', 0)]}"
+                            icon="fa-list">
+                        <field name="lines_count" string="Detalles Donaciones" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+            <group name="group_other_parameters" position="after">
+                <group name="donation_amounts" string="Datos donación" attrs="{'invisible': [('line_ids', '=', [])]}">
+                    <field name="naturaleza_declarante" />
+                    <field name="donation_amount" />
+                </group>
+            </group>
+             <form position="inside">
+                <div class="oe_chatter">
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="base.group_user"
+                    />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <!-- Window action -->
+    <record id="action_l10n_es_aeat_mod182_report" model="ir.actions.act_window">
+        <field name="name">Modelo 182</field>
+        <field name="res_model">l10n.es.aeat.mod182.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to create a AEAT Model 182 Reports.
+          </p>
+            <p>
+            Basado en la Orden EHA/3012/2008, de 20 de Octubre, por el que se aprueban
+            los diseños físicos y lógicos del 182.
+          </p>
+        </field>
+    </record>
+    <record
+        model="ir.actions.act_window.view"
+        id="action_l10n_es_aeat_mod182_report_tree"
+    >
+        <field name="sequence" eval="2" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_l10n_es_aeat_mod182_report_tree" />
+        <field name="act_window_id" ref="action_l10n_es_aeat_mod182_report" />
+    </record>
+    <record
+        model="ir.actions.act_window.view"
+        id="action_l10n_es_aeat_mod182_report_form"
+    >
+        <field name="sequence" eval="3" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_l10n_es_aeat_mod182_report_form" />
+        <field name="act_window_id" ref="action_l10n_es_aeat_mod182_report" />
+    </record>
+    <menuitem
+        id="menu_aeat_mod182_report"
+        parent="l10n_es_aeat.menu_root_aeat"
+        action="action_l10n_es_aeat_mod182_report"
+        sequence="182"
+        name="Modelo 182"
+    />
+
+
+    <!-- Vista tree detalle -->
+    <record id="view_l10n_es_aeat_mod182_report_line_tree" model="ir.ui.view">
+        <field name="model">l10n.es.aeat.mod182.report.line</field>
+        <field name="name">Detalle modelo 182</field>
+        <field name="arch" type="xml">
+            <!-- <tree editable="bottom"> -->
+            <tree decoration-danger="state == 'error'" decoration-success="state == 'ok'">
+                <field name="report_id" invisible="1"/>
+                <field name="partner_id" />
+                <field name="nif_declarado" />
+                <field name="nif_representante" />
+                <field name="codigo_provincia" />
+                <field name="clave_mod182" />
+                <field name="deduccion_mod182" />
+                <field name="amount" />
+                <field name="aeat_especie" />
+                <field name="codigo_ccaa" />
+                <field name="deduccion_ccaa" />
+                <field name="naturaleza_declarado" />
+                <field name="revocacion" />
+                <field name="ejerecicio_revocacion" />
+                <field name="tipo_bien" />
+                <field name="identificacion_bien" />
+                <field name="recurrencia" />
+                <field name="nif_patrimonio_protegido" />
+                <field name="nombre_patrimonio_protegido" />
+                <field name="state"  optional="hidden"/>
+                <field name="error_txt" optional="hidden"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_l10n_es_aeat_mod182_report_line_form" model="ir.ui.view">
+        <field name="model">l10n.es.aeat.mod182.report.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group string="Datos registro 2">
+                    <group>
+                        <field name="partner_id" />
+                        <field name="nif_declarado" />
+                        <field name="nif_representante" />
+                        <field name="codigo_provincia" />
+                        <field name="clave_mod182" />
+                        <field name="deduccion_mod182" />
+                        <field name="amount" />
+                        <field name="aeat_especie" />
+                        <field name="codigo_ccaa" />
+                        <field name="deduccion_ccaa" />
+                    </group>
+                    <group>
+                        <field name="naturaleza_declarado" />
+                        <field name="revocacion" />
+                        <field name="ejerecicio_revocacion" />
+                        <field name="tipo_bien" />
+                        <field name="identificacion_bien" />
+                        <field name="recurrencia" />
+                        <field name="nif_patrimonio_protegido" />
+                        <field name="nombre_patrimonio_protegido" />
+                    </group>
+                </group>
+                <group string="Otros">
+                    <field name="report_id"/>
+                    <field name="error_txt" readonly="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_es_aeat_mod182_report_line_filter" model="ir.ui.view">
+        <field name="model">l10n.es.aeat.mod182.report.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="nif_declarado"/>
+                <field name="nif_representante"/>
+                <field name="codigo_provincia"/>
+                <filter string="Con errores" name="error" domain="[('state', '=', 'error')]"/>
+                <filter string="Líneas OK" name="error" domain="[('state', '=', 'ok')]"/>
+                <separator/>
+                <filter string="Estado" name="filter_state" domain="[]" context="{'group_by': 'state'}"/> 
+                <filter string="Declarado" name="filter_declarado" domain="[]" context="{'group_by': 'partner_id'}"/> 
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_es_aeat_mod182_report_line" model="ir.actions.act_window">
+        <field name="name">Detalle modelo 182</field>
+        <field name="res_model">l10n.es.aeat.mod182.report.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

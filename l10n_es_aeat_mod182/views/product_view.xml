@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="product_template_form_view_mod182" model="ir.ui.view">
+        <field name="name">donation.product.template.form-mod182</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <field name="detailed_type" position="after">
+                <field name="clave_mod182"/>
+            </field>
+        </field>
+    </record>
+   
+</odoo>

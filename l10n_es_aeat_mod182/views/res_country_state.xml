@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_country_state_tree_mod182" model="ir.ui.view">
+        <field name="model">res.country.state</field>
+        <field name="inherit_id" ref="base.view_country_state_tree"/>
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field name="deduccion_mod182"/>
+                <field name="deduccion_id" />
+            </field>         
+        </field>
+    </record>
+   
+</odoo>
