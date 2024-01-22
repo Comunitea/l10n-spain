@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="mod182_deduccion_andalucia" model="mod182.deduccion">
+        <field name="name">ANDALUCIA</field>
+        <field name="code">01</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_al')),
+               (4, ref('base.state_es_ca')),
+               (4, ref('base.state_es_co')),
+               (4, ref('base.state_es_gr')),
+               (4, ref('base.state_es_hu')),
+               (4, ref('base.state_es_ma')),
+               (4, ref('base.state_es_se')),
+            ]" 
+        />
+    </record>
+
+    <record id="mod182_deduccion_aragon" model="mod182.deduccion">
+        <field name="name">ARAGON</field>
+        <field name="code">02</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_hu')),
+                (4, ref('base.state_es_t')),
+                (4, ref('base.state_es_z')),
+            ]" 
+        />
+    </record>
+
+    <record id="mod182_deduccion_asturias" model="mod182.deduccion">
+        <field name="name">ASTURIAS</field>
+        <field name="code">03</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_o'))
+            ]" 
+        />
+    </record>
+    <record id="mod182_deduccion_baleares" model="mod182.deduccion">
+        <field name="name">BALEARES</field>
+        <field name="code">04</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_pm')),
+            ]" 
+        />
+    </record>
+    <record id="mod182_deduccion_canarias" model="mod182.deduccion">
+        <field name="name">CANARIAS</field>
+        <field name="code">05</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_gc')),
+                (4, ref('base.state_es_tf')),
+            ]" 
+        />
+    </record>
+    <record id="mod182_deduccion_cantabria" model="mod182.deduccion">
+        <field name="name">CANTABRIA</field>
+        <field name="code">06</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_s')),
+            ]" 
+        />
+    </record>
+    <record id="mod182_deduccion_castilla_mancha" model="mod182.deduccion">
+        <field name="name">CASTILLA LA MANCHA</field>
+        <field name="code">07</field>
+        <field name="deduccion">15.0</field>
+       <field 
+         name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_ab')),
+                (4, ref('base.state_es_cr')),
+                (4, ref('base.state_es_cu')),
+                (4, ref('base.state_es_gu')),
+                (4, ref('base.state_es_to'))
+            ]" 
+        />
+
+    </record>
+    <record id="mod182_deduccion_castilla_leon" model="mod182.deduccion">
+        <field name="name">CASTILLA LEÓN</field>
+        <field name="code">08</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_av')),
+                (4, ref('base.state_es_bu')),
+                (4, ref('base.state_es_le')),
+                (4, ref('base.state_es_p')),
+                (4, ref('base.state_es_sa')),
+                (4, ref('base.state_es_sg')),
+                (4, ref('base.state_es_so')),
+                (4, ref('base.state_es_va')),
+                (4, ref('base.state_es_za'))
+            ]" 
+    />
+
+    </record>
+    <record id="mod182_deduccion_cataluña" model="mod182.deduccion">
+        <field name="name">CATALUÑA</field>
+        <field name="code">09</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_b')),
+                (4, ref('base.state_es_gi')),
+                (4, ref('base.state_es_l')),
+                (4, ref('base.state_es_t'))
+            ]" 
+        />
+
+    </record>
+    <record id="mod182_deduccion_extremadura" model="mod182.deduccion">
+        <field name="name">EXTREMADURA</field>
+        <field name="code">10</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_ba')),
+                (4, ref('base.state_es_cc'))
+            ]" 
+        />
+
+    </record>
+    <record id="mod182_deduccion_galicia" model="mod182.deduccion">
+        <field name="name">GALICIA</field>
+        <field name="code">11</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_c')),
+                (4, ref('base.state_es_lu')),
+                (4, ref('base.state_es_or')),
+                (4, ref('base.state_es_po'))
+            ]" 
+        />
+
+    </record>
+    <record id="mod182_deduccion_madrid" model="mod182.deduccion">
+        <field name="name">MADRID</field>
+        <field name="code">12</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_m'))
+            ]" 
+        />
+
+    </record>
+    <record id="mod182_deduccion_murcia" model="mod182.deduccion">
+        <field name="name">MURCIA</field>
+        <field name="code">13</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_mu'))
+            ]" 
+        />
+
+    </record>
+    <record id="mod182_deduccion_valenciana" model="mod182.deduccion">
+        <field name="name">LA RIOJA</field>
+        <field name="code">16</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_lo'))
+            ]" 
+        />
+
+    </record>
+    <record id="mod182_deduccion_valenciana" model="mod182.deduccion">
+        <field name="name">COMUNIDAD VALENCIANA</field>
+        <field name="code">17</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_a')),
+                (4, ref('base.state_es_cs')),
+                (4, ref('base.state_es_v'))
+            ]" 
+        />
+
+    </record>
+
+    <record id="mod182_deduccion_ceuta" model="mod182.deduccion">
+        <field name="name">CEUTA</field>
+        <field name="code">18</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_ce'))
+            ]" 
+        />
+    </record>
+
+    <record id="mod182_deduccion_melilla" model="mod182.deduccion">
+        <field name="name">MELILLA</field>
+        <field name="code">19</field>
+        <field name="deduccion">15.0</field>
+        <field 
+            name="state_ids" 
+            eval="[
+                (4, ref('base.state_es_ml'))
+            ]" 
+    />
+</record>
+
+
+
+</odoo>

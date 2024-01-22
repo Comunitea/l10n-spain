@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mod182_deduccion_tree" model="ir.ui.view">
+        <field name="model">mod182.deduccion</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="deduccion"/>
+                <field name="state_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+  
+    <record id="action_mod182_deduccion" model="ir.actions.act_window">
+        <field name="name">Modelo 182</field>
+        <field name="res_model">mod182.deduccion</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_mod182_deduccion"
+        parent="l10n_es_aeat.menu_l10n_es_aeat_config"
+        action="action_mod182_deduccion"
+        sequence="99"
+        name="Deducciones CCAA"
+    />
+
+
+   
+</odoo>

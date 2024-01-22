@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_l10n_es_aeat_mod182_manager","l10n_es_aeat_mod182 manager","model_l10n_es_aeat_mod182_report","l10n_es_aeat.group_account_aeat",1,1,1,1
+"access_l10n_es_aeat_mod182_report_line_manager","l10n_es_aeat_mod182_line_manager","model_l10n_es_aeat_mod182_report_line","l10n_es_aeat.group_account_aeat",1,1,1,1
+"access_mod182_deduccion","l10n_es_aeat_mod182_deduccion","model_mod182_deduccion","l10n_es_aeat.group_account_aeat",1,1,1,1

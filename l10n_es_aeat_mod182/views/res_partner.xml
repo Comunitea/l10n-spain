@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_mod182_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">               
+            <notebook position="inside">
+                <page string="AEAT 182">
+                    <group>
+                        <field name="menor_14"/>
+                        <field name="nif_representante" attrs="{'invisible': [('menor_14', '=', False)]}"/>
+                        <field name="naturaleza_declarado" />
+                    </group>
+                </page>
+            </notebook>       
+        </field>
+    </record>
+   
+</odoo>
