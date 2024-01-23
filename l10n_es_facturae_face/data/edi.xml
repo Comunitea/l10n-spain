@@ -11,6 +11,8 @@
         <field name="direction">output</field>
         <field name="exchange_filename_pattern">{record_name}--{dt}</field>
         <field name="exchange_file_ext">xsig</field>
+        <field name="model_ids" eval="[(4, ref('account.model_account_move'))]" />
+        <field name="model_manual_btn" eval="True" />
         <field name="exchange_file_auto_generate" eval="True" />
     </record>
     <record id="facturae_face_exchange_type_rule" model="edi.exchange.type.rule">
@@ -19,7 +21,7 @@
         <field name="model_id" ref="account.model_account_move" />
         <field
             name="enable_domain"
-        >[('state', '!=', 'draft'), ('partner_id', '!=', False), ('partner_id.l10n_es_facturae_sending_code', '=', "face"),('move_type', 'in', ['out_invoice', 'out_refund'])]</field>
+        >[('state', '!=', 'draft'), ('commercial_partner_id', '!=', False), ('commercial_partner_id.l10n_es_facturae_sending_code', '=', "face"),('move_type', 'in', ['out_invoice', 'out_refund'])]</field>
         <field
             name="enable_snippet"
         >result = not record._has_exchange_record(exchange_type)</field>
