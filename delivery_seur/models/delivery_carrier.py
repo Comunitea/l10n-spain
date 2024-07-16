@@ -124,6 +124,7 @@ class DeliveryCarrier(models.Model):
                 acc_number=self.seur_accounting_code,
                 id_number=self.seur_vat,
                 token=self.seur_active_token,
+                prod=self.prod_environment,
             )
         else:
             seur_request = SeurAtlasRequest(
@@ -133,6 +134,7 @@ class DeliveryCarrier(models.Model):
                 client_id=self.seur_atlas_client,
                 acc_number=self.seur_accounting_code,
                 id_number=self.seur_vat,
+                prod=self.prod_environment,
             )
             self.seur_active_token = seur_request.token
             self.seur_token_expiration = seur_request.token_expiration
