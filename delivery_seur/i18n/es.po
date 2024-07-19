@@ -365,3 +365,9 @@ msgstr "ZEBRA S600"
 #: model:ir.model.fields.selection,name:delivery_seur.selection__delivery_carrier__seur_printer__zebra:z4m_plus
 msgid "ZEBRA Z4M PLUS"
 msgstr "ZEBRA Z4M PLUS"
+
+#. module: delivery_seur
+#: code:addons/delivery_seur/models/delivery_carrier.py:182
+#, python-format
+msgid "The customer name is too long (max 50 characters), it will be truncated. Original: {original}, Truncated: {truncated}"
+msgstr "El nombre del cliente es demasiado largo (máximo 50 caracteres), se truncará. Original: {original}, Truncado: {truncated}"

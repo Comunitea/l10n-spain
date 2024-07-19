@@ -178,6 +178,14 @@ class DeliveryCarrier(models.Model):
             partner_name = "{} ({})".format(
                 partner.name, partner.commercial_partner_id.name
             )
+            if len(partner_name) > 50:
+                picking.message_post(
+                    body=_(
+                        "The customer name is too long (max 50 characters), it will be truncated. Original: {original}, Truncated: {truncated}".format(
+                            original=partner_name, truncated=partner_name[:50]
+                        )
+                    )
+                )
         partner_att = (
             partner.name if partner.parent_id and partner.type == "contact" else ""
         )
@@ -191,7 +199,7 @@ class DeliveryCarrier(models.Model):
             "charges": "P",  # ??
             "ref": "{}-{}".format(picking.name, fields.Datetime.now().strftime('%Y%m%d%H%M%S')),
             "receiver": {
-                "name": partner_name,
+                "name": partner_name[:50],
                 "email": partner.email,
                 "phone": phone or mobile,
                 "contactName": partner_att,
