@@ -86,7 +86,7 @@ class DeliveryCarrier(models.Model):
     )
     seur_label_format = fields.Selection(
         selection=[("PDF", "PDF"), ("ZPL", "ZPL"), ("A4_3", "Die-cut A4")],
-        default="pdf",
+        default="PDF",
         string="Label format",
     )
     seur_label_size = fields.Selection(
