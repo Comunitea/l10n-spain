@@ -49,15 +49,18 @@ class L10nEsAeatReportExportToBoe(models.TransientModel):
             en mayúsculas sin caracteres especiales, y sin vocales acentuadas.
             Para los caracteres específicos del idioma se utilizará la
             codificación ISO-8859-1. De esta forma la letra “Ñ” tendrá el
-            valor ASCII 209 (Hex. D1) y la “Ç”(cedilla mayúscula) el valor
+            valor ASCII 209 (Hex. D1) y la “Ç” (cedilla mayúscula) el valor
             ASCII 199 (Hex. C7).'
         """
         if not text:
             return fill * length
         # Replace accents and convert to upper
         from unidecode import unidecode
-        text = unidecode(unicode(text))
-        text = text.upper()
+        text = unicode(text).upper()
+        text = ''.join([unidecode(x) if x not in (u'Ñ', u'Ç') else x
+                        for x in text])
+        text = re.sub(
+            ur"[^A-Z0-9\s\.,-_&'´\\:;/\(\)ÑÇ\"]", '', text, re.UNICODE | re.X)
         ascii_string = text.encode('iso-8859-1')
         # Cut the string if it is too long
         if len(ascii_string) > length:
@@ -75,8 +78,17 @@ class L10nEsAeatReportExportToBoe(models.TransientModel):
         # Return string
         return ascii_string
 
+    def _formatFiscalName(self, text, length, fill=' ', align='<'):
+        name = re.sub(
+            ur"[^a-zA-Z0-9\sáÁéÉíÍóÓúÚñÑçÇäÄëËïÏüÜöÖ"
+            ur"àÀèÈìÌòÒùÙâÂêÊîÎôÔûÛ\.,-_&'´\\:;:/]", '', text,
+            re.UNICODE | re.X)
+        name = re.sub(r'\s{2,}', ' ', name, re.UNICODE | re.X)
+        return self._formatString(name, length, fill=fill, align=align)
+
     def _formatNumber(self, number, int_length, dec_length=0,
-                      include_sign=False):
+                      include_sign=False, positive_sign=' ',
+                      negative_sign='N'):
         """
         Formats the number into a fixed length ASCII (iso-8859-1) record.
         Note:
@@ -91,7 +103,7 @@ class L10nEsAeatReportExportToBoe(models.TransientModel):
         if number == '':
             number = 0.0
         number = float(number)
-        sign = number >= 0 and ' ' or 'N'
+        sign = number >= 0 and positive_sign or negative_sign
         number = abs(number)
         int_part = int(number)
         # Format the string
@@ -107,14 +119,16 @@ class L10nEsAeatReportExportToBoe(models.TransientModel):
         # Sanity-check
         assert len(ascii_string) == (include_sign and 1 or 0) + int_length + \
             dec_length, _("The formated string must match the given length")
-        # Return the string
-        return ascii_string
+        # Return the string assuring that is not unicode
+        return str(ascii_string)
 
     def _formatBoolean(self, value, yes='X', no=' '):
+        """Formats a boolean value into a fixed length ASCII (iso-8859-1)
+        record.
         """
-        Formats a boolean value into a fixed length ASCII (iso-8859-1) record.
-        """
-        return value and yes or no
+        res = value and yes or no
+        # Return the string assuring that is not unicode
+        return str(res)
 
     @api.multi
     def _get_formatted_declaration_record(self, report):
@@ -146,15 +160,15 @@ class L10nEsAeatReportExportToBoe(models.TransientModel):
         # NIF del declarante
         text += self._formatString(report.company_vat, 9)
         # Apellidos y nombre o razón social del declarante
-        text += self._formatString(report.company_id.name, 40)
+        text += self._formatFiscalName(report.company_id.name, 40)
         # Tipo de soporte
         text += self._formatString(report.support_type, 1)
         # Persona de contacto (Teléfono)
         text += self._formatString(report.contact_phone, 9)
         # Persona de contacto (Apellidos y nombre)
-        text += self._formatString(report.contact_name, 40)
+        text += self._formatFiscalName(report.contact_name, 40)
         # Número identificativo de la declaración
-        text += self._formatString(report.sequence, 13)
+        text += self._formatString(report.name, 13)
         # Declaración complementaria
         text += self._formatString(report.type, 2).replace('N', ' ')
         # Número identificativo de la declaración anterior
@@ -285,4 +299,6 @@ class L10nEsAeatReportExportToBoe(models.TransientModel):
             return self._formatNumber(
                 float(val or 0),
                 line.size - decimal_size - (line.apply_sign and 1 or 0),
-                decimal_size, line.apply_sign)
+                decimal_size, line.apply_sign,
+                positive_sign=line.positive_sign,
+                negative_sign=line.negative_sign)

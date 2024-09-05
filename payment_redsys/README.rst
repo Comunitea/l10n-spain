@@ -35,6 +35,9 @@ Parámetros
   se las denomina URL_OK y URL_KO, respectivamente. Se trata
   de dos URLs que pueden ser proporcionadas por el comercio.
 
+* **Porcentaje de pago**: Indicar el porcentaje de pago que se permite, si
+  se deja a 0.0 se entiende 100%
+
 Nota
 ----
 
@@ -47,3 +50,11 @@ pasarela de pago envía el formulario a "/payment/redsys/return" odoo no sabe
 con que base de datos procesar esta información.
 Por lo que hay que establecer los parametros **dbfilter** y **dbname** en
 **openerp-server.conf**.
+
+Instalación
+-----------
+
+Para utilizar este módulo, necesita la biblioteca `pycrypto
+<https://pypi.python.org/pypi/pycrypto>`_ instalada en su sistema::
+
+    pip install pycrypto

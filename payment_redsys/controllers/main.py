@@ -35,12 +35,27 @@ class RedsysController(http.Controller):
             return_url = '/shop'
         return werkzeug.utils.redirect(return_url)
 
+    @http.route(
+        ['/payment/redsys/result/<page>'], type='http', auth='public',
+        methods=['GET'], website=True)
+    def redsys_result(self, page, **vals):
+        try:
+            sale_order_id = request.session.get('sale_last_order_id')
+            sale_obj = request.env['sale.order']
+            order = sale_obj.sudo().browse(sale_order_id)
+            res = {
+                'order': order,
+            }
+            return request.render('payment_redsys.%s' % str(page), res)
+        except:
+            return request.render('website.404')
 
-class website_sale(website_sale):
+
+class WebsiteSale(website_sale):
     @http.route(['/shop/payment/transaction/<int:acquirer_id>'], type='json',
                 auth="public", website=True)
     def payment_transaction(self, acquirer_id):
-        tx_id = super(website_sale, self).payment_transaction(acquirer_id)
+        tx_id = super(WebsiteSale, self).payment_transaction(acquirer_id)
         cr, context = request.cr, request.context
         acquirer_obj = request.registry.get('payment.acquirer')
         acquirer = acquirer_obj.browse(

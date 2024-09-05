@@ -25,10 +25,10 @@
 
 {
     "name": "Account balance reporting to XLS",
-    "version": "1.0",
+    "version": "8.0.1.0.0",
     "author": "Spanish Localization Team,Odoo Community Association (OCA)",
     'website': 'http://odoo-spain.org',
-    "category": "Accounting / Reports",
+    "category": "Accounting & Finance",
     'depends': [
         'account_balance_reporting',
         'report_xls',

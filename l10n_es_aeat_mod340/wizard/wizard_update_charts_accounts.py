@@ -16,7 +16,7 @@
 #
 ##############################################################################
 
-from openerp import models, _
+from openerp import _, models
 
 
 class WizardUpdateChartsAccounts(models.TransientModel):
@@ -34,4 +34,20 @@ class WizardUpdateChartsAccounts(models.TransientModel):
         res = super(WizardUpdateChartsAccounts, self)._prepare_tax_code_vals(
             tax_code_template, mapping_tax_codes)
         res['mod340'] = tax_code_template.mod340
+        return res
+
+    def _is_different_tax(self, tax, tax_template, mapping_taxes,
+                          mapping_tax_codes, mapping_accounts):
+        notes = super(WizardUpdateChartsAccounts, self)._is_different_tax(
+            tax, tax_template, mapping_taxes, mapping_tax_codes,
+            mapping_accounts)
+        if tax.is_340_reserve_charge != tax_template.is_340_reserve_charge:
+            notes += _("The field is 340 reverse charge is different.\n")
+        return notes
+
+    def _prepare_tax_vals(self, tax_template, mapping_tax_codes,
+                          mapping_taxes):
+        res = super(WizardUpdateChartsAccounts, self)._prepare_tax_vals(
+            tax_template, mapping_tax_codes, mapping_taxes)
+        res['is_340_reserve_charge'] = tax_template.is_340_reserve_charge
         return res

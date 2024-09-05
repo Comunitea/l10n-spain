@@ -26,13 +26,69 @@
             <field name="arch" type="xml">
                 <field name="previous_number" position="after">
                     <field name="devolucion_mensual"/>
+                    <field name="exonerated_390"
+                        attrs="{'invisible': [('period_type', 'not in', ('4T', '12'))]}"
+                    />
                 </field>
                 <group name="group_declaration" position="after">
                     <field name="currency_id" invisible="1"/>
+                    <group string="Datos extra exonerados modelo 390"
+                        name="group_exonerated_390"
+                        attrs="{'invisible': [('exonerated_390', '=', '2')]}"
+                    >
+                        <group>
+                            <group string="Actividad principal" name="group_main_activity">
+                                <field name="main_activity_code"
+                                    widget="selection"
+                                    attrs="{'required': [('exonerated_390', '!=', '2')]}"
+                                />
+                                <field name="main_activity_iae"
+                                    attrs="{'required': [('exonerated_390', '!=', '2')]}"
+                                />
+                            </group>
+                            <group name="group_others_390" string="Otros">
+                                <field name="has_operation_volume"/>
+                                <field name="has_347"/>
+                                <field name="is_voluntary_sii"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <group string="Otras - 1ª actividad" name="group_other_first_activity">
+                                <field name="other_first_activity_code"
+                                    widget="selection"
+                                />
+                                <field name="other_first_activity_iae"/>
+                            </group>
+                            <group string="Otras - 2ª actividad" name="group_other_second_activity">
+                                <field name="other_second_activity_code"
+                                    widget="selection"
+                                />
+                                <field name="other_second_activity_iae"/>
+                            </group>
+                            <group string="Otras - 3ª actividad" name="group_other_third_activity">
+                                <field name="other_third_activity_code"
+                                    widget="selection"
+                                />
+                                <field name="other_third_activity_iae"/>
+                            </group>
+                            <group string="Otras - 4ª actividad" name="group_other_fourth_activity">
+                                <field name="other_fourth_activity_code"
+                                    widget="selection"
+                                />
+                                <field name="other_fourth_activity_iae"/>
+                            </group>
+                            <group string="Otras - 5ª actividad" name="group_other_fifth_activity">
+                                <field name="other_fifth_activity_code"
+                                    widget="selection"
+                                />
+                                <field name="other_fifth_activity_iae"/>
+                            </group>
+                        </group>
+                    </group>
                     <group string="Resultado"
                            name="group_result"
-                           colspan="4"
-                           col="6"
+                           attrs="{'invisible': [('state', '=', 'draft')]}"
+                   col="3"
                             >
                         <group>
                             <field name="total_devengado"
@@ -54,7 +110,15 @@
                                    widget="monetary"
                                    options="{'currency_field': 'currency_id'}"
                                     />
+                            <field name="potential_cuota_compensar"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                    />
                             <field name="cuota_compensar"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                    />
+                            <field name="remaining_cuota_compensar"
                                    widget="monetary"
                                    options="{'currency_field': 'currency_id'}"
                                     />
@@ -64,6 +128,10 @@
                                    widget="monetary"
                                    options="{'currency_field': 'currency_id'}"
                                    attrs="{'readonly': [('period_type', 'not in', ('4T', '12'))]}"
+                                    />
+                            <field name="casilla_77"
+                                   widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
                                     />
                             <field name="casilla_69"
                                    widget="monetary"
@@ -77,20 +145,34 @@
                         </group>
                     </group>
                     <group class="oe_subtotal_footer oe_right"
-                           attrs="{'invisible': [('tax_lines', '=', [])]}"
+                           attrs="{'invisible': [('state', '=', 'draft')]}"
                            colspan="2">
                         <field name="resultado_liquidacion"
                                class="oe_subtotal_footer_separator"
                                widget="monetary"
                                options="{'currency_field': 'currency_id'}"
                                 />
+                <field name="casilla_88"
+                    class="oe_subtotal_footer_separator"
+                    widget="monetary"
+                    attrs="{'invisible': [('exonerated_390', '=', '2')]}"
+                    options="{'currency_field': 'currency_id'}"
+                />
                         <field name="result_type"/>
                         <field name="compensate"
                                attrs="{'invisible': [('result_type', '!=', 'B')]}"
                                 />
+                        <field name="company_partner_id" invisible="1"/>
                         <field name="bank_account"
+                               domain="[('partner_id', '=', company_partner_id)]"
                                attrs="{'invisible': [('result_type', 'not in', ('B', 'I')), ('compensate', '=', False)]}"
                                 />
+                    </group>
+                    <group string="Tax lines"
+                           name="group_tax_lines"
+                           colspan="4"
+                           attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <field name="tax_lines" nolabel="1"/>
                     </group>
                 </group>
             </field>

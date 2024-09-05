@@ -1,20 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * l10n_es_aeat_mod130
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: l10n-spain (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 00:52+0000\n"
-"PO-Revision-Date: 2015-07-10 10:56+0000\n"
+"POT-Creation-Date: 2017-04-29 02:56+0000\n"
+"PO-Revision-Date: 2017-04-25 10:42+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Portuguese (http://www.transifex.com/oca/OCA-l10n-spain-8-0/language/pt/)\n"
+"Language-Team: Portuguese (http://www.transifex.com/oca/OCA-l10n-spain-8-0/"
+"language/pt/)\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_es_aeat_mod130
@@ -48,6 +49,11 @@ msgid "AEAT model 130"
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.report,move_id:0
+msgid "Account entry"
+msgstr ""
+
+#. module: l10n_es_aeat_mod130
 #: selection:l10n.es.aeat.mod130.report,activity_type:0
 msgid "Actividad agrícola, ganadera, forestal o pesquera"
 msgstr ""
@@ -55,6 +61,16 @@ msgstr ""
 #. module: l10n_es_aeat_mod130
 #: selection:l10n.es.aeat.mod130.report,activity_type:0
 msgid "Actividad distinta a las anteriores"
+msgstr ""
+
+#. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.report,allow_posting:0
+msgid "Allow posting"
+msgstr ""
+
+#. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.report,partner_bank_id:0
+msgid "Bank account"
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
@@ -163,8 +179,18 @@ msgid "Company"
 msgstr "Empresa"
 
 #. module: l10n_es_aeat_mod130
+#: help:l10n.es.aeat.mod130.report,partner_bank_id:0
+msgid "Company bank account used for the presentation"
+msgstr ""
+
+#. module: l10n_es_aeat_mod130
 #: selection:l10n.es.aeat.mod130.report,type:0
 msgid "Complementary"
+msgstr ""
+
+#. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.report,counterpart_account:0
+msgid "Counterpart account"
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
@@ -176,13 +202,13 @@ msgstr ""
 #: field:l10n.es.aeat.mod130.export_to_boe,create_uid:0
 #: field:l10n.es.aeat.mod130.report,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Criado por"
 
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.export_to_boe,create_date:0
 #: field:l10n.es.aeat.mod130.report,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Criado em"
 
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.report,currency_id:0
@@ -221,6 +247,12 @@ msgstr ""
 #: field:l10n.es.aeat.mod130.report,number:0
 msgid "Declaration number"
 msgstr ""
+
+#. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.export_to_boe,display_name:0
+#: field:l10n.es.aeat.mod130.report,display_name:0
+msgid "Display Name"
+msgstr "Nome"
 
 #. module: l10n_es_aeat_mod130
 #: selection:l10n.es.aeat.mod130.report,state:0
@@ -281,6 +313,16 @@ msgstr ""
 #: field:l10n.es.aeat.mod130.export_to_boe,id:0
 #: field:l10n.es.aeat.mod130.report,id:0
 msgid "ID"
+msgstr "ID"
+
+#. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.report,journal_id:0
+msgid "Journal"
+msgstr "Diário"
+
+#. module: l10n_es_aeat_mod130
+#: help:l10n.es.aeat.mod130.report,journal_id:0
+msgid "Journal in which post the move."
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
@@ -289,21 +331,32 @@ msgid "L.R. VAT number"
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.export_to_boe,__last_update:0
+#: field:l10n.es.aeat.mod130.report,__last_update:0
+msgid "Last Modified on"
+msgstr "Modificado a última vez por"
+
+#. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.export_to_boe,write_uid:0
 #: field:l10n.es.aeat.mod130.report,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Atualizado pela última vez por"
 
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.export_to_boe,write_date:0
 #: field:l10n.es.aeat.mod130.report,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Atualizado pela última vez em"
 
 #. module: l10n_es_aeat_mod130
 #: help:l10n.es.aeat.mod130.report,representative_vat:0
 msgid "Legal Representative VAT number."
 msgstr ""
+
+#. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.report,model:0
+msgid "Model"
+msgstr "Modelo"
 
 #. module: l10n_es_aeat_mod130
 #: help:l10n.es.aeat.mod130.report,contact_name:0
@@ -334,7 +387,7 @@ msgstr ""
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.report,company_partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Parceiro"
 
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.report,period:0
@@ -354,21 +407,38 @@ msgstr ""
 #. module: l10n_es_aeat_mod130
 #: help:l10n.es.aeat.mod130.report,has_prestamo:0
 msgid ""
-"Permite indicar si destina cantidades al pago de préstamos para la adquisición o rehabilitación de la vivienda habitual. Si marca la casilla, se podrá realiza un 2% de deducción sobre el importe de la casilla [03], con un máximo de 660,14 € por trimestre, o del 2% de la casilla [08], con un máximo de 660,14 euros anuales. \n"
-"Debe consultar las excepciones para las que no se computaría la deducción a pesar del préstamo."
+"Permite indicar si destina cantidades al pago de préstamos para la "
+"adquisición o rehabilitación de la vivienda habitual. Si marca la casilla, "
+"se podrá realiza un 2% de deducción sobre el importe de la casilla [03], con "
+"un máximo de 660,14 € por trimestre, o del 2% de la casilla [08], con un "
+"máximo de 660,14 euros anuales. \n"
+"Debe consultar las excepciones para las que no se computaría la deducción a "
+"pesar del préstamo."
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
 #: help:l10n.es.aeat.mod130.report,has_deduccion_80:0
 msgid ""
-"Permite indicar si puede beneficiarse de la deducción por obtención de rendimientos de actividades económicas a efectos del pago fraccionado por cumplir el siguiente requisito:\n"
-" Que, en el primer trimestre del ejercicio o en el primer trimestre de inicio de actividades, la suma del resultado de elevar al año el importe de la casilla 03 y/o, en su caso, el resultado de elevar al año el 25 por 100 de la casilla 08, sea igual o inferior a 12.000 euros. En los supuestos de inicio de la actividad a lo largo del ejercicio en la elevación al año se tendrán en consideración los días que resten hasta el final del año."
+"Permite indicar si puede beneficiarse de la deducción por obtención de "
+"rendimientos de actividades económicas a efectos del pago fraccionado por "
+"cumplir el siguiente requisito:\n"
+" Que, en el primer trimestre del ejercicio o en el primer trimestre de "
+"inicio de actividades, la suma del resultado de elevar al año el importe de "
+"la casilla 03 y/o, en su caso, el resultado de elevar al año el 25 por 100 "
+"de la casilla 08, sea igual o inferior a 12.000 euros. En los supuestos de "
+"inicio de la actividad a lo largo del ejercicio en la elevación al año se "
+"tendrán en consideración los días que resten hasta el final del año."
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.report,contact_phone:0
 msgid "Phone"
 msgstr ""
+
+#. module: l10n_es_aeat_mod130
+#: selection:l10n.es.aeat.mod130.report,state:0
+msgid "Posted"
+msgstr "Publicado"
 
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.report,complementary:0
@@ -384,6 +454,11 @@ msgstr ""
 #: selection:l10n.es.aeat.mod130.report,state:0
 msgid "Processed"
 msgstr "Processado"
+
+#. module: l10n_es_aeat_mod130
+#: field:l10n.es.aeat.mod130.report,name:0
+msgid "Report identifier"
+msgstr ""
 
 #. module: l10n_es_aeat_mod130
 #: view:l10n.es.aeat.mod130.report:l10n_es_aeat_mod130.view_l10n_es_aeat_mod130_report_form
@@ -403,11 +478,6 @@ msgstr ""
 #: selection:l10n.es.aeat.mod130.report,period:0
 msgid "Second quarter"
 msgstr ""
-
-#. module: l10n_es_aeat_mod130
-#: field:l10n.es.aeat.mod130.report,sequence:0
-msgid "Sequence"
-msgstr "Sequência"
 
 #. module: l10n_es_aeat_mod130
 #: field:l10n.es.aeat.mod130.export_to_boe,state:0
@@ -431,11 +501,6 @@ msgid "Support Type"
 msgstr ""
 
 #. module: l10n_es_aeat_mod130
-#: field:l10n.es.aeat.mod130.report,tax_lines:0
-msgid "Tax lines"
-msgstr ""
-
-#. module: l10n_es_aeat_mod130
 #: selection:l10n.es.aeat.mod130.report,support_type:0
 msgid "Telematics"
 msgstr ""
@@ -443,6 +508,13 @@ msgstr ""
 #. module: l10n_es_aeat_mod130
 #: selection:l10n.es.aeat.mod130.report,period:0
 msgid "Third quarter"
+msgstr ""
+
+#. module: l10n_es_aeat_mod130
+#: help:l10n.es.aeat.mod130.report,counterpart_account:0
+msgid ""
+"This account will be the counterpart for all the journal items that are "
+"regularized when posting the report."
 msgstr ""
 
 #. module: l10n_es_aeat_mod130

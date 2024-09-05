@@ -47,6 +47,9 @@
 
         Vicent Cubells <vicent@vcubells.net> (2015-09-01)
           Nuevo impuesto 19,5% para arrendamientos
+
+        Albert Cabedo (GAFIC consultores) <albert@gafic.com> (2015-11-13)
+          IVA Soportado no sujeto
         -->
 
         <record id="account_tax_template_s_iva21b" model="account.tax.template">
@@ -54,7 +57,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_IVA21B</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21B"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -72,7 +75,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_IVA21S</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21S"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -90,7 +93,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_IVA21ISP</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21ISP"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -109,7 +112,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_BC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21B"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -127,7 +130,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_SC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21S"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -154,7 +157,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_SP_IN_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21IS"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -174,7 +177,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_SP_IN_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21IS"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -204,7 +207,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_IC_BC_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21IB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -224,7 +227,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_IC_BC_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21IB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -253,7 +256,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_IC_BI_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21IBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -273,7 +276,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_IC_BI_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21IBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -293,7 +296,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_IBC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21EB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -311,7 +314,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_IBI</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21EBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -356,7 +359,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_SP_EX_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC4E"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -376,7 +379,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_SP_EX_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4ES"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -405,7 +408,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_SP_EX_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC10E"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -425,14 +428,14 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_SP_EX_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10ES"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
           <field name="sequence" eval="20"/>
           <field name="base_code_id" ref="account_tax_code_template_OICBI10"/>
           <field name="ref_tax_sign" eval="-1.0"/>
-          <field name="name">IVA 10% Inversión del sujeto pasivo extracomunitario (3)</field>
+          <field name="name">IVA 10% Inversión del sujeto pasivo extracomunitario (2)</field>
           <field name="account_collected_id" ref="pgc_472_child"/>
           <field name="chart_template_id" ref="account_chart_template_common"/>
           <field name="tax_code_id" ref="account_tax_code_template_SOICC10"/>
@@ -454,7 +457,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_SP_EX_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21E"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -474,7 +477,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_SP_EX_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21ES"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -503,7 +506,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_IC_BC_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4IB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -523,7 +526,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_IC_BC_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC4IB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -552,7 +555,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_IC_BI_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4IBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -572,7 +575,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_IC_BI_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC4IBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -601,7 +604,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_IC_BC_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10IB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -621,7 +624,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_IC_BC_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC10IB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -650,7 +653,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_IC_BI_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10IBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -670,7 +673,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_IC_BI_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC10IBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -732,7 +735,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_IBC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4EB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -750,7 +753,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_IBI</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4EBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -768,7 +771,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_IBC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10EB"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -786,7 +789,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_IBI</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10EBI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -804,7 +807,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_BI</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4BI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -822,7 +825,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_SC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4S"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -840,7 +843,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_BI</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10BI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -858,7 +861,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA21_BI</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21BI"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -876,7 +879,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_BC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10B"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -894,7 +897,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_BC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4B"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -912,7 +915,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_SC</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10S"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -944,7 +947,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCDRDERBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_REQ05</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCDRDERC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCDRDERC05"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -962,7 +965,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_IVA4B</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC4B"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -980,7 +983,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_IVA10B</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC10B"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1014,7 +1017,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_IVA4S</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC4S"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1032,7 +1035,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_IVA10S</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC10S"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1050,7 +1053,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCDRDERBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_REQ014</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCDRDERC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCDRDERC014"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1068,7 +1071,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCDRDERBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">S_REQ52</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCDRDERC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCDRDERC52"/>
           <field name="type_tax_use">sale</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1091,6 +1094,20 @@
           <field name="base_sign" eval="1.0"/>
           <field name="ref_tax_sign" eval="-1.0"/>
           <field name="name">IVA Soportado exento (operaciones corrientes)</field>
+          <field name="chart_template_id" ref="account_chart_template_common"/>
+          <field name="amount" eval="0.0"/>
+          <field name="tax_sign" eval="1.0"/>
+          <field name="type">percent</field>
+        </record>
+        <record id="account_tax_template_p_iva0_ns" model="account.tax.template">
+          <field name="ref_base_code_id" ref="account_tax_code_template_SNJBI"/>
+          <field name="ref_base_sign" eval="-1.0"/>
+          <field name="description">P_IVA0_NS</field>
+          <field name="type_tax_use">purchase</field>
+          <field name="base_code_id" ref="account_tax_code_template_SNJBI"/>
+          <field name="base_sign" eval="1.0"/>
+          <field name="ref_tax_sign" eval="-1.0"/>
+          <field name="name">IVA Soportado no sujeto</field>
           <field name="chart_template_id" ref="account_chart_template_common"/>
           <field name="amount" eval="0.0"/>
           <field name="tax_sign" eval="1.0"/>
@@ -1381,7 +1398,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_REQ014</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSCRE014"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1399,7 +1416,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_REQ05</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSCRE05"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1417,7 +1434,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_REQ5.2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSCRE52"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1600,7 +1617,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_SP_IN_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC10IS"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1620,7 +1637,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA10_SP_IN_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10IS"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1649,7 +1666,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_SP_IN_1</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC4IS"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1669,7 +1686,7 @@
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
           <field name="description">P_IVA4_SP_IN_2</field>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4IS"/>
           <field name="type_tax_use">purchase</field>
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="base_sign" eval="1.0"/>
@@ -1814,7 +1831,7 @@
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC4ISP"/>
           <field name="ref_tax_sign" eval="-1.0"/>
           <field name="chart_template_id" ref="account_chart_template_common"/>
         </record>
@@ -1834,7 +1851,7 @@
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC4ISN"/>
           <field name="ref_tax_sign" eval="1.0"/>
           <field name="chart_template_id" ref="account_chart_template_common"/>
         </record>
@@ -1863,7 +1880,7 @@
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC10ISP"/>
           <field name="ref_tax_sign" eval="-1.0"/>
           <field name="chart_template_id" ref="account_chart_template_common"/>
         </record>
@@ -1883,7 +1900,7 @@
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC10ISN"/>
           <field name="ref_tax_sign" eval="1.0"/>
           <field name="chart_template_id" ref="account_chart_template_common"/>
         </record>
@@ -1912,7 +1929,7 @@
           <field name="account_paid_id" ref="pgc_472_child"/>
           <field name="ref_base_code_id" ref="account_tax_code_template_RDDSBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_RDDSC21ISP"/>
           <field name="ref_tax_sign" eval="-1.0"/>
           <field name="chart_template_id" ref="account_chart_template_common"/>
         </record>
@@ -1932,9 +1949,48 @@
           <field name="account_paid_id" ref="pgc_477_child"/>
           <field name="ref_base_code_id" ref="account_tax_code_template_MBYCRBI"/>
           <field name="ref_base_sign" eval="-1.0"/>
-          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC"/>
+          <field name="ref_tax_code_id" ref="account_tax_code_template_MBYCRC21ISN"/>
           <field name="ref_tax_sign" eval="1.0"/>
           <field name="chart_template_id" ref="account_chart_template_common"/>
         </record>
+
+    <record id="account_tax_template_p_rp21" model="account.tax.template">
+        <field name="type_tax_use">purchase</field>
+        <field name="description">P_RP21</field>
+        <field name="name">Retenciones 21% (préstamos)</field>
+        <field name="base_sign" eval="1.0"/>
+        <field name="base_code_id" ref="account_tax_code_template_RPPBI21"/>
+        <field name="tax_sign" eval="-1.0"/>
+        <field name="tax_code_id" ref="account_tax_code_template_RPPC21"/>
+        <field name="ref_base_sign" eval="-1.0"/>
+        <field name="ref_base_code_id" ref="account_tax_code_template_RPPBI21"/>
+        <field name="ref_tax_sign" eval="1.0"/>
+        <field name="ref_tax_code_id" ref="account_tax_code_template_RPPC21"/>
+        <field name="account_paid_id" ref="pgc_4751_child"/>
+        <field name="account_collected_id" ref="pgc_4751_child"/>
+        <field name="chart_template_id" ref="account_chart_template_common"/>
+        <field name="amount" eval="-0.21"/>
+        <field name="type">percent</field>
+    </record>
+
+    <record id="account_tax_template_p_rrD19" model="account.tax.template">
+        <field name="type_tax_use">purchase</field>
+        <field name="description">P_RRD19</field>
+        <field name="name">Retenciones 19% (reparto de dividendos)</field>
+        <field name="base_sign" eval="1.0"/>
+        <field name="base_code_id" ref="account_tax_code_template_RPRDBI19"/>
+        <field name="tax_sign" eval="-1.0"/>
+        <field name="tax_code_id" ref="account_tax_code_template_RPRDC19"/>
+        <field name="ref_base_sign" eval="-1.0"/>
+        <field name="ref_base_code_id" ref="account_tax_code_template_RPRDBI19"/>
+        <field name="ref_tax_sign" eval="1.0"/>
+        <field name="ref_tax_code_id" ref="account_tax_code_template_RPRDC19"/>
+        <field name="account_paid_id" ref="pgc_4751_child"/>
+        <field name="account_collected_id" ref="pgc_4751_child"/>
+        <field name="chart_template_id" ref="account_chart_template_common"/>
+        <field name="amount" eval="-0.19"/>
+        <field name="type">percent</field>
+    </record>
+
     </data>
 </openerp>
