@@ -13,4 +13,4 @@ def migrate(cr, version):
     #     """
     #     ALTER TABLE l10n_es_aeat_tax_line
     #     RENAME report TO legacy_report_id
-        """)
+    # """)
