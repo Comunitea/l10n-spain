@@ -4,7 +4,7 @@
         <field name="model">stock.immediate.transfer</field>
         <field
             name="inherit_id"
-            ref="delivery_package_number.view_immediate_transfer"
+            ref="stock.view_immediate_transfer"
         />
         <field name="arch" type="xml">
 
