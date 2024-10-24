@@ -7,6 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 <<<<<<< HEAD
+<<<<<<< HEAD
 "POT-Creation-Date: 2022-02-10 13:17+0000\n"
 "PO-Revision-Date: 2022-08-23 13:07+0000\n"
 "Last-Translator: olatzavanzosc <olatzaranguren@avanzosc.es>\n"
@@ -15,6 +16,11 @@ msgstr ""
 "PO-Revision-Date: 2021-06-17 09:33+0000\n"
 "Last-Translator: <>\n"
 >>>>>>> baa4ec1d4 ([FIX] l10n_es_ticketbai_api: state field label, l10n_es_ticketbai: installation wizard info)
+=======
+"POT-Creation-Date: 2022-02-10 13:17+0000\n"
+"PO-Revision-Date: 2022-08-23 13:07+0000\n"
+"Last-Translator: olatzavanzosc <olatzaranguren@avanzosc.es>\n"
+>>>>>>> 5009c0f9e32490c59e63de0bf232ce3d78a478d6
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"

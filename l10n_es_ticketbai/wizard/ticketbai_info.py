@@ -39,12 +39,16 @@ class TicketBaiGeneralInfo(models.TransientModel):
             software_version_api = self.sudo().env['ir.module.module'].search([
                 ('name', '=', name_api)]).latest_version
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5009c0f9e32490c59e63de0bf232ce3d78a478d6
             record.software = "%s (%s %s, %s %s)" % (
                 record.company_id.tbai_software_name,
                 name_api,
                 software_version_api,
                 name,
                 software_version)
+<<<<<<< HEAD
 =======
             record.software = "(%s %s, %s %s) %s" % (
                 name_api,
@@ -53,6 +57,8 @@ class TicketBaiGeneralInfo(models.TransientModel):
                 software_version,
                 record.company_id.tbai_software_name)
 >>>>>>> baa4ec1d4 ([FIX] l10n_es_ticketbai_api: state field label, l10n_es_ticketbai: installation wizard info)
+=======
+>>>>>>> 5009c0f9e32490c59e63de0bf232ce3d78a478d6
 
     @api.multi
     @api.depends('company_id')
