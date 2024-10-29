@@ -3,7 +3,7 @@
 
 {
     "name": "AEAT modelo 369",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "category": "Accounting",
     "author": "Studio73, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-spain",
@@ -21,11 +21,8 @@
         "data/2022/08/aeat.model.export.config.line.csv",
         "data/2022/09/aeat.model.export.config.line.csv",
         "data/2022/main/aeat.model.export.config.line.csv",
-        "views/account_fiscal_position_view.xml",
-        "views/account_invoice_view.xml",
         "views/account_tax_view.xml",
         "views/mod369_view.xml",
-        "views/res_country_view.xml",
         "security/l10n_es_aeat_mod369_security.xml",
         "security/ir.model.access.csv",
     ],
