@@ -12,8 +12,10 @@ class L10nEsAeatMod303Report(models.Model):
     def get_taxes_from_map(self, map_line):
         module = "l10n_es_aeat_mod303_oss"
         oss_map_lines = [
-            self.env.ref(module + ".aeat_mod303_202107_map_line_123"),
-            self.env.ref(module + ".aeat_mod303_202107_map_line_126"),
+            self.env.ref("l10n_es_aeat_mod303_oss.aeat_mod303_202107_map_line_123"),
+            self.env.ref("l10n_es_aeat_mod303_oss.aeat_mod303_202107_map_line_126"),
+            self.env.ref("l10n_es_aeat_mod303_oss.aeat_mod303_2024_10_map_line_123"),
+            self.env.ref("l10n_es_aeat_mod303_oss.aeat_mod303_2024_10_map_line_126"),
         ]
         if map_line in oss_map_lines:
             return self.env["account.tax"].search(
