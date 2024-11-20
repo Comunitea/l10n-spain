@@ -14,6 +14,7 @@ odoo.define("l10n_es_ticketbai_pos.tbai_models", function (require) {
     var Backbone = window.Backbone;
     var tbai = window.tbai;
     var QRCode = window.QRCode;
+    const {Gui} = require("point_of_sale.Gui");
 
     /* A TicketBAI Simplified Invoice represents a customer's order
     to be exported to the Tax Agency.
@@ -147,7 +148,7 @@ odoo.define("l10n_es_ticketbai_pos.tbai_models", function (require) {
                     );
                 } catch (e) {
                     console.error(e);
-                    this.showPopup("ErrorPopup", {
+                    Gui.showPopup("ErrorPopup", {
                         title: _t("TicketBAI"),
                         body: e.message,
                     });
