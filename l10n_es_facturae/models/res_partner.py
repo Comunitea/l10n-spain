@@ -10,10 +10,7 @@ from odoo.exceptions import ValidationError
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    facturae = fields.Boolean("Factura electrónica")
-    parent_facturae = fields.Boolean(
-        related="commercial_partner_id.facturae", string="Parent Facturae"
-    )
+    facturae = fields.Boolean("Factura electrónica", copy=False)
     facturae_version = fields.Selection(
         [("3_2", "3.2"), ("3_2_1", "3.2.1"), ("3_2_2", "3.2.2")]
     )
@@ -58,3 +55,7 @@ class ResPartner(models.Model):
                         raise ValidationError(
                             _("State must be defined for factura-e enabled partners.")
                         )
+
+    @api.model
+    def _commercial_fields(self):
+        return super()._commercial_fields() + ["facturae"]

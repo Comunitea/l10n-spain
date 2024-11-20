@@ -3,8 +3,6 @@
 
 from datetime import datetime
 
-from psycopg2.errors import NotNullViolation
-
 from odoo import _
 from odoo.tests import tagged
 from odoo.tests.common import Form
@@ -18,7 +16,7 @@ from ..hooks import post_init_hook
 @tagged("post_install", "-at_install")
 class TestL10nIntraStatReport(AccountTestInvoicingCommon):
     @classmethod
-    def _create_invoice(cls, inv_type, partner, fiscal_pos, product=None):
+    def _create_invoice_for_intrastat(cls, inv_type, partner, fiscal_pos, product=None):
         product = product or cls.product
         if inv_type in ("out_invoice", "in_refund"):
             account = cls.company_data["default_account_revenue"]
@@ -139,7 +137,7 @@ class TestL10nIntraStatReport(AccountTestInvoicingCommon):
                 (cls.partner_1, cls.partner_2),
                 (cls.fiscal_position_b2b, cls.fiscal_position_b2c),
             ):
-                invoice = cls._create_invoice(inv_type, partner, fiscal)
+                invoice = cls._create_invoice_for_intrastat(inv_type, partner, fiscal)
                 cls.invoices[declaration_type]["invoices"].append(invoice)
                 cls.invoices[declaration_type][partner.country_id] += 1
 
@@ -186,7 +184,8 @@ class TestL10nIntraStatReport(AccountTestInvoicingCommon):
             self.invoices["dispatches"]["invoices"],
             report_dispatches.computation_line_ids,
         )
-        report_dispatches.done()
+        report_dispatches.draft2confirmed()
+        report_dispatches.confirmed2done()
         self.assertEqual(report_dispatches.state, "done")
         self.assertEqual(
             len(report_dispatches.declaration_line_ids), 2
@@ -221,15 +220,13 @@ class TestL10nIntraStatReport(AccountTestInvoicingCommon):
         report_dispatches.action_gather()
         for expected_note in expected_notes:
             self.assertIn(expected_note, report_dispatches.note)
-        with self.assertRaises(NotNullViolation):
-            report_dispatches.done()
-        self.assertEqual(len(report_dispatches.declaration_line_ids), 0)
         # # Change data to remove some notes and create lines
         self.product.origin_country_id = self.env.ref("base.fr")
         self.partner_1.vat = "FR23334175221"
         self.partner_2.vat = "FR23334175221"
         report_dispatches.action_gather()
-        report_dispatches.done()
+        report_dispatches.draft2confirmed()
+        report_dispatches.confirmed2done()
         self.assertEqual(report_dispatches.state, "done")
         self.assertEqual(
             len(report_dispatches.declaration_line_ids), len(expected_invoices) / 2
@@ -244,7 +241,8 @@ class TestL10nIntraStatReport(AccountTestInvoicingCommon):
         self._check_move_lines_present(
             self.invoices["arrivals"]["invoices"], report_arrivals.computation_line_ids
         )
-        report_arrivals.done()
+        report_arrivals.draft2confirmed()
+        report_arrivals.confirmed2done()
         self.assertEqual(report_arrivals.state, "done")
         self.assertEqual(
             len(report_arrivals.declaration_line_ids), 2

@@ -15,7 +15,7 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     sii_enabled = fields.Boolean(string="Enable SII")
-    sii_test = fields.Boolean(string="Is Test Environment?")
+    sii_test = fields.Boolean(string="Is it the SII test environment?")
     sii_description_method = fields.Selection(
         string="SII Description Method",
         selection=[("auto", "Automatic"), ("fixed", "Fixed"), ("manual", "Manual")],
@@ -69,6 +69,13 @@ class ResCompany(models.Model):
     )
     sent_time = fields.Float()
     delay_time = fields.Float()
+    sii_period = fields.Selection(
+        selection=[
+            ("monthly", "Monthly"),
+            ("quarterly", "Quarterly"),
+        ],
+        default="monthly",
+    )
 
     def _get_sii_eta(self):
         if self.send_mode == "fixed":

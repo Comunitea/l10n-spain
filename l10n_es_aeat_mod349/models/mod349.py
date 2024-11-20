@@ -224,25 +224,12 @@ class Mod349(models.Model):
             if original_details:
                 # There's at least one previous 349 declaration report
                 report = original_details.mapped("report_id")[:1]
-                partner_id = original_details.mapped("partner_id")[:1]
                 original_details = original_details.filtered(
                     lambda d: d.report_id == report
                 )
                 origin_amount = sum(original_details.mapped("amount_untaxed"))
                 period_type = report.period_type
                 year = str(report.year)
-
-                # Sum all details period origin
-                all_details_period = detail_obj.search(
-                    [
-                        ("partner_id", "=", partner_id.id),
-                        ("partner_record_id.operation_key", "=", op_key),
-                        ("report_id", "=", report.id),
-                    ],
-                    order="report_id desc",
-                )
-                origin_amount = sum(all_details_period.mapped("amount_untaxed"))
-
                 # If there are intermediate periods between the original
                 # period and the period where the rectification is taking
                 # place, it's necessary to check if there is any rectification
@@ -261,7 +248,6 @@ class Mod349(models.Model):
                 )
                 if last_refund_detail:
                     origin_amount = last_refund_detail.refund_id.total_operation_amount
-
             else:
                 # There's no previous 349 declaration report in Odoo
                 original_amls = move_line_obj.search(
@@ -436,6 +422,36 @@ class Mod349PartnerRecord(models.Model):
             allfields=["l10n_es_aeat_349_operation_key"],
         )["l10n_es_aeat_349_operation_key"]["selection"]
 
+    def _get_and_assign_country_code(self, record):
+        # Get country code from partner in a first place
+        country_code = record.partner_id._parse_aeat_vat_info()[0]
+
+        # Map country code with _map_aeat_country_code
+        # and then to ISO code with _map_aeat_country_iso_code
+        country_code = record.partner_id._map_aeat_country_code(country_code)
+        country = self.env["res.country"].search([("code", "=", country_code)])
+        country_code = record.partner_id._map_aeat_country_iso_code(country)
+
+        # If country code is found, and it's not in the VAT, assign it
+        if country_code and not record.partner_vat.startswith(country_code):
+            vat_number = record.partner_id._parse_aeat_vat_info()[-1]
+            record.partner_vat = country_code + vat_number
+        return country_code
+
+    def _process_vat(self, record, errors):
+        country_code = self._get_and_assign_country_code(record)
+        if not country_code:
+            errors.append(_("VAT without country code"))
+        elif country_code not in record.partner_id._get_aeat_europe_codes():
+            europe = self.env.ref("base.europe", raise_if_not_found=False)
+            map_european_codes = [
+                record.partner_id._map_aeat_country_iso_code(c)
+                for c in europe.country_ids
+            ]
+            if country_code not in map_european_codes:
+                errors.append(_("Country code not found in Europe"))
+        return errors
+
     @api.depends("partner_vat", "country_id", "total_operation_amount")
     def _compute_partner_record_ok(self):
         """Checks if all line fields are filled."""
@@ -447,6 +463,10 @@ class Mod349PartnerRecord(models.Model):
                 errors.append(_("Without Country"))
             if not record.total_operation_amount:
                 errors.append(_("Without Total Operation Amount"))
+            if record.total_operation_amount and record.total_operation_amount < 0.0:
+                errors.append(_("Negative amount"))
+            if record.partner_vat:
+                errors = self._process_vat(record, errors)
             record.partner_record_ok = bool(not errors)
             record.error_text = ", ".join(errors)
 
