@@ -609,10 +609,13 @@ class CreateFacturae(models.TransientModel):
         def _sign_document():
             path = os.path.realpath(os.path.dirname(__file__))
             path += '/../java/'
+            # Problemas de permisos para escribir sobre esa dirección
+            #  SE creó directorio manualmente
+            path2 = '/var/lib/odoo/facturae/'
             # Almacenamos nuestra cadena XML en un fichero y
             # creamos los ficheros auxiliares.
-            file_name_unsigned = path + 'unsigned_' + file_name
-            file_name_signed = path + file_name
+            file_name_unsigned = path2 + 'unsigned_' + file_name
+            file_name_signed = path2 + file_name
             file_unsigned = open(file_name_unsigned, "w+")
             file_unsigned.write(xml_facturae)
             file_unsigned.close()
@@ -621,7 +624,7 @@ class CreateFacturae(models.TransientModel):
             # Extraemos los datos del certificado para la firma electrónica.
             certificate = invoice.company_id.facturae_cert
             cert_passwd = invoice.company_id.facturae_cert_password
-            cert_path = path + 'certificado.pfx'
+            cert_path = path2 + 'certificado.pfx'
             cert_file = open(cert_path, 'wb')
             cert_file.write(certificate.decode('base64'))
             cert_file.close()
