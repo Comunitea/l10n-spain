@@ -314,8 +314,6 @@
         <field name="tax_ids" eval="[
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva5_a')),
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva5s')),
-            (4, ref('l10n_es_extra_data.account_tax_template_s_iva2b')),
-            (4, ref('l10n_es_extra_data.account_tax_template_s_iva2s')),
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva7-5b')),
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva7-5s')),
         ]"/>
@@ -324,8 +322,6 @@
         <field name="tax_ids" eval="[
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva5_a')),
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva5s')),
-            (4, ref('l10n_es_extra_data.account_tax_template_s_iva2b')),
-            (4, ref('l10n_es_extra_data.account_tax_template_s_iva2s')),
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva7-5b')),
             (4, ref('l10n_es_extra_data.account_tax_template_s_iva7-5s')),
         ]"/>
