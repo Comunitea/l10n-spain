@@ -23,20 +23,20 @@ class TestL10nEsAeatMod369Base(TestL10nEsAeatModBase):
         cls.company.country_id = cls.env.ref("base.es").id
         cls.company.account_fiscal_country_id = cls.env.ref("base.es").id
         general_tax = cls.env.ref(
-            "l10n_es.%s_account_tax_template_s_iva21b" % cls.company.id
+            f"l10n_es.{cls.company.id}_account_tax_template_s_iva21b"
         )
         reduced_tax = cls.env.ref(
-            "l10n_es.%s_account_tax_template_s_iva10b" % cls.company.id
+            f"l10n_es.{cls.company.id}_account_tax_template_s_iva10b"
         )
         superreduced_tax = cls.env.ref(
-            "l10n_es.%s_account_tax_template_s_iva4b" % cls.company.id
+            f"l10n_es.{cls.company.id}_account_tax_template_s_iva4b"
         )
         cls.oss_taxes = {}
         cls.oss_countries = {}
         cls.sale_invoices = {}
         invoice_date = "2017-01-01"
         for country_key in ["FR", "DE"]:
-            country = cls.env.ref("base.%s" % country_key.lower())
+            country = cls.env.ref(f"base.{country_key.lower()}")
             wizard = cls.env["l10n.eu.oss.wizard"].create(
                 {
                     "company_id": cls.company.id,
@@ -153,7 +153,8 @@ class TestL10nEsAeatMod369Base(TestL10nEsAeatModBase):
         for country_code in self.sale_invoices.keys():
             sale_invoice_by_key = self.sale_invoices[country_code]
             spain_goods_line_filter = self.model369.spain_goods_line_ids.filtered(
-                lambda x: x.country_code == country_code and not x.is_page_8_line
+                lambda x, country_code=country_code: x.country_code == country_code
+                and not x.is_page_8_line
             )
             # checking type of tax
             country_amount_tax = sum(tax.amount for tax in self.oss_taxes[country_code])
