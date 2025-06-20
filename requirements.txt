@@ -1,9 +1,5 @@
 # generated from manifests external_dependencies
 chardet
 suds-py3
-<<<<<<< HEAD
-unidecode
-=======
 pycountry
 xmlsig
->>>>>>> pr-4175
