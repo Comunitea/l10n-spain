@@ -12,6 +12,7 @@
     "depends": [
         "delivery_package_number",
         "delivery_state",
+        "stock_delivery",
     ],
     "external_dependencies": {"python": ["zeep"]},
     "data": [
