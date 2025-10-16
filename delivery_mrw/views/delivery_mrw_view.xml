@@ -7,30 +7,30 @@
             <xpath expr="//notebook/page[1]" position='before'>
                 <page
                     string="MRW Configuration"
-                    attrs="{'invisible': [('delivery_type', '!=', 'mrw')]}"
+                    required="delivery_type != 'mrw'"
                 >
                     <group>
                         <group string="Connection">
                             <field
                                 name="mrw_username"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')]}"
+                                required="delivery_type == 'mrw'"
                             />
                             <field
                                 name="mrw_password"
                                 password="True"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')]}"
+                                required="delivery_type == 'mrw'"
                             />
                             <field
                                 name="mrw_client_code"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')]}"
+                                required="delivery_type == 'mrw'"
                             />
                             <field
                                 name="mrw_department_code"
-                                attrs="{'required': [('delivery_type', '=', 'mrw'), ('prod_environment', '!=', False)]}"
+                                required="delivery_type == 'mrw' and prod_environment != False"
                             />
                             <field
                                 name="mrw_franquicia_code"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')]}"
+                                required="delivery_type == 'mrw'"
                             />
                         </group>
                         <group string="Service">
@@ -38,66 +38,66 @@
                             <field
                                 name="international_shipping"
                                 invisible="1"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')],}"
+                                required="delivery_type == 'mrw'"
                             />
                             <field
                                 name="mrw_national_service"
-                                attrs="{'required': [('delivery_type', '=', 'mrw'), ('international_shipping', '=', False)],
-                                'invisible': [('international_shipping', '=', True)]}"
+                                required="delivery_type == 'mrw' and international_shipping == False"
+                                invisible="international_shipping == True"
                             />
                             <field
                                 name="mrw_international_service"
-                                attrs="{'required': [('delivery_type', '=', 'mrw'), ('international_shipping', '=', True)],
-                                'invisible': [('international_shipping', '=', False)]}"
+                                required="delivery_type == 'mrw' and international_shipping == True"
+                                invisible="international_shipping == False"
                             />
                             <label
                                 for="mrw_horario_from"
                                 string="Time Frame"
-                                attrs="{'invisible': [('international_shipping', '=', True)]}"
+                                invisible="international_shipping == True"
                             />
                             <div
-                                attrs="{'invisible': [('international_shipping', '=', True)]}"
+                                invisible="international_shipping == True"
                             >
                                 <field
                                     name="mrw_horario_from"
                                     class="oe_inline"
                                     widget="float_time"
-                                    attrs="{'required': [('delivery_type', '=', 'mrw'), ('international_shipping', '=', False)],
-                                'invisible': [('international_shipping', '=', True)]}"
+                                    required="delivery_type == 'mrw' and international_shipping == False"
+                                    invisible="international_shipping == True"
                                 />
                                 a
                              <field
                                     name="mrw_horario_to"
                                     class="oe_inline"
                                     widget="float_time"
-                                    attrs="{'required': [('delivery_type', '=', 'mrw'), ('international_shipping', '=', False)],
-                                'invisible': [('international_shipping', '=', True)]}"
+                                    required="delivery_type == 'mrw' and international_shipping == False"
+                                    invisible="international_shipping == True"
                                 />
                             </div>
                             <field
                                 name="mrw_en_franquicia"
                                 string="En Franquicia"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')],
-                                'invisible': [('international_shipping', '=', True)]}"
+                                required="delivery_type == 'mrw'"
+                                invisible="international_shipping == True"
                             />
                             <field
                                 name="mrw_reembolso"
                                 string="Reembolso"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')],
-                                'invisible': [('international_shipping', '=', True)]}"
+                                required="delivery_type == 'mrw'"
+                                invisible="international_shipping == True"
                             />
                             <field
                                 name="mrw_retorno"
                                 string="Retorno"
-                                attrs="{'required': [('delivery_type', '=', 'mrw')],
-                                'invisible': [('international_shipping', '=', True)]}"
+                                required="delivery_type == 'mrw'"
+                                invisible="international_shipping == True"
                             />
                         </group>
                         <group string="Notifications">
                             <field name="mrw_notification_channel" />
                             <field
                                 name="mrw_notification_type"
-                                attrs="{'required': [('mrw_notification_channel', '!=', False)]}"
+                                required="mrw_notification_channel != False"
                             />
                         </group>
                     </group>
@@ -110,7 +110,7 @@
                     type="object"
                     class="oe_stat_button"
                     icon="fa-file-text-o"
-                    attrs="{'invisible': [('delivery_type', '!=', 'mrw')]}"
+                    invisible="delivery_type != 'mrw'"
                 />
             </xpath>
         </field>

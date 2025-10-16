@@ -10,15 +10,7 @@
                     groups="base.group_no_one"
                     string="MRW Label"
                     type="object"
-                    attrs="{
-                        'invisible':[
-                            '|',
-                            '|',
-                            ('delivery_type', '!=', 'mrw'),
-                            ('carrier_tracking_ref', '=', False),
-                            ('state', '!=', 'done')
-                        ]
-                    }"
+                    invisible="delivery_type != 'mrw' or carrier_tracking_ref == False or state != 'done'"
                 />
             </xpath>
         </field>
