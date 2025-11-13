@@ -7,7 +7,7 @@
             <xpath expr="//notebook/page[1]" position='before'>
                 <page
                     string="MRW Configuration"
-                    required="delivery_type != 'mrw'"
+                    invisible="delivery_type != 'mrw'"
                 >
                     <group>
                         <group string="Connection">
