@@ -801,11 +801,13 @@ class AccountMove(models.Model):
     @api.depends(
         "company_id",
         "company_id.sii_enabled",
+        "company_id.sii_start_date",
         "journal_id",
         "journal_id.sii_enabled",
         "move_type",
         "fiscal_position_id",
         "fiscal_position_id.aeat_active",
+        "date",
         "invoice_line_ids",
     )
     def _compute_sii_enabled(self):
@@ -819,16 +821,24 @@ class AccountMove(models.Model):
             ):
                 invoice.sii_enabled = (
                     (
-                        invoice.fiscal_position_id
-                        and invoice.fiscal_position_id.aeat_active
-                    )
-                    or not invoice.fiscal_position_id
-                ) and (
-                    not dua_sii_exempt_taxes
-                    or not invoice.invoice_line_ids.filtered(
-                        lambda x, dua_taxes=dua_sii_exempt_taxes: any(
-                            [tax.id in dua_taxes for tax in x.tax_ids]
+                        (
+                            invoice.fiscal_position_id
+                            and invoice.fiscal_position_id.aeat_active
                         )
+                        or not invoice.fiscal_position_id
+                    )
+                    and (
+                        not dua_sii_exempt_taxes
+                        or not invoice.invoice_line_ids.filtered(
+                            lambda x, dua_taxes=dua_sii_exempt_taxes: any(
+                                [tax.id in dua_taxes for tax in x.tax_ids]
+                            )
+                        )
+                    )
+                    and (
+                        not invoice.company_id.sii_start_date
+                        or not invoice.date
+                        or invoice.date >= invoice.company_id.sii_start_date
                     )
                 )
             else:
@@ -842,14 +852,25 @@ class AccountMove(models.Model):
         condition_2 = [("fiscal_position_id.aeat_active", operator, value)]
         search_ko = (operator == "=" and not value) or (operator == "!=" and value)
         exp_condition = OR if search_ko else AND
+        condition_3 = []
         if not search_ko:
             condition_2 = OR([condition_2, [("fiscal_position_id", "=", False)]])
-        return AND(
-            [
-                [("move_type", "in", invoice_types)],
-                exp_condition([domain, exp_condition([condition_1, condition_2])]),
-            ]
-        )
+            for company in self.env.companies.filtered("sii_enabled"):
+                if company.sii_start_date:
+                    condition_3.append(
+                        [
+                            ("company_id", "=", company.id),
+                            ("date", ">=", company.sii_start_date),
+                        ]
+                    )
+                else:
+                    condition_3.append([("company_id", "=", company.id)])
+            if condition_3:
+                condition_3 = OR(condition_3)
+        conditions = [domain, condition_1, condition_2]
+        if condition_3:
+            conditions.append(condition_3)
+        return AND([[("move_type", "in", invoice_types)], exp_condition(conditions)])
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
         # OVERRIDE
@@ -908,11 +929,27 @@ class AccountMove(models.Model):
                 ("sii_send_date", "<=", fields.Datetime.now()),
             ]
         )
-        if documents:
-            batch = self._get_sii_batch()
-            documents = all_documents[:batch]
-            remaining_documents = all_documents - documents
-            documents.confirm_one_document()
+        if not documents:
+            return remaining_documents
+        batch = self._get_sii_batch()
+        documents = all_documents[:batch]
+        remaining_documents = all_documents - documents
+        for doc in documents:
+            try:
+                with self.env.cr.savepoint():
+                    doc.confirm_one_document()
+            except Exception as fault:
+                new_cr = Registry(self.env.cr.dbname).cursor()
+                env = api.Environment(new_cr, self.env.uid, self.env.context)
+                doc_vals = {
+                    "aeat_send_failed": True,
+                    "aeat_send_error": repr(fault)[:60],
+                    "sii_send_date": False,
+                }
+                invoice = env["account.move"].browse(doc.id)
+                invoice.write(doc_vals)
+                new_cr.commit()
+                new_cr.close()
         return remaining_documents
 
     @api.model
