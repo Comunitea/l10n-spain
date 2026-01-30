@@ -10,6 +10,13 @@
   * Antonio Espinosa
   * Pedro M. Baeza
   * Cristina Martín
+  * Carlos Dauden
 * `Punt Sistemes <https://www.puntsistemes.es/>`_:
 
   * Pedro Montagud <pmontagud@puntsistemes.es>
+* `Sygel <https://www.sygel.es>`_:
+
+  * Manuel Regidor
+* `Moduon <https://www.moduon.team>`_:
+
+  * Emilio Pascual
