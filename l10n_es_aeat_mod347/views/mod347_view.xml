@@ -108,6 +108,22 @@
                         </group>
                         <group>
                             <group>
+                                <field name="insurance_operation" />
+                                <field name="cash_basis_operation" />
+                                <field name="tax_person_operation" />
+                                <field name="related_goods_operation" />
+                            </group>
+                            <group>
+                                <field name="bussiness_real_estate_rent" />
+                                <field name="visible_bdns_number" invisible="1" />
+                                <field
+                                    name="bdns_number"
+                                    attrs="{'invisible': [('visible_bdns_number', '=', False)]}"
+                                />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
                                 <field name="insurance_operation"/>
                                 <field name="cash_basis_operation"/>
                                 <field name="tax_person_operation"/>
