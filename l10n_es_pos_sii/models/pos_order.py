@@ -765,7 +765,6 @@ class PosOrder(models.Model):
             # if not, get the value doc_dict for the next try and except below
             try:
                 inv_dict = document._get_sii_invoice_dict()
-                import ipdb; ipdb.set_trace()
             except Exception as fault:
                 raise ValidationError(fault) from fault
             try:
