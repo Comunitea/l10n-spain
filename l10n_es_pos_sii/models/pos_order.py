@@ -57,6 +57,17 @@ class PosOrder(models.Model):
         comodel_name="res.company",
         string="Company",
     )
+    amount_total_signed = fields.Monetary(
+        string="Total Signed",
+        currency_field="company_currency_id",
+        compute="_compute_amount_total_signed",
+        store=True,
+    )
+    company_currency_id = fields.Many2one(
+        "res.currency",
+        string="Company Currency",
+        related="company_id.currency_id",
+    )
     sii_description = fields.Text(
         string="SII computed description",
         compute="_compute_sii_description",
@@ -959,7 +970,23 @@ class PosOrder(models.Model):
         return req_tax
 
     def _get_document_amount_total(self):
-        return self.amount_total
+        return self.amount_total_signed
+
+    @api.depends("amount_total", "currency_id", "company_id", "date_order")
+    def _compute_amount_total_signed(self):
+        for order in self:
+            currency = order.currency_id or order.pricelist_id.currency_id
+            company_currency = order.company_id.currency_id
+            if currency and company_currency and currency != company_currency:
+                date = order.date_order or fields.Datetime.now()
+                order.amount_total_signed = currency._convert(
+                    order.amount_total,
+                    company_currency,
+                    order.company_id,
+                    date,
+                )
+            else:
+                order.amount_total_signed = order.amount_total
 
     def _get_sii_invoice_type(self):
         return "R5" if self.amount_total < 0.0 else "F2"
