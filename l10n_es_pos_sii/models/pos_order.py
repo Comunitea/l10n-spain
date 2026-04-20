@@ -57,17 +57,6 @@ class PosOrder(models.Model):
         comodel_name="res.company",
         string="Company",
     )
-    amount_total_signed = fields.Monetary(
-        string="Total Signed",
-        currency_field="company_currency_id",
-        compute="_compute_amount_total_signed",
-        store=True,
-    )
-    company_currency_id = fields.Many2one(
-        "res.currency",
-        string="Company Currency",
-        related="company_id.currency_id",
-    )
     sii_description = fields.Text(
         string="SII computed description",
         compute="_compute_sii_description",
@@ -776,6 +765,7 @@ class PosOrder(models.Model):
             # if not, get the value doc_dict for the next try and except below
             try:
                 inv_dict = document._get_sii_invoice_dict()
+                import ipdb; ipdb.set_trace()
             except Exception as fault:
                 raise ValidationError(fault) from fault
             try:
@@ -931,12 +921,17 @@ class PosOrder(models.Model):
     def _get_tax_info(self):
         self.ensure_one()
         taxes = {}
+        order_currency = (
+            self.pricelist_id.currency_id or self.session_id.currency_id
+        )
+        company_currency = self.company_id.currency_id
+        date = self._get_document_fiscal_date()
         for line in self.lines:
             if not line.tax_ids_after_fiscal_position:
                 continue
             line_taxes = line.tax_ids_after_fiscal_position.sudo().compute_all(
                 line.price_unit * (1 - (line.discount or 0.0) / 100.0),
-                line.order_id.pricelist_id.currency_id or self.session_id.currency_id,
+                order_currency,
                 line.qty,
                 product=line.product_id,
                 partner=line.order_id.partner_id or False,
@@ -947,8 +942,14 @@ class PosOrder(models.Model):
                     tax,
                     {"tax": tax, "amount": 0.0, "base": 0.0},
                 )
-                taxes[tax]["amount"] += line_tax["amount"]
-                taxes[tax]["base"] += line_tax["base"]
+                taxes[tax]["amount"] += order_currency._convert(
+                    line_tax["amount"], company_currency,
+                    self.company_id, date,
+                )
+                taxes[tax]["base"] += order_currency._convert(
+                    line_tax["base"], company_currency,
+                    self.company_id, date,
+                )
         return taxes
 
     def _get_sii_tax_req(self, tax):
@@ -970,23 +971,16 @@ class PosOrder(models.Model):
         return req_tax
 
     def _get_document_amount_total(self):
-        return self.amount_total_signed
-
-    @api.depends("amount_total", "currency_id", "company_id", "date_order")
-    def _compute_amount_total_signed(self):
-        for order in self:
-            currency = order.currency_id or order.pricelist_id.currency_id
-            company_currency = order.company_id.currency_id
-            if currency and company_currency and currency != company_currency:
-                date = order.date_order or fields.Datetime.now()
-                order.amount_total_signed = currency._convert(
-                    order.amount_total,
-                    company_currency,
-                    order.company_id,
-                    date,
-                )
-            else:
-                order.amount_total_signed = order.amount_total
+        order_currency = (
+            self.pricelist_id.currency_id or self.session_id.currency_id
+        )
+        company_currency = self.company_id.currency_id
+        if order_currency == company_currency:
+            return self.amount_total
+        return order_currency._convert(
+            self.amount_total, company_currency,
+            self.company_id, self._get_document_fiscal_date(),
+        )
 
     def _get_sii_invoice_type(self):
         return "R5" if self.amount_total < 0.0 else "F2"
