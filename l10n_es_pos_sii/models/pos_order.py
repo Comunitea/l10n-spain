@@ -861,30 +861,13 @@ class PosOrder(models.Model):
                 order.sii_enabled = False
 
     def _is_sii_type_breakdown_required(self, taxes_dict):
-        """Calculates if the block 'DesgloseTipoOperacion' is required for
-        the invoice communication."""
-        self.ensure_one()
-        if "DesgloseFactura" not in taxes_dict:
-            return False
-        country_code = self._get_sii_country_code()
-        sii_gen_type = self._get_sii_gen_type()
-        if "DesgloseTipoOperacion" in taxes_dict:
-            # DesgloseTipoOperacion and DesgloseFactura are Exclusive
-            return True
-        elif sii_gen_type in (2, 3):
-            # DesgloseTipoOperacion required for Intracommunity and
-            # Export operations
-            return True
-        elif sii_gen_type == 1 and country_code != "ES":
-            # DesgloseTipoOperacion required for national operations
-            # with 'IDOtro' in the SII identifier block
-            return True
-        elif sii_gen_type == 1 and (self._sii_get_partner().vat or "").startswith(
-            "ESN"
-        ):
-            # DesgloseTipoOperacion required if customer's country is Spain and
-            # has a NIF which starts with 'N'
-            return True
+        """As these are simplified invoices, we don't break taxes.
+
+        El desglose se hará obligatoriamente a nivel de tipo de operación si
+        cumple las 2 condiciones:
+            1- No sea F2-factura simplificada o F4-asiento resumen
+            2- La contraparte sea del tipo IDOtro o que sea NIF que empiece por N
+        """
         return False
 
     def _get_sii_jobs_field_name(self):
