@@ -1,4 +1,4 @@
-from odoo import _, api, exceptions, models
+from odoo import api, exceptions, models
 
 
 class L10nEsAeatMapTax(models.Model):
@@ -41,7 +41,7 @@ class L10nEsAeatMapTax(models.Model):
             date_lst = tax_map.search(domain)
             if date_lst:
                 raise exceptions.UserError(
-                    _(
+                    self.env._(
                         "Error! Las fechas de los registros "
                         "se solapan con un registro existente."
                     )

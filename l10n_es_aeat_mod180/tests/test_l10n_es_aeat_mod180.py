@@ -46,7 +46,7 @@ class TestL10nEsAeatMod180Base(TestL10nEsAeatRealEstate):
         state_id = cls.env.ref("base.state_es_s")
         ref = cls.references.get(reference)
         data = {
-            "name": "Inmueble %i" % reference,
+            "name": f"Inmueble {reference}",
             "partner_id": cls.supplier.id,
             "address_type": "CALLE",
             "address": "C/ Prueba",

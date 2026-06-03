@@ -1,7 +1,7 @@
 # Copyright 2025 Netkia Soluciones SLU - Carlos Sainz-Pardo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
@@ -108,14 +108,14 @@ class L10nEsAeatMod180Report(models.Model):
         for rec in self:
             if rec.casilla_05 <= 0.0 and rec.tipo_declaracion != "N":
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "The result of the declaration is negative. "
                         "You should select another Result type"
                     )
                 )
             elif rec.casilla_05 > 0.0 and rec.tipo_declaracion == "N":
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "The result of the declaration is positive. "
                         "You should select another Result type"
                     )
@@ -159,9 +159,9 @@ class L10nEsAeatMod180Report(models.Model):
         for report in self.filtered(lambda x: not x.partner_bank_id):
             if report.tipo_declaracion in ("U", "N"):
                 msg = (
-                    _("Select an account for making the charge")
+                    self.env._("Select an account for making the charge")
                     if report.tipo_declaracion == "U"
-                    else _("Select an account for receiving the money")
+                    else self.env._("Select an account for receiving the money")
                 )
         if msg:
             raise UserError(msg)
